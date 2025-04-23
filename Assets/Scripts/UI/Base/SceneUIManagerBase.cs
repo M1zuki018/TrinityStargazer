@@ -111,9 +111,9 @@ public abstract class SceneUIManagerBase : ViewBase
             return;
         }
         
-        // 同じキャンバスを表示しようとしている場合は何もしない
-        if (_currentCanvasIndex == index)
-            return;
+        // 一番上に表示されているキャンバス以外を操作しようとした場合は何もしない
+        if (_currentCanvasIndex != index)
+             return;
         
         OnBeforeCanvasChange?.Invoke(_currentCanvasIndex, index); // 切り替え前イベント発火
         
@@ -131,7 +131,7 @@ public abstract class SceneUIManagerBase : ViewBase
         }
         
         _currentCanvasIndex = index; // 現在のインデックスを更新
-        GameManager.Instance.ChangeGameState((GameStateEnum)index); // ゲームの状態を更新
+        //TODO: GameManager.Instance.ChangeGameState((GameStateEnum)index); // ゲームの状態を更新
         OnAfterCanvasChange?.Invoke(_currentCanvasIndex); // 切り替え後イベント発火
     }
     

@@ -141,6 +141,12 @@ public class InGameSceneUIManager : SceneUIManagerBase
         {
             _ccBase.OnPauseButtonClicked += HandlePause;
         }
+
+        if (_ccPause != null)
+        {
+            _ccPause.OnResumeButtonClicked += HandleResume;
+            _ccPause.OnQuitButtonClicked += HandleToTitle;
+        }
     }
 
     /// <summary>
@@ -153,11 +159,22 @@ public class InGameSceneUIManager : SceneUIManagerBase
     /// </summary>
     private void HandlePause() => ShowAndBlockCanvas(PAUSE_SCREEN_INDEX);
 
+    /// <summary>
+    /// ポーズ画面を閉じる
+    /// </summary>
+    private void HandleResume() => CloseAndUnBlockCanvas(PAUSE_SCREEN_INDEX);
+
     private void OnDestroy()
     {
         if (_ccBase != null)
         {
             _ccBase.OnPauseButtonClicked -= HandlePause;
+        }
+
+        if (_ccPause != null)
+        {
+            _ccPause.OnResumeButtonClicked -= HandleResume;
+            _ccPause.OnQuitButtonClicked -= HandleToTitle;
         }
     }
 }

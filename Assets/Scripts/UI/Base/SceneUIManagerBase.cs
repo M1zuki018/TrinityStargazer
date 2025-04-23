@@ -64,6 +64,53 @@ public abstract class SceneUIManagerBase : ViewBase
     }
     
     /// <summary>
+    /// 指定したキャンバスを表示し、それ以外を非表示にする
+    /// </summary>
+    public virtual void ShowAndBlockCanvas(int index)
+    {
+        // インデックスの範囲チェック
+        if (index < 0 || index >= _canvasObjects.Count)
+        {
+            Debug.LogError($"キャンバスインデックスが範囲外です: {index}");
+            return;
+        }
+        
+        // 同じキャンバスを表示しようとしている場合は何もしない
+        if (_currentCanvasIndex == index)
+            return;
+        
+        OnBeforeCanvasChange?.Invoke(_currentCanvasIndex, index); // 切り替え前イベント発火
+        
+        // キャンバス切り替え
+        for (int i = 0; i < _canvasObjects.Count; i++)
+        {
+            if (i == index)
+            {
+                _canvasObjects[i]?.Show();
+            }
+            else
+            {
+                _canvasObjects[i]?.Block();
+            }
+        }
+        
+        _currentCanvasIndex = index; // 現在のインデックスを更新
+        GameManager.Instance.ChangeGameState((GameStateEnum)index); // ゲームの状態を更新
+        OnAfterCanvasChange?.Invoke(_currentCanvasIndex); // 切り替え後イベント発火
+    }
+
+    /// <summary>
+    /// 全てのキャンバスの操作不能状態を解除する
+    /// </summary>
+    public virtual void AllUnBlock()
+    {
+        foreach (var canvas in _canvasObjects)
+        {
+            canvas.Unblock();
+        }
+    }
+    
+    /// <summary>
     /// 現在のキャンバスインデックスを取得
     /// </summary>
     public int GetCurrentCanvasIndex()

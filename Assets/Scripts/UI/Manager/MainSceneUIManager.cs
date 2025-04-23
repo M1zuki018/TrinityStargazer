@@ -1,4 +1,6 @@
+using System;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -31,19 +33,81 @@ public class MainSceneUIManager : SceneUIManagerBase
     /// キャストしてクラスの参照を取得する
     /// </summary>
     private void InitializeCanvasControllers()
+{
+    try
     {
-        _ccTitle = (CanvasController_Title)_canvasObjects[TITLE_SCREEN_INDEX];
-        _ccHome = (CanvasController_Home)_canvasObjects[HOME_SCREEN_INDEX];
-        _ccModeSelect = (CanvasController_ModeSelect)_canvasObjects[MODESELECT_SCREEN_INDEX];
-        _ccShop = (CanvasController_Shop)_canvasObjects[SHOP_SCREEN_INDEX];
-        _ccItemMenu = (CanvasController_ItemMenu)_canvasObjects[ITEMMENU_SCREEN_INDEX];
-        _ccSettings = (CanvasController_Settings)_canvasObjects[SETTINGS_SCREEN_INDEX];
+        // タイトル画面のキャンバスコントローラー
+        if (_canvasObjects[TITLE_SCREEN_INDEX] is CanvasController_Title titleController)
+        {
+            _ccTitle = titleController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {TITLE_SCREEN_INDEX} のオブジェクトは CanvasController_Title ではありません");
+        }
+
+        // ホーム画面のキャンバスコントローラー
+        if (_canvasObjects[HOME_SCREEN_INDEX] is CanvasController_Home homeController)
+        {
+            _ccHome = homeController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {HOME_SCREEN_INDEX} のオブジェクトは CanvasController_Home ではありません");
+        }
+
+        // モード選択画面のキャンバスコントローラー
+        if (_canvasObjects[MODESELECT_SCREEN_INDEX] is CanvasController_ModeSelect modeSelectController)
+        {
+            _ccModeSelect = modeSelectController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {MODESELECT_SCREEN_INDEX} のオブジェクトは CanvasController_ModeSelect ではありません");
+        }
+
+        // ショップ画面のキャンバスコントローラー
+        if (_canvasObjects[SHOP_SCREEN_INDEX] is CanvasController_Shop shopController)
+        {
+            _ccShop = shopController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {SHOP_SCREEN_INDEX} のオブジェクトは CanvasController_Shop ではありません");
+        }
+
+        // アイテムメニュー画面のキャンバスコントローラー
+        if (_canvasObjects[ITEMMENU_SCREEN_INDEX] is CanvasController_ItemMenu itemMenuController)
+        {
+            _ccItemMenu = itemMenuController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {ITEMMENU_SCREEN_INDEX} のオブジェクトは CanvasController_ItemMenu ではありません");
+        }
+
+        // 設定画面のキャンバスコントローラー
+        if (_canvasObjects[SETTINGS_SCREEN_INDEX] is CanvasController_Settings settingsController)
+        {
+            _ccSettings = settingsController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {SETTINGS_SCREEN_INDEX} のオブジェクトは CanvasController_Settings ではありません");
+        }
     }
+    catch (IndexOutOfRangeException ex)
+    {
+        Debug.LogError($"配列インデックスが範囲外です: {ex.Message}");
+    }
+    catch (Exception ex)
+    {
+        Debug.LogError($"キャンバスコントローラーの初期化中にエラーが発生しました: {ex.Message}");
+    }
+}
     
     protected override void RegisterWindowEvents()
     {
-        InitializeCanvasControllers();
-
         if (_ccTitle != null)
         {
             _ccTitle.OnHomeButtonClicked += HandleToHome;

@@ -8,6 +8,7 @@ using UnityEngine;
 public class BattleSystemPresenter : ViewBase
 {
     [Header("CanvasControllerクラス")]
+    [SerializeField] private CanvasController_Before _ccBefore;
     [SerializeField] private CanvasController_Direction _ccDirection;
     [SerializeField] private CanvasController_After _ccAfter;
     
@@ -38,9 +39,16 @@ public class BattleSystemPresenter : ViewBase
         _ccAfter.OnNextButtonClicked += _battleSystemManager.ResetDirectionProbabilities;
         _ccAfter.OnNextButtonClicked += _seiImage.ResetSprite;
         _ccAfter.OnNextButtonClicked += _playerHandImage.ResetSprite;
+        _ccAfter.OnNextButtonClicked += HandleNextTurn;
         
         _turnManager.OnGameFinished += TurnManagerOnOnGameFinished;
         return base.OnBind();
+    }
+
+    public override UniTask OnStart()
+    {
+        _ccBefore.SetTurnText(_turnManager.TurnText()); // ターンテキストの初期化
+        return base.OnStart();
     }
 
     private void TurnManagerOnOnGameFinished() => OnBattleEnded?.Invoke();
@@ -51,6 +59,15 @@ public class BattleSystemPresenter : ViewBase
     private void HandleVictoryOrDefeat(DirectionEnum direction)
     {
         _ccAfter.SetText(_battleSystemManager.IsVictory);
+        _ccBefore.SetResultMark(_turnManager.CurrentTurn - 1, _battleSystemManager.IsVictory);
+    }
+
+    /// <summary>
+    /// 次のターンに移行するときの処理
+    /// </summary>
+    private void HandleNextTurn()
+    {
+        _ccBefore.SetTurnText(_turnManager.TurnText());
     }
 
     private void OnDestroy()

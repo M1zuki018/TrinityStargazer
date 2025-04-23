@@ -12,6 +12,8 @@ public class CanvasController_Before : WindowBase
     [SerializeField] private Button _battleButton;
     [SerializeField] private Button _itemSelectButton;
     [SerializeField] private Button _chatButton;
+    [SerializeField] private Text _turnText;
+    [SerializeField] private ResultMark _resultMark;
     
     public event Action OnPauseButtonClicked;
     public event Action OnBattleButtonClicked;
@@ -24,6 +26,7 @@ public class CanvasController_Before : WindowBase
         if (_battleButton != null) _battleButton.onClick.AddListener(OnBattleButtonClick);
         if (_itemSelectButton != null) _itemSelectButton.onClick.AddListener(OnItemSelectButtonClick);
         if (_chatButton != null) _chatButton.onClick.AddListener(OnChatButtonClick);
+        
         return base.OnUIInitialize();
     }
 
@@ -46,6 +49,16 @@ public class CanvasController_Before : WindowBase
     /// ポーズパネルを開く
     /// </summary>
     private void OpenPausePanel() => OnPauseButtonClicked?.Invoke();
+    
+    /// <summary>
+    /// ターンの表示を更新する
+    /// </summary>
+    public void SetTurnText(string text) => _turnText.text = $"ターン　{text}";
+    
+    /// <summary>
+    /// 勝敗の表示を更新する
+    /// </summary>
+    public void SetResultMark(int turn, bool isVictory) => _resultMark.MarkUpdate(turn, isVictory);
 
     private void OnDestroy()
     {

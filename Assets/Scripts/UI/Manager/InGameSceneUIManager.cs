@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class InGameSceneUIManager : SceneUIManagerBase
 {
+    [SerializeField] private BattleSystemPresenter _battleSystemPresenter;
+    
     // 操作状態のenumを変更するときにindexがずれるためこの定数を使う
     private const int MAIN_SCREEN_CANVAS = 6;
 
@@ -148,6 +150,11 @@ public class InGameSceneUIManager : SceneUIManagerBase
         {
             _ccAfter.OnNextButtonClicked += HandleReset;
         }
+
+        if (_battleSystemPresenter != null)
+        {
+            _battleSystemPresenter.OnBattleEnded += HandleResult;
+        }
     }
 
     /// <summary>
@@ -184,6 +191,11 @@ public class InGameSceneUIManager : SceneUIManagerBase
     /// Beforeパネルまで戻る
     /// </summary>
     private void HandleReset() => PopToCanvas(BEFORE_SCREEN_INDEX);
+    
+    /// <summary>
+    /// リザルト画面を表示する
+    /// </summary>
+    private void HandleResult() => ShowCanvas(RESULT_SCREEN_INDEX);
 
     /// <summary>
     /// あっち向いてほいの結果画面を開く
@@ -213,6 +225,11 @@ public class InGameSceneUIManager : SceneUIManagerBase
         if (_ccAfter != null)
         {
             _ccAfter.OnNextButtonClicked -= HandleReset;
+        }
+
+        if (_battleSystemPresenter != null)
+        {
+            _battleSystemPresenter.OnBattleEnded -= HandleResult;
         }
     }
 }

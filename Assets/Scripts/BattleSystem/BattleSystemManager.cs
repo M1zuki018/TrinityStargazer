@@ -19,7 +19,6 @@ public class BattleSystemManager
         { DirectionEnum.Left, 0.125f },
         { DirectionEnum.UpLeft, 0.125f }
     };
-    private DirectionEnum _decisionDirection = DirectionEnum.Up;
     private DirectionalImages _seiImage, _playerHandImage;
 
     public BattleSystemManager(DirectionalImages seiImage, DirectionalImages playerHandImage)
@@ -107,7 +106,7 @@ public class BattleSystemManager
         }
         
         // ここまで来たら最後の方向（UpLeft）
-        return _decisionDirection = DirectionEnum.UpLeft;
+        return DirectionEnum.UpLeft;
     }
     
     /// <summary>

@@ -151,6 +151,11 @@ public class InGameSceneUIManager : SceneUIManagerBase
             _ccAfter.OnNextButtonClicked += HandleReset;
         }
 
+        if (_ccResult != null)
+        {
+            _ccResult.OnHomeButtonClicked += HandleToTitle;
+        }
+
         if (_battleSystemPresenter != null)
         {
             _battleSystemPresenter.OnBattleEnded += HandleResult;
@@ -225,6 +230,11 @@ public class InGameSceneUIManager : SceneUIManagerBase
         if (_ccAfter != null)
         {
             _ccAfter.OnNextButtonClicked -= HandleReset;
+        }
+
+        if (_ccResult != null)
+        {
+            _ccResult.OnHomeButtonClicked -= HandleToTitle;
         }
 
         if (_battleSystemPresenter != null)

@@ -2,9 +2,9 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// タイトル画面のUIManager
+/// メインシーンのUIManager
 /// </summary>
-public class TitleUIManager : SceneUIManagerBase
+public class MainSceneUIManager : SceneUIManagerBase
 {
     // 画面のインデックス定数
     private const int TITLE_SCREEN_INDEX = 0;

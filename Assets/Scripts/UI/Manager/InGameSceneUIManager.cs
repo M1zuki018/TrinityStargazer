@@ -8,6 +8,9 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class InGameSceneUIManager : SceneUIManagerBase
 {
+    // 操作状態のenumを変更するときにindexがずれるためこの定数を使う
+    private const int MAIN_SCREEN_CANVAS = 6;
+    
     // 画面のインデックス定数
     private const int BASE_SCREEN_INDEX = 0;
     private const int BEFORE_SCREEN_INDEX = 1;
@@ -17,8 +20,6 @@ public class InGameSceneUIManager : SceneUIManagerBase
     private const int DIRECTION_SCREEN_INDEX = 5;
     private const int AFTER_SCREEN_INDEX = 6;
     private const int RESULT_SCREEN_INDEX = 7;
-    
-    private const int MAIN_SCREEN_CANVAS = 6; // 操作状態のenumを変更するときにindexがずれるためこの定数を使う
 
     private CanvasController_Base _ccBase;
     private CanvasController_Before _ccBefore;
@@ -136,12 +137,27 @@ public class InGameSceneUIManager : SceneUIManagerBase
 
     protected override void RegisterWindowEvents()
     {
+        if (_ccBase != null)
+        {
+            _ccBase.OnPauseButtonClicked += HandlePause;
+        }
     }
 
     /// <summary>
     /// ホームのシーンへ遷移
     /// </summary>
     private void HandleToTitle() => SceneManager.LoadScene(0);
-    
-    
+
+    /// <summary>
+    /// ポーズ画面を開く
+    /// </summary>
+    private void HandlePause() => ShowAndBlockCanvas(PAUSE_SCREEN_INDEX);
+
+    private void OnDestroy()
+    {
+        if (_ccBase != null)
+        {
+            _ccBase.OnPauseButtonClicked -= HandlePause;
+        }
+    }
 }

@@ -4,17 +4,23 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
-/// シーンごとに配置されるUIManager
+/// UIマネージャーの基底クラス
 /// </summary>
-public class SceneUIManager : ViewBase
+public abstract class SceneUIManagerBase : ViewBase
 {
-    [SerializeField] private List<WindowBase> _canvasObjects = new List<WindowBase>();
-    [SerializeField] private int _defaultCanvasIndex = 0;
+    [SerializeField] protected List<WindowBase> _canvasObjects = new List<WindowBase>();
+    [SerializeField] protected int _defaultCanvasIndex = 0;
     
-    private int _currentCanvasIndex = -1; // 現在表示中のキャンバスインデックス
+    protected int _currentCanvasIndex = -1; // 現在表示中のキャンバスインデックス
     public event Action<int, int> OnBeforeCanvasChange; // キャンバス切り替え前のイベント(前のインデックス, 次のインデックス)
     public event Action<int> OnAfterCanvasChange;     // キャンバス切り替え後のイベント(現在のインデックス)
 
+    public override UniTask OnBind()
+    {
+        RegisterWindowEvents();
+        return base.OnBind();
+    }
+    
     public override UniTask OnStart()
     {
         ShowCanvas(_defaultCanvasIndex);
@@ -24,7 +30,7 @@ public class SceneUIManager : ViewBase
     /// <summary>
     /// 指定したキャンバスを表示し、それ以外を非表示にする
     /// </summary>
-    public void ShowCanvas(int index)
+    public virtual void ShowCanvas(int index)
     {
         // インデックスの範囲チェック
         if (index < 0 || index >= _canvasObjects.Count)
@@ -63,4 +69,9 @@ public class SceneUIManager : ViewBase
     {
         return _currentCanvasIndex;
     }
+    
+    /// <summary>
+    /// 画面遷移イベントの登録を行う
+    /// </summary>
+    protected abstract void RegisterWindowEvents();
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1228440208245364507}
   - component: {fileID: 4708925859994296937}
   - component: {fileID: 1566557563574298414}
-  - component: {fileID: 6009871829499246009}
+  - component: {fileID: 4622884220470094586}
   m_Layer: 5
   m_Name: '[MainScene]Canvas'
   m_TagString: Untagged
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6009871829499246009
+--- !u!114 &4622884220470094586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7399820376618362368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1abb50cd57a861a43b51323f3b474a5b, type: 3}
+  m_Script: {fileID: 11500000, guid: c382106cc523e484399c9c1c6caa5498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasObjects:
@@ -228,11 +228,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: TitleCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 9084588798658009012, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
+      propertyPath: _startButton
+      value: 
+      objectReference: {fileID: 1582068315590821306}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
+--- !u!114 &1582068315590821306 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3835722086154067232, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
+  m_PrefabInstance: {fileID: 2364277834763229338}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2502421614633976851 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 177321646957321353, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}

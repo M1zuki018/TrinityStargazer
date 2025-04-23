@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// タイトル画面のUIManager
@@ -55,6 +56,12 @@ public class TitleUIManager : SceneUIManagerBase
             _ccHome.OnItemMenuButtonClicked += HandleToItemMenu;
             _ccHome.OnSettingsButtonClicked += HandleToSettings;
         }
+
+        if (_ccModeSelect != null)
+        {
+            _ccModeSelect.OnHomeButtonClicked += HandleToHome;
+            _ccModeSelect.OnGameModeButtonClicked += HandleToInGame;
+        }
     }
 
     /// <summary>
@@ -86,6 +93,11 @@ public class TitleUIManager : SceneUIManagerBase
     /// 設定画面へ遷移
     /// </summary>
     private void HandleToSettings() => ShowCanvas(SETTINGS_SCREEN_INDEX);
+    
+    /// <summary>
+    /// インゲームへ遷移
+    /// </summary>
+    private void HandleToInGame() => SceneManager.LoadScene(1);
 
     private void OnDestroy()
     {
@@ -100,6 +112,12 @@ public class TitleUIManager : SceneUIManagerBase
             _ccHome.OnShopButtonClicked -= HandleToShop;
             _ccHome.OnItemMenuButtonClicked -= HandleToItemMenu;
             _ccHome.OnSettingsButtonClicked -= HandleToSettings;
+        }
+
+        if (_ccModeSelect != null)
+        {
+            _ccModeSelect.OnHomeButtonClicked -= HandleToHome;
+            _ccModeSelect.OnGameModeButtonClicked -= HandleToInGame;
         }
     }
 }

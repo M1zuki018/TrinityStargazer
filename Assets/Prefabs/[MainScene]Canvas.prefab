@@ -2751,7 +2751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2941567061520591663, guid: 1812be10e7ae72f48bf17cff327a6d77, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4899417182577876230, guid: 1812be10e7ae72f48bf17cff327a6d77, type: 3}
       propertyPath: m_Pivot.x
@@ -2897,7 +2897,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2941567061520591663, guid: 1812be10e7ae72f48bf17cff327a6d77, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4899417182577876230, guid: 1812be10e7ae72f48bf17cff327a6d77, type: 3}
       propertyPath: m_Pivot.x
@@ -3192,7 +3192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2941567061520591663, guid: 1812be10e7ae72f48bf17cff327a6d77, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4899417182577876230, guid: 1812be10e7ae72f48bf17cff327a6d77, type: 3}
       propertyPath: m_Pivot.x
@@ -3793,9 +3793,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a40fccef3a46494292919016d908e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _closeButton: {fileID: 0}
-  _normalButton: {fileID: 0}
-  _quickButton: {fileID: 0}
-  _focusButton: {fileID: 0}
-  _strategyButton: {fileID: 0}
-  _challengeButton: {fileID: 0}
+  _closeButton: {fileID: 890890990084666011}
+  _modeButtons:
+  - {fileID: 1378163405975812453}
+  - {fileID: 6963608492137390824}
+  - {fileID: 8236648413441048938}
+  - {fileID: 6559162173946205140}
+  - {fileID: 5463192116690606921}

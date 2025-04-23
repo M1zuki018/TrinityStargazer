@@ -143,6 +143,11 @@ public class InGameSceneUIManager : SceneUIManagerBase
         {
             _ccDirection.OnDirectionButtonClicked += HandleAfter;
         }
+
+        if (_ccAfter != null)
+        {
+            _ccAfter.OnNextButtonClicked += HandleReset;
+        }
     }
 
     /// <summary>
@@ -174,6 +179,11 @@ public class InGameSceneUIManager : SceneUIManagerBase
     /// ポーズ画面を閉じる
     /// </summary>
     private void HandleResume() => PopCanvas();
+    
+    /// <summary>
+    /// Beforeパネルまで戻る
+    /// </summary>
+    private void HandleReset() => PopToCanvas(BEFORE_SCREEN_INDEX);
 
     /// <summary>
     /// あっち向いてほいの結果画面を開く
@@ -198,6 +208,11 @@ public class InGameSceneUIManager : SceneUIManagerBase
         if (_ccDirection != null)
         {
             _ccDirection.OnDirectionButtonClicked -= HandleAfter;
+        }
+        
+        if (_ccAfter != null)
+        {
+            _ccAfter.OnNextButtonClicked -= HandleReset;
         }
     }
 }

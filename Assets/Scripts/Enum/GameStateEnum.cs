@@ -34,17 +34,42 @@ public enum GameStateEnum
     Settings,
     
     /// <summary>
-    /// ゲーム
+    /// バトルの一番ベースとなる画面状態
     /// </summary>
-    InGame,
+    Base,
     
     /// <summary>
-    /// ポーズ中
+    /// 方向選択前
+    /// </summary>
+    Before,
+    
+    /// <summary>
+    /// アイテム選択画面
+    /// </summary>
+    ItemSelect,
+    
+    /// <summary>
+    /// チャット画面
+    /// </summary>
+    Chat,
+    
+    /// <summary>
+    /// ポーズ画面
     /// </summary>
     Pause,
     
     /// <summary>
-    /// リザルト
+    /// 方向選択
+    /// </summary>
+    Direction,
+    
+    /// <summary>
+    /// あっちむいてほいの結果
+    /// </summary>
+    After,
+    
+    /// <summary>
+    /// リザルト画面
     /// </summary>
     Result,
 }

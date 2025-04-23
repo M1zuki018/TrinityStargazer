@@ -1,4 +1,3 @@
-using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -7,8 +6,11 @@ using UnityEngine;
 /// </summary>
 public class BattleSystemPresenter : ViewBase
 {
-    [Header("UI側クラス")]
+    [Header("CanvasControllerクラス")]
     [SerializeField] private CanvasController_Direction _ccDirection;
+    [SerializeField] private CanvasController_After _ccAfter;
+    
+    [Header("その他のUI")]
     [SerializeField] private DirectionalImages _seiImage;
     [SerializeField] private DirectionalImages _playerHandImage;
 
@@ -24,11 +26,15 @@ public class BattleSystemPresenter : ViewBase
     {
         // 自分が方向決定ボタンを押したタイミングで、スプライトの更新を行う
         _ccDirection.OnDirectionButtonClicked += _battleSystemManager.SetSprite;
+        _ccAfter.OnNextButtonClicked += _seiImage.ResetSprite;
+        _ccAfter.OnNextButtonClicked += _playerHandImage.ResetSprite;
         return base.OnBind();
     }
 
     private void OnDestroy()
     {
         _ccDirection.OnDirectionButtonClicked -= _battleSystemManager.SetSprite;
+        _ccAfter.OnNextButtonClicked -= _seiImage.ResetSprite;
+        _ccAfter.OnNextButtonClicked -= _playerHandImage.ResetSprite;
     }
 }

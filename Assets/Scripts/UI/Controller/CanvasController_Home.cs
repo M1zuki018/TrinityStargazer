@@ -21,7 +21,7 @@ public class CanvasController_Home : WindowBase
     
     public override UniTask OnUIInitialize()
     {
-        if (_startButton != null) _startButton.onClick.AddListener(GameStart);
+        if (_startButton != null) _startButton.onClick.AddListener(GoModeSelect);
         if (_shopButton != null) _shopButton.onClick.AddListener(GoShop);
         if (_itemButton != null) _itemButton.onClick.AddListener(GoItemMenu); 
         if (_settingsButton != null) _settingsButton.onClick.AddListener(GoSettings);
@@ -46,7 +46,7 @@ public class CanvasController_Home : WindowBase
     /// <summary>
     /// ホーム画面→ゲームモード選択画面に遷移する
     /// </summary>
-    private void GameStart()
+    private void GoModeSelect()
     {
         OnModeSelectButtonClicked?.Invoke();
         GameManager.Instance.ChangeGameState(GameStateEnum.ModeSelect);

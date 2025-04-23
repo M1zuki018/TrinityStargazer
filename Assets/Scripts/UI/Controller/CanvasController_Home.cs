@@ -46,38 +46,22 @@ public class CanvasController_Home : WindowBase
     /// <summary>
     /// ホーム画面→ゲームモード選択画面に遷移する
     /// </summary>
-    private void GoModeSelect()
-    {
-        OnModeSelectButtonClicked?.Invoke();
-        GameManager.Instance.ChangeGameState(GameStateEnum.ModeSelect);
-    }
+    private void GoModeSelect() => OnModeSelectButtonClicked?.Invoke();
 
     /// <summary>
     /// ホーム画面→ショップ画面に遷移する
     /// </summary>
-    private void GoShop()
-    {
-        OnShopButtonClicked?.Invoke();
-        GameManager.Instance.ChangeGameState(GameStateEnum.Shop);
-    }
+    private void GoShop() => OnShopButtonClicked?.Invoke();
     
     /// <summary>
     /// ホーム画面→アイテム画面に遷移する
     /// </summary>
-    private void GoItemMenu()
-    {
-        OnItemMenuButtonClicked?.Invoke();
-        GameManager.Instance.ChangeGameState(GameStateEnum.ItemMenu);
-    }
+    private void GoItemMenu() => OnItemMenuButtonClicked?.Invoke();
     
     /// <summary>
     /// ホーム画面→設定画面に遷移する
     /// </summary>
-    private void GoSettings()
-    {
-        OnSettingsButtonClicked?.Invoke();
-        GameManager.Instance.ChangeGameState(GameStateEnum.Settings);
-    }
+    private void GoSettings() => OnSettingsButtonClicked?.Invoke(); 
 
     private void OnDestroy()
     {

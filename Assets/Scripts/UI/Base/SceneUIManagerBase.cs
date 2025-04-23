@@ -59,6 +59,7 @@ public abstract class SceneUIManagerBase : ViewBase
         }
         
         _currentCanvasIndex = index; // 現在のインデックスを更新
+        GameManager.Instance.ChangeGameState((GameStateEnum)index); // ゲームの状態を更新
         OnAfterCanvasChange?.Invoke(_currentCanvasIndex); // 切り替え後イベント発火
     }
     

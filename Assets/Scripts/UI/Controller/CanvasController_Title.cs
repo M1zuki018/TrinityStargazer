@@ -20,11 +20,7 @@ public class CanvasController_Title : WindowBase
     /// <summary>
     /// ゲーム開始→ホーム画面に遷移するボタン
     /// </summary>
-    private void GameStart()
-    {
-        OnHomeButtonClicked?.Invoke();
-        GameManager.Instance.ChangeGameState(GameStateEnum.Home);
-    }
+    private void GameStart() => OnHomeButtonClicked?.Invoke();
 
     private void OnDestroy()
     {

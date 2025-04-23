@@ -10,7 +10,7 @@ public class InGameSceneUIManager : SceneUIManagerBase
 {
     // 操作状態のenumを変更するときにindexがずれるためこの定数を使う
     private const int MAIN_SCREEN_CANVAS = 6;
-    
+
     // 画面のインデックス定数
     private const int BEFORE_SCREEN_INDEX = 0;
     private const int ITEMSELECT_SCREEN_INDEX = 1;
@@ -27,7 +27,7 @@ public class InGameSceneUIManager : SceneUIManagerBase
     private CanvasController_Direction _ccDirection;
     private CanvasController_After _ccAfter;
     private CanvasController_Result _ccResult;
-    
+
     public override UniTask OnAwake()
     {
         InitializeCanvasControllers();
@@ -138,17 +138,17 @@ public class InGameSceneUIManager : SceneUIManagerBase
             _ccPause.OnResumeButtonClicked += HandleResume;
             _ccPause.OnQuitButtonClicked += HandleToTitle;
         }
+
+        if (_ccDirection != null)
+        {
+            _ccDirection.OnDirectionButtonClicked += HandleAfter;
+        }
     }
 
     /// <summary>
     /// ホームのシーンへ遷移
     /// </summary>
     private void HandleToTitle() => SceneManager.LoadScene(0);
-
-    /// <summary>
-    /// ポーズ画面を開く
-    /// </summary>
-    private void HandlePause() => ShowAndBlockCanvas(PAUSE_SCREEN_INDEX);
 
     /// <summary>
     /// バトル画面へ遷移
@@ -164,11 +164,21 @@ public class InGameSceneUIManager : SceneUIManagerBase
     /// チャット画面へ遷移
     /// </summary>
     private void HandleChat() => ShowAndBlockCanvas(CHAT_SCREEN_INDEX);
-    
+
+    /// <summary>
+    /// ポーズ画面を開く
+    /// </summary>
+    private void HandlePause() => ShowAndBlockCanvas(PAUSE_SCREEN_INDEX);
+
     /// <summary>
     /// ポーズ画面を閉じる
     /// </summary>
     private void HandleResume() => CloseAndUnBlockCanvas(PAUSE_SCREEN_INDEX);
+
+    /// <summary>
+    /// あっち向いてほいの結果画面を開く
+    /// </summary>
+    private void HandleAfter() => ShowAndBlockCanvas(AFTER_SCREEN_INDEX);
 
     private void OnDestroy()
     {
@@ -183,6 +193,11 @@ public class InGameSceneUIManager : SceneUIManagerBase
         {
             _ccPause.OnResumeButtonClicked -= HandleResume;
             _ccPause.OnQuitButtonClicked -= HandleToTitle;
+        }
+
+        if (_ccDirection != null)
+        {
+            _ccDirection.OnDirectionButtonClicked -= HandleAfter;
         }
     }
 }

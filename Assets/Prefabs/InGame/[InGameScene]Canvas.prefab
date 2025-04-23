@@ -1204,7 +1204,7 @@ GameObject:
   - component: {fileID: 6948100392599704937}
   - component: {fileID: 165451918441441786}
   m_Layer: 5
-  m_Name: LeadyButton
+  m_Name: ReadyButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3834,7 +3834,7 @@ GameObject:
   - component: {fileID: 4641737491278692101}
   - component: {fileID: 1552007054959841326}
   m_Layer: 5
-  m_Name: BattlePanel
+  m_Name: DirectionPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3954,6 +3954,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4fa02d0ef73e047a944616d57a1dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _directionButtons:
+  - {fileID: 7303006011019362288}
+  - {fileID: 3220695154443794511}
+  - {fileID: 2713666233830734172}
+  - {fileID: 1742549349329260570}
+  - {fileID: 5923154747941205582}
+  - {fileID: 92060440957879105}
+  - {fileID: 5758548999851866224}
+  - {fileID: 2121029756330202078}
 --- !u!1 &6676672184568450770
 GameObject:
   m_ObjectHideFlags: 0

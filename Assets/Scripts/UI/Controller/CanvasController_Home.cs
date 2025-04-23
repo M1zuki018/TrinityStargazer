@@ -14,9 +14,9 @@ public class CanvasController_Home : WindowBase
     [SerializeField] private Button _settingsButton;
     [SerializeField] private Text _levelText;
     
-    public event Action OnStartButtonClicked; // モード選択へ
+    public event Action OnModeSelectButtonClicked; // モード選択へ
     public event Action OnShopButtonClicked; // ショップへ
-    public event Action OnItemButtonClicked; // アイテム画面へ
+    public event Action OnItemMenuButtonClicked; // アイテム画面へ
     public event Action OnSettingsButtonClicked; // 設定画面へ
     
     public override UniTask OnUIInitialize()
@@ -48,7 +48,7 @@ public class CanvasController_Home : WindowBase
     /// </summary>
     private void GameStart()
     {
-        OnStartButtonClicked?.Invoke();
+        OnModeSelectButtonClicked?.Invoke();
         GameManager.Instance.ChangeGameState(GameStateEnum.ModeSelect);
     }
 
@@ -66,7 +66,7 @@ public class CanvasController_Home : WindowBase
     /// </summary>
     private void GoItemMenu()
     {
-        OnItemButtonClicked?.Invoke();
+        OnItemMenuButtonClicked?.Invoke();
         GameManager.Instance.ChangeGameState(GameStateEnum.ItemMenu);
     }
     

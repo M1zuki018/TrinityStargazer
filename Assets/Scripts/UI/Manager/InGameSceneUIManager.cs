@@ -153,32 +153,32 @@ public class InGameSceneUIManager : SceneUIManagerBase
     /// <summary>
     /// バトル画面へ遷移
     /// </summary>
-    private void HandleBattle() => ShowAndBlockCanvas(DIRECTION_SCREEN_INDEX);
+    private void HandleBattle() => PushCanvas(DIRECTION_SCREEN_INDEX);
 
     /// <summary>
     /// アイテム選択画面へ遷移
     /// </summary>
-    private void HandleItemSelect() => ShowAndBlockCanvas(ITEMSELECT_SCREEN_INDEX);
+    private void HandleItemSelect() => PushCanvas(ITEMSELECT_SCREEN_INDEX);
 
     /// <summary>
     /// チャット画面へ遷移
     /// </summary>
-    private void HandleChat() => ShowAndBlockCanvas(CHAT_SCREEN_INDEX);
+    private void HandleChat() => PushCanvas(CHAT_SCREEN_INDEX);
 
     /// <summary>
     /// ポーズ画面を開く
     /// </summary>
-    private void HandlePause() => ShowAndBlockCanvas(PAUSE_SCREEN_INDEX);
+    private void HandlePause() => PushCanvas(PAUSE_SCREEN_INDEX);
 
     /// <summary>
     /// ポーズ画面を閉じる
     /// </summary>
-    private void HandleResume() => CloseAndUnBlockCanvas(PAUSE_SCREEN_INDEX);
+    private void HandleResume() => PopCanvas();
 
     /// <summary>
     /// あっち向いてほいの結果画面を開く
     /// </summary>
-    private void HandleAfter(DirectionEnum directionEnum) => ShowAndBlockCanvas(AFTER_SCREEN_INDEX);
+    private void HandleAfter(DirectionEnum directionEnum) => PushCanvas(AFTER_SCREEN_INDEX);
 
     private void OnDestroy()
     {

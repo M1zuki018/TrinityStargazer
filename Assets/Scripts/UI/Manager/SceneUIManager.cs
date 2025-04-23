@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class SceneUIManager : ViewBase
 {
-    [SerializeField] private List<GameObject> _canvasObjects = new List<GameObject>();
+    [SerializeField] private List<CanvasControllerBase> _canvasObjects = new List<CanvasControllerBase>();
     [SerializeField] private int _defaultCanvasIndex = 0;
     
     private int _currentCanvasIndex = -1; // 現在表示中のキャンバスインデックス
@@ -42,7 +42,14 @@ public class SceneUIManager : ViewBase
         // キャンバス切り替え
         for (int i = 0; i < _canvasObjects.Count; i++)
         {
-            _canvasObjects[i].SetActive(i == index);
+            if (i == index)
+            {
+                _canvasObjects[i]?.Show();
+            }
+            else
+            {
+                _canvasObjects[i]?.Hide();
+            }
         }
         
         _currentCanvasIndex = index; // 現在のインデックスを更新

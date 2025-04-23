@@ -141,6 +141,13 @@ public class InGameSceneUIManager : SceneUIManagerBase
         {
             _ccBase.OnPauseButtonClicked += HandlePause;
         }
+        
+        if (_ccBefore != null)
+        {
+            _ccBefore.OnBattleButtonClicked += HandleBattle;
+            _ccBefore.OnItemSelectButtonClicked += HandleItemSelect;
+            _ccBefore.OnChatButtonClicked += HandleChat;
+        }
 
         if (_ccPause != null)
         {
@@ -160,6 +167,21 @@ public class InGameSceneUIManager : SceneUIManagerBase
     private void HandlePause() => ShowAndBlockCanvas(PAUSE_SCREEN_INDEX);
 
     /// <summary>
+    /// バトル画面へ遷移
+    /// </summary>
+    private void HandleBattle() => ShowAndBlockCanvas(BASE_SCREEN_INDEX);
+
+    /// <summary>
+    /// アイテム選択画面へ遷移
+    /// </summary>
+    private void HandleItemSelect() => ShowAndBlockCanvas(ITEMSELECT_SCREEN_INDEX);
+
+    /// <summary>
+    /// チャット画面へ遷移
+    /// </summary>
+    private void HandleChat() => ShowAndBlockCanvas(CHAT_SCREEN_INDEX);
+    
+    /// <summary>
     /// ポーズ画面を閉じる
     /// </summary>
     private void HandleResume() => CloseAndUnBlockCanvas(PAUSE_SCREEN_INDEX);
@@ -169,6 +191,13 @@ public class InGameSceneUIManager : SceneUIManagerBase
         if (_ccBase != null)
         {
             _ccBase.OnPauseButtonClicked -= HandlePause;
+        }
+        
+        if (_ccBefore != null)
+        {
+            _ccBefore.OnBattleButtonClicked -= HandleBattle;
+            _ccBefore.OnItemSelectButtonClicked -= HandleItemSelect;
+            _ccBefore.OnChatButtonClicked -= HandleChat;
         }
 
         if (_ccPause != null)

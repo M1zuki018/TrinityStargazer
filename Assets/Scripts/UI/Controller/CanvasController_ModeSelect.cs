@@ -4,6 +4,9 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// モード選択画面のキャンバスコントローラー
+/// </summary>
 public class CanvasController_ModeSelect : WindowBase
 {
     [SerializeField] private Button _closeButton;

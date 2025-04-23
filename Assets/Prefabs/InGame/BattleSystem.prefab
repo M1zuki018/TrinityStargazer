@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4780932604675179693}
-  - component: {fileID: 7899594990724301692}
+  - component: {fileID: 2334560051853857240}
   m_Layer: 0
   m_Name: BattleSystem
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7899594990724301692
+--- !u!114 &2334560051853857240
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +41,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3340534812429784102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83ac8c885bb47144abd5627d2aefc4cb, type: 3}
+  m_Script: {fileID: 11500000, guid: a655fd03693740140aa46513f902a6a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ccDirection: {fileID: 0}
+  _seiImage: {fileID: 0}
+  _playerHandImage: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// インゲームのバトルを管理するクラス
 /// </summary>
-public class BattleSystemManager : ViewBase
+public class BattleSystemManager
 {
     // 各方向を向く確率
     private Dictionary<DirectionEnum, float> _directionProbabilities = new Dictionary<DirectionEnum, float>
@@ -20,9 +20,16 @@ public class BattleSystemManager : ViewBase
         { DirectionEnum.UpLeft, 0.125f }
     };
     private DirectionEnum _decisionDirection = DirectionEnum.Up;
+    private DirectionalImages _seiImage, _playerHandImage;
+
+    public BattleSystemManager(DirectionalImages seiImage, DirectionalImages playerHandImage)
+    {
+        _seiImage = seiImage;
+        _playerHandImage = playerHandImage;
+    }
 
     /// <summary>
-    ///  外部から各方向を向く確立を変更するためのメソッド
+    ///  外部から各方向を向く確率を変更するためのメソッド
     /// </summary>
     public void ModifyDirectionProbability(DirectionEnum direction, float addedProbability)
     {
@@ -40,10 +47,19 @@ public class BattleSystemManager : ViewBase
         }
     }
 
+    /// <summary>
+    /// 敵/自分の手の向きを決める
+    /// </summary>
+    public void SetSprite(DirectionEnum direction)
+    {
+        _seiImage.SetSprite(DecisionDirection()); // 敵の向く方向を決めて指定する
+        _playerHandImage.SetSprite(direction);
+    }
+
      /// <summary>
     /// 敵が向く方向を決める
     /// </summary>
-    private void DecisionDirection()
+    private DirectionEnum DecisionDirection()
     {
         float rand = Random.value; // 0~1の乱数を生成
         float cumulativeProbability = 0f;
@@ -51,63 +67,47 @@ public class BattleSystemManager : ViewBase
         cumulativeProbability += _directionProbabilities[DirectionEnum.Up];
         if (rand < cumulativeProbability)
         {
-            _decisionDirection = DirectionEnum.Up;
-            return;
+            return DirectionEnum.Up;
         }
         
         cumulativeProbability += _directionProbabilities[DirectionEnum.UpRight];
         if (rand < cumulativeProbability)
         {
-            _decisionDirection = DirectionEnum.UpRight;
-            return;
+            return DirectionEnum.UpRight;
         }
         
         cumulativeProbability += _directionProbabilities[DirectionEnum.Right];
         if (rand < cumulativeProbability)
         {
-            _decisionDirection = DirectionEnum.Right;
-            return;
+            return DirectionEnum.Right;
         }
         
         cumulativeProbability += _directionProbabilities[DirectionEnum.DownRight];
         if (rand < cumulativeProbability)
         {
-            _decisionDirection = DirectionEnum.DownRight;
-            return;
+            return DirectionEnum.DownRight;
         }
         
         cumulativeProbability += _directionProbabilities[DirectionEnum.Down];
         if (rand < cumulativeProbability)
         {
-            _decisionDirection = DirectionEnum.Down;
-            return;
+            return DirectionEnum.Down;
         }
         
         cumulativeProbability += _directionProbabilities[DirectionEnum.DownLeft];
         if (rand < cumulativeProbability)
         {
-            _decisionDirection = DirectionEnum.DownLeft;
-            return;
+            return DirectionEnum.DownLeft;
         }
         
         cumulativeProbability += _directionProbabilities[DirectionEnum.Left];
         if (rand < cumulativeProbability)
         {
-            _decisionDirection = DirectionEnum.Left;
-            return;
+            return DirectionEnum.Left;
         }
         
         // ここまで来たら最後の方向（UpLeft）
-        _decisionDirection = DirectionEnum.UpLeft;
-    }
-    
-    /// <summary>
-    /// 決定された方向を取得する
-    /// </summary>
-    public DirectionEnum GetDecisionDirection()
-    {
-        DecisionDirection(); // 方向を決定
-        return _decisionDirection;
+        return _decisionDirection = DirectionEnum.UpLeft;
     }
     
     /// <summary>

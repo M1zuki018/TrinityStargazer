@@ -10,7 +10,7 @@ public class CanvasController_Direction : WindowBase
 {
     [SerializeField] private Button[] _directionButtons = new Button[8];
     
-    public event Action OnDirectionButtonClicked;
+    public event Action<DirectionEnum> OnDirectionButtonClicked;
     
     public override UniTask OnUIInitialize()
     {
@@ -30,8 +30,7 @@ public class CanvasController_Direction : WindowBase
     /// </summary>
     private void OnDirectionButtonClick(DirectionEnum direction)
     {
-        OnDirectionButtonClicked?.Invoke();
-        //TODO: 決めたdirectionをロジックに渡す
+        OnDirectionButtonClicked?.Invoke(direction);
     }
 
     private void OnDestroy()

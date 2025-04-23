@@ -7,21 +7,19 @@ using UnityEngine.UI;
 /// </summary>
 public class DirectionalImages : ViewBase
 {
+    [SerializeField] private Image _image;
     [SerializeField] private Sprite _defaultSprite;
     [SerializeField] private Sprite[] _directions = new Sprite[8];
-    private Image _image;
-
-    public override UniTask OnAwake()
-    {
-        _image = GetComponent<Image>();
-        return base.OnAwake();
-    }
 
     /// <summary>
     /// 引数として渡された方向のスプライトに入れ替える
     /// </summary>
     public void SetSprite(DirectionEnum direction)
     {
+        if (_image == null)
+        {
+            _image = GetComponent<Image>();
+        }
         _image.sprite = _directions[(int)direction];
     }
 

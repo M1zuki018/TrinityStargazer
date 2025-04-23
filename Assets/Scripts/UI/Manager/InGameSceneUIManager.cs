@@ -178,7 +178,7 @@ public class InGameSceneUIManager : SceneUIManagerBase
     /// <summary>
     /// あっち向いてほいの結果画面を開く
     /// </summary>
-    private void HandleAfter() => ShowAndBlockCanvas(AFTER_SCREEN_INDEX);
+    private void HandleAfter(DirectionEnum directionEnum) => ShowAndBlockCanvas(AFTER_SCREEN_INDEX);
 
     private void OnDestroy()
     {

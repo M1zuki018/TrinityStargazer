@@ -31,6 +31,7 @@ public class BattleSystemPresenter : ViewBase
     {
         // 自分が方向決定ボタンを押したタイミングで、スプライトの更新を行う
         _ccDirection.OnDirectionButtonClicked += _battleSystemManager.SetSprite;
+        _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat;
         
         // 次のターンに進むタイミングで処理を行うもの
         _ccAfter.OnNextButtonClicked += _turnManager.NextTurn; // ターンのカウントを進める
@@ -44,12 +45,24 @@ public class BattleSystemPresenter : ViewBase
 
     private void TurnManagerOnOnGameFinished() => OnBattleEnded?.Invoke();
 
+    /// <summary>
+    /// 勝敗を管理するメソッド
+    /// </summary>
+    private void HandleVictoryOrDefeat(DirectionEnum direction)
+    {
+        _ccAfter.SetText(_battleSystemManager.IsVictory);
+    }
+
     private void OnDestroy()
     {
         _ccDirection.OnDirectionButtonClicked -= _battleSystemManager.SetSprite;
+        _ccDirection.OnDirectionButtonClicked -= HandleVictoryOrDefeat;
         
+        _ccAfter.OnNextButtonClicked -= _turnManager.NextTurn;
         _ccAfter.OnNextButtonClicked -= _battleSystemManager.ResetDirectionProbabilities;
         _ccAfter.OnNextButtonClicked -= _seiImage.ResetSprite;
         _ccAfter.OnNextButtonClicked -= _playerHandImage.ResetSprite;
+        
+        _turnManager.OnGameFinished -= TurnManagerOnOnGameFinished;
     }
 }

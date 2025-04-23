@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// インゲームのバトルを管理するクラス
@@ -20,6 +21,8 @@ public class BattleSystemManager
         { DirectionEnum.UpLeft, 0.125f }
     };
     private DirectionalImages _seiImage, _playerHandImage;
+
+    public bool IsVictory { get; private set; }
 
     public BattleSystemManager(DirectionalImages seiImage, DirectionalImages playerHandImage)
     {
@@ -51,8 +54,11 @@ public class BattleSystemManager
     /// </summary>
     public void SetSprite(DirectionEnum direction)
     {
-        _seiImage.SetSprite(DecisionDirection()); // 敵の向く方向を決めて指定する
+        DirectionEnum decisionDirection = DecisionDirection();
+        _seiImage.SetSprite(decisionDirection); // 敵の向く方向を決めて指定する
         _playerHandImage.SetSprite(direction);
+        
+        IsVictory = decisionDirection == direction; // 勝敗
     }
 
      /// <summary>

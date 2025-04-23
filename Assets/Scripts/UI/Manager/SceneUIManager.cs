@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class SceneUIManager : ViewBase
 {
-    [SerializeField] private List<CanvasControllerBase> _canvasObjects = new List<CanvasControllerBase>();
+    [SerializeField] private List<WindowBase> _canvasObjects = new List<WindowBase>();
     [SerializeField] private int _defaultCanvasIndex = 0;
     
     private int _currentCanvasIndex = -1; // 現在表示中のキャンバスインデックス

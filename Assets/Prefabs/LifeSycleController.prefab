@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debugMode: 1
-  _isLogFormatEnabled: 1
-  _isLoggingEnabled: 1
-  _prefabsToInstantiate: []
+  _isLogFormatEnabled: 0
+  _isLoggingEnabled: 0
+  _prefabsToInstantiate:
+  - {fileID: 0}

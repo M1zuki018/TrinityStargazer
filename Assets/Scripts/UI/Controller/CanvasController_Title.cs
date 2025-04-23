@@ -25,4 +25,9 @@ public class CanvasController_Title : WindowBase
         OnHomeButtonClicked?.Invoke();
         GameManager.Instance.ChangeGameState(GameStateEnum.Home);
     }
+
+    private void OnDestroy()
+    {
+        _startButton.onClick.RemoveAllListeners();
+    }
 }

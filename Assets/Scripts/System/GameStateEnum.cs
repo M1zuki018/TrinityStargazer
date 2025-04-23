@@ -19,9 +19,14 @@ public enum GameStateEnum
     Menu,
     
     /// <summary>
-    /// ステージ選択
+    /// 設定画面
     /// </summary>
-    StageSelect,
+    Settings,
+    
+    /// <summary>
+    /// ゲームモード選択
+    /// </summary>
+    ModeSelect,
     
     /// <summary>
     /// ゲーム

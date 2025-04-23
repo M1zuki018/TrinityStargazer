@@ -12,16 +12,14 @@ public class InGameSceneUIManager : SceneUIManagerBase
     private const int MAIN_SCREEN_CANVAS = 6;
     
     // 画面のインデックス定数
-    private const int BASE_SCREEN_INDEX = 0;
-    private const int BEFORE_SCREEN_INDEX = 1;
-    private const int ITEMSELECT_SCREEN_INDEX = 2;
-    private const int CHAT_SCREEN_INDEX = 3;
-    private const int PAUSE_SCREEN_INDEX = 4;
-    private const int DIRECTION_SCREEN_INDEX = 5;
-    private const int AFTER_SCREEN_INDEX = 6;
-    private const int RESULT_SCREEN_INDEX = 7;
+    private const int BEFORE_SCREEN_INDEX = 0;
+    private const int ITEMSELECT_SCREEN_INDEX = 1;
+    private const int CHAT_SCREEN_INDEX = 2;
+    private const int PAUSE_SCREEN_INDEX = 3;
+    private const int DIRECTION_SCREEN_INDEX = 4;
+    private const int AFTER_SCREEN_INDEX = 5;
+    private const int RESULT_SCREEN_INDEX = 6;
 
-    private CanvasController_Base _ccBase;
     private CanvasController_Before _ccBefore;
     private CanvasController_ItemSelect _ccItemSelect;
     private CanvasController_Chat _ccChat;
@@ -43,16 +41,6 @@ public class InGameSceneUIManager : SceneUIManagerBase
     {
         try
         {
-            // ベース画面のキャンバスコントローラー
-            if (_canvasObjects[BASE_SCREEN_INDEX] is CanvasController_Base baseController)
-            {
-                _ccBase = baseController;
-            }
-            else
-            {
-                Debug.LogError($"キャストに失敗しました: インデックス {BASE_SCREEN_INDEX} のオブジェクトは CanvasController_Base ではありません");
-            }
-
             // Before画面のキャンバスコントローラー
             if (_canvasObjects[BEFORE_SCREEN_INDEX] is CanvasController_Before beforeController)
             {
@@ -137,13 +125,9 @@ public class InGameSceneUIManager : SceneUIManagerBase
 
     protected override void RegisterWindowEvents()
     {
-        if (_ccBase != null)
-        {
-            _ccBase.OnPauseButtonClicked += HandlePause;
-        }
-        
         if (_ccBefore != null)
         {
+            _ccBefore.OnPauseButtonClicked += HandlePause;
             _ccBefore.OnBattleButtonClicked += HandleBattle;
             _ccBefore.OnItemSelectButtonClicked += HandleItemSelect;
             _ccBefore.OnChatButtonClicked += HandleChat;
@@ -169,7 +153,7 @@ public class InGameSceneUIManager : SceneUIManagerBase
     /// <summary>
     /// バトル画面へ遷移
     /// </summary>
-    private void HandleBattle() => ShowAndBlockCanvas(BASE_SCREEN_INDEX);
+    private void HandleBattle() => ShowAndBlockCanvas(DIRECTION_SCREEN_INDEX);
 
     /// <summary>
     /// アイテム選択画面へ遷移
@@ -188,11 +172,6 @@ public class InGameSceneUIManager : SceneUIManagerBase
 
     private void OnDestroy()
     {
-        if (_ccBase != null)
-        {
-            _ccBase.OnPauseButtonClicked -= HandlePause;
-        }
-        
         if (_ccBefore != null)
         {
             _ccBefore.OnBattleButtonClicked -= HandleBattle;

@@ -3215,6 +3215,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4014644151354882740}
   - {fileID: 1967249085232491447}
   - {fileID: 1120726870655905888}
   - {fileID: 461891166369017309}
@@ -3315,6 +3316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bbe848e7c34fa744bd3f7babb17c9c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pauseButton: {fileID: 7523442343832791961}
   _battleButton: {fileID: 165451918441441786}
   _itemSelectButton: {fileID: 6303760996444795465}
   _chatButton: {fileID: 2200092050531116407}
@@ -3504,7 +3506,6 @@ GameObject:
   - component: {fileID: 9132634632049993768}
   - component: {fileID: 7029775638101031956}
   - component: {fileID: 850266950321275356}
-  - component: {fileID: 1570111343405765642}
   m_Layer: 5
   m_Name: BaseCanvas
   m_TagString: Untagged
@@ -3526,7 +3527,6 @@ RectTransform:
   m_Children:
   - {fileID: 4231346576555683204}
   - {fileID: 4832242313131215557}
-  - {fileID: 4014644151354882740}
   m_Father: {fileID: 12756129286362188}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3609,19 +3609,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1570111343405765642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6422565949942929304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd90c64f82c3dcd4e9df49d340ec2e01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pauseButton: {fileID: 7523442343832791961}
 --- !u!1 &6442094066022859415
 GameObject:
   m_ObjectHideFlags: 0
@@ -3745,7 +3732,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasObjects:
-  - {fileID: 1570111343405765642}
   - {fileID: 895018485479016225}
   - {fileID: 6003368304581033694}
   - {fileID: 7167435643940817563}
@@ -4687,7 +4673,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1426302863264439014}
-  m_Father: {fileID: 8899714613196400913}
+  m_Father: {fileID: 2321645925175208934}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

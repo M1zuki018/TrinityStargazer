@@ -23,7 +23,7 @@ public class CanvasController_Home : WindowBase
     {
         if (_startButton != null) _startButton.onClick.AddListener(GameStart);
         if (_shopButton != null) _shopButton.onClick.AddListener(GoShop);
-        if (_itemButton != null) _itemButton.onClick.AddListener(GoItem); 
+        if (_itemButton != null) _itemButton.onClick.AddListener(GoItemMenu); 
         if (_settingsButton != null) _settingsButton.onClick.AddListener(GoSettings);
     
         UpdateLevelText();
@@ -64,10 +64,10 @@ public class CanvasController_Home : WindowBase
     /// <summary>
     /// ホーム画面→アイテム画面に遷移する
     /// </summary>
-    private void GoItem()
+    private void GoItemMenu()
     {
         OnItemButtonClicked?.Invoke();
-        GameManager.Instance.ChangeGameState(GameStateEnum.Menu);
+        GameManager.Instance.ChangeGameState(GameStateEnum.ItemMenu);
     }
     
     /// <summary>
@@ -81,9 +81,9 @@ public class CanvasController_Home : WindowBase
 
     private void OnDestroy()
     {
-        _startButton.onClick?.RemoveAllListeners();
-        _shopButton.onClick?.RemoveAllListeners();
-        _itemButton.onClick?.RemoveAllListeners();
-        _settingsButton.onClick?.RemoveAllListeners();
+        if (_startButton != null) _startButton.onClick?.RemoveAllListeners();
+        if (_shopButton != null) _shopButton.onClick?.RemoveAllListeners();
+        if (_itemButton != null) _itemButton.onClick?.RemoveAllListeners();
+        if (_settingsButton != null) _settingsButton.onClick?.RemoveAllListeners();
     }
 }

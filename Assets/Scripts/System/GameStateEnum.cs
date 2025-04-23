@@ -14,19 +14,24 @@ public enum GameStateEnum
     Home,
     
     /// <summary>
+    /// ゲームモード選択
+    /// </summary>
+    ModeSelect,
+    
+    /// <summary>
+    /// ショップ
+    /// </summary>
+    Shop,
+    
+    /// <summary>
     /// メニュー画面
     /// </summary>
-    Menu,
+    ItemMenu,
     
     /// <summary>
     /// 設定画面
     /// </summary>
     Settings,
-    
-    /// <summary>
-    /// ゲームモード選択
-    /// </summary>
-    ModeSelect,
     
     /// <summary>
     /// ゲーム
@@ -42,9 +47,4 @@ public enum GameStateEnum
     /// リザルト
     /// </summary>
     Result,
-    
-    /// <summary>
-    /// ショップ
-    /// </summary>
-    Shop,
 }

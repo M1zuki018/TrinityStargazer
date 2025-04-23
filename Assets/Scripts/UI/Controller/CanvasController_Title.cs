@@ -13,7 +13,7 @@ public class CanvasController_Title : WindowBase
     
     public  override UniTask OnAwake()
     {
-        _startButton.onClick.AddListener(GameStart);
+        if(_startButton != null) _startButton.onClick.AddListener(GameStart);
         return base.OnAwake();
     }
     
@@ -28,6 +28,6 @@ public class CanvasController_Title : WindowBase
 
     private void OnDestroy()
     {
-        _startButton.onClick.RemoveAllListeners();
+        if(_startButton != null) _startButton.onClick?.RemoveAllListeners();
     }
 }

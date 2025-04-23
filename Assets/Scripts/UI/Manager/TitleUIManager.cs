@@ -62,6 +62,21 @@ public class TitleUIManager : SceneUIManagerBase
             _ccModeSelect.OnHomeButtonClicked += HandleToHome;
             _ccModeSelect.OnGameModeButtonClicked += HandleToInGame;
         }
+
+        if (_ccShop != null)
+        {
+            _ccShop.OnHomeButtonClicked += HandleToHome;
+        }
+
+        if (_ccItemMenu != null)
+        {
+            _ccItemMenu.OnHomeButtonClicked += HandleToHome;
+        }
+        
+        if (_ccSettings != null)
+        {
+            _ccSettings.OnHomeButtonClicked += HandleToHome;
+        }
     }
 
     /// <summary>
@@ -118,6 +133,21 @@ public class TitleUIManager : SceneUIManagerBase
         {
             _ccModeSelect.OnHomeButtonClicked -= HandleToHome;
             _ccModeSelect.OnGameModeButtonClicked -= HandleToInGame;
+        }
+
+        if (_ccShop != null)
+        {
+            _ccShop.OnHomeButtonClicked -= HandleToHome;
+        }
+
+        if (_ccItemMenu != null)
+        {
+            _ccItemMenu.OnHomeButtonClicked -= HandleToHome;
+        }
+
+        if (_ccSettings != null)
+        {
+            _ccSettings.OnHomeButtonClicked -= HandleToHome;
         }
     }
 }

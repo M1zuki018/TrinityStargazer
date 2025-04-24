@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 /// <summary>
 /// 「封印のページ/SealPage」：指定した○方向を○ターンの間使用禁止にする（禁止方向に✕マーク）
-/// （共鳴ライトとの使い分け：こちらは効果持続型）
 /// </summary>
 public class SealPage : ItemBase
 {
@@ -30,11 +29,22 @@ public class SealPage : ItemBase
     public override void Use(IItemManager itemManager)
     {
         base.Use(itemManager);
-        itemManager.AddActiveEffect(new ActiveEffect(ItemTypeEnum.SealPage, EffectiveTurns, LimitCount));
+        
+        // 方向選択UIを表示
+        List<DirectionEnum> selectedDirections = itemManager.ShowDirectionSelectionUI(LimitCount);
+        
+        if (selectedDirections != null && selectedDirections.Count > 0)
+        {
+            // 効果データを作成
+            var effectData = new SealPageEffectData(EffectiveTurns, selectedDirections);
+            
+            // アクティブ効果を登録
+            itemManager.AddActiveEffect(new ActiveEffect(Type, effectData));
+        }
     }
 
     /// <summary>
-    /// 辞書から情報を取得して効果を設定する
+    /// 効果を設定する
     /// </summary>
     private void EffectSetting(RarityEnum rarity)
     {

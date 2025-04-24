@@ -3,7 +3,7 @@
 /// </summary>
 public interface IDirectionDecider
 {
-    DirectionEnum DecideDirection();
+     DirectionEnum DecideDirection();
     void ModifyProbability(DirectionEnum direction, float addedProbability);
     void LimitProbability(DirectionEnum direction);
     void RemoveLimitProbability(DirectionEnum direction);

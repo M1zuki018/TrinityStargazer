@@ -4,14 +4,16 @@
 public class ActiveEffect
 {
     public ItemTypeEnum Type { get; }
-    public int RemainingTurns { get; set; }
-    
-    public int EffectTargets { get; set; }
+    public int RemainingTurns 
+    { 
+        get => EffectData.RemainingTurns;
+        set => EffectData.RemainingTurns = value;
+    }
+    public EffectBase EffectData { get; }
         
-    public ActiveEffect(ItemTypeEnum type, int turns, int targets)
+    public ActiveEffect(ItemTypeEnum type, EffectBase effectData)
     {
         Type = type;
-        RemainingTurns = turns;
-        EffectTargets = targets;
+        EffectData = effectData;
     }
 }

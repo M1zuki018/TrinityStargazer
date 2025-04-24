@@ -17,6 +17,8 @@ public class SealPage : ItemBase
         { RarityEnum.SSR, (limit: 2, effectiveTurns: 4) }
     };
 
+    private IItemManager _itemManager;
+    
     public int LimitCount { get; private set; }
     public int EffectiveTurns { get; private set; }
     
@@ -30,6 +32,7 @@ public class SealPage : ItemBase
     public override void Use()
     {
         base.Use();
+        _itemManager.AddActiveEffect(new ActiveEffect(ItemTypeEnum.SealPage, EffectiveTurns, LimitCount));
     }
 
     /// <summary>

@@ -31,7 +31,7 @@ public class BattleSystemManager : IBattleSystem, IDisposable
     /// </summary>
     private void BindItemManager()
     {
-        _itemManager.UseModifyDirectionProbabilityItem += ModifyDirectionProbability;
+        _itemManager.UseLimitItem += LimitProbability;
     }
 
     /// <summary>
@@ -61,8 +61,16 @@ public class BattleSystemManager : IBattleSystem, IDisposable
         _directionDecider.ModifyProbability(direction, addedProbability);
     }
 
+    /// <summary>
+    /// 方向に制限をかける
+    /// </summary>
+    private void LimitProbability(DirectionEnum direction)
+    {
+        _directionDecider.LimitProbability(direction);
+    }
+
     public void Dispose()
     {
-        _itemManager.UseModifyDirectionProbabilityItem -= ModifyDirectionProbability;
+        _itemManager.UseLimitItem -= LimitProbability;
     }
 }

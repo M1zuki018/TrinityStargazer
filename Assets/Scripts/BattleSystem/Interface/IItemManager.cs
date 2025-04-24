@@ -1,12 +1,12 @@
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// アイテムを管理するクラス用のインターフェース
 /// </summary>
 public interface IItemManager
 {
-    public event Action<DirectionEnum, float> UseModifyDirectionProbabilityItem;
+    public void AddActiveEffect(ActiveEffect activeEffect);
+    public void UpdateTurn();
+    public event Action<DirectionEnum> UseLimitItem;
 
 }

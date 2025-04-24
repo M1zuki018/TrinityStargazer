@@ -18,6 +18,7 @@ public class BattleSystemPresenter : ViewBase
 
     private BattleSystemManager _battleSystemManager;
     private TurnManager _turnManager;
+    private IItemManager _itemManager;
     
     public event Action OnBattleEnded;
     
@@ -26,9 +27,9 @@ public class BattleSystemPresenter : ViewBase
         IDirectionDecider directionDecider = new DirectionDecider();
         IBattleJudge battleJudge = new BattleJudge();
         IVisualUpdater visualUpdater = new VisualUpdater(_seiImage, _playerHandImage);
-        IItemManager itemManager = new ItemManager();
         
-        _battleSystemManager = new BattleSystemManager(directionDecider, battleJudge, visualUpdater, itemManager);
+        _itemManager = new ItemManager();
+        _battleSystemManager = new BattleSystemManager(directionDecider, battleJudge, visualUpdater, _itemManager);
         _turnManager = new TurnManager();
         return base.OnAwake();
     }
@@ -75,6 +76,7 @@ public class BattleSystemPresenter : ViewBase
         _turnManager.NextTurn();
         _battleSystemManager.ResetBattle();
         _ccBefore.SetTurnText(_turnManager.TurnText());
+        _itemManager.UpdateTurn();
     }
 
     private void OnDestroy()

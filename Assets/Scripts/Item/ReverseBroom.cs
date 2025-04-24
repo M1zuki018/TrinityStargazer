@@ -12,7 +12,7 @@ public class ReverseBroom : ItemBase
         Rarity = rarity;
     }
     
-    public override void Use()
+    public override void Use(IItemManager itemManager)
     {
         throw new System.NotImplementedException();
     }

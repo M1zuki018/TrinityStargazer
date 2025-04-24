@@ -16,7 +16,7 @@ public abstract class ItemBase
         Type = type;
     }
     
-    public virtual void Use()
+    public virtual void Use(IItemManager itemManager)
     {
         Debug.Log($"{Name}を使用しました");
     }

@@ -29,14 +29,14 @@ public class SealPage : ItemBase
         Description = $"{LimitCount}方向を{EffectiveTurns}ターンの間使用禁止にします";
     }
     
-    public override void Use()
+    public override void Use(IItemManager itemManager)
     {
-        base.Use();
+        base.Use(itemManager);
         _itemManager.AddActiveEffect(new ActiveEffect(ItemTypeEnum.SealPage, EffectiveTurns, LimitCount));
     }
 
     /// <summary>
-    /// 効果を設定する
+    /// 辞書から情報を取得して効果を設定する
     /// </summary>
     private void EffectSetting(RarityEnum rarity)
     {

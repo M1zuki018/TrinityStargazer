@@ -9,8 +9,8 @@ public static class AnimationUtility
     /// <summary>
     /// 拡大と縮小を繰り返すアニメーション
     /// </summary>
-    public static void Expand(Transform transform, float duration = 1.0f, float mag = 1.05f)
+    public static Tween Expand(Transform transform, float duration = 1.0f, float mag = 1.05f)
     {
-        transform.DOScale(mag, duration).SetLoops(-1, LoopType.Yoyo);
+        return transform.DOScale(mag, duration).SetLoops(-1, LoopType.Yoyo);
     }
 }

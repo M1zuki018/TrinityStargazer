@@ -30,25 +30,24 @@ public class BattleSystemPresenter : ViewBase
     
     public override UniTask OnBind()
     {
-        // 自分が方向決定ボタンを押したタイミングで、スプライトの更新を行う
-        _ccDirection.OnDirectionButtonClicked += _battleSystemManager.SetSprite;
-        _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat;
-        
-        // 次のターンに進むタイミングで処理を行うもの
-        _ccAfter.OnNextButtonClicked += _turnManager.NextTurn; // ターンのカウントを進める
-        _ccAfter.OnNextButtonClicked += _battleSystemManager.ResetDirectionProbabilities;
-        _ccAfter.OnNextButtonClicked += _seiImage.ResetSprite;
-        _ccAfter.OnNextButtonClicked += _playerHandImage.ResetSprite;
-        _ccAfter.OnNextButtonClicked += HandleNextTurn;
-        
+        _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat; // 方向決定ボタンを押したタイミングで呼ばれる処理
+        _ccAfter.OnNextButtonClicked += HandleNextTurn; // 次のターンに進むタイミングで処理を行うもの
         _turnManager.OnGameFinished += TurnManagerOnOnGameFinished;
         return base.OnBind();
     }
 
     public override UniTask OnStart()
     {
-        _ccBefore.SetTurnText(_turnManager.TurnText()); // ターンテキストの初期化
+        InitializeUI();
         return base.OnStart();
+    }
+
+    /// <summary>
+    /// 必要なUIの初期化処理
+    /// </summary>
+    private void InitializeUI()
+    {
+        _ccBefore.SetTurnText(_turnManager.TurnText()); // ターンテキストの初期化
     }
 
     private void TurnManagerOnOnGameFinished() => OnBattleEnded?.Invoke();
@@ -58,28 +57,35 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     private void HandleVictoryOrDefeat(DirectionEnum direction)
     {
+        _battleSystemManager.SetSprite(direction);
         _ccAfter.SetText(_battleSystemManager.IsVictory);
         _ccBefore.SetResultMark(_turnManager.CurrentTurn - 1, _battleSystemManager.IsVictory);
     }
 
     /// <summary>
-    /// 次のターンに移行するときの処理
+    /// 次のターンに移行するときに必要な処理
     /// </summary>
     private void HandleNextTurn()
     {
-        _ccBefore.SetTurnText(_turnManager.TurnText());
+        _turnManager.NextTurn(); // ターンのカウントを進める
+        _battleSystemManager.ResetDirectionProbabilities();　// 相手がどの方向を向くか、確率をリセットする
+        ResetSprite();
+        _ccBefore.SetTurnText(_turnManager.TurnText()); // ターンテキストの更新
+    }
+
+    /// <summary>
+    /// キャラクターのスプライトをデフォルトに戻す
+    /// </summary>
+    private void ResetSprite()
+    {
+        _seiImage.ResetSprite();
+        _playerHandImage.ResetSprite();
     }
 
     private void OnDestroy()
     {
-        _ccDirection.OnDirectionButtonClicked -= _battleSystemManager.SetSprite;
         _ccDirection.OnDirectionButtonClicked -= HandleVictoryOrDefeat;
-        
-        _ccAfter.OnNextButtonClicked -= _turnManager.NextTurn;
-        _ccAfter.OnNextButtonClicked -= _battleSystemManager.ResetDirectionProbabilities;
-        _ccAfter.OnNextButtonClicked -= _seiImage.ResetSprite;
-        _ccAfter.OnNextButtonClicked -= _playerHandImage.ResetSprite;
-        
+        _ccAfter.OnNextButtonClicked -= HandleNextTurn;
         _turnManager.OnGameFinished -= TurnManagerOnOnGameFinished;
     }
 }

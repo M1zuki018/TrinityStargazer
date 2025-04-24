@@ -16,6 +16,12 @@ public class ItemManager : IItemManager
     public void AddActiveEffect(ActiveEffect activeEffect)
     {
         _activeItems.Add(activeEffect);
+        UseItem();
+    }
+
+    private void UseItem()
+    {
+        
     }
 
     /// <summary>

@@ -48,6 +48,14 @@ public class BattleSystemPresenter : ViewBase
         return base.OnStart();
     }
 
+    [ContextMenu("アイテムテスト")]
+    public void Test()
+    {
+        Debug.Log(_itemManager);
+        var a = new SealPage(RarityEnum.N);
+        a.Use(_itemManager);
+    }
+    
     /// <summary>
     /// 必要なUIの初期化処理
     /// </summary>

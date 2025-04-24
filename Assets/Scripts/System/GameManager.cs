@@ -11,6 +11,12 @@ public class GameManager : ViewBase
     
     private ReactiveProperty<GameStateEnum> _currentGameState = new ReactiveProperty<GameStateEnum>(GameStateEnum.Title);
     
+    /// <summary>
+    /// 最初の読み込みかどうか（タイトル画面を表示するかどうかを決める）
+    /// </summary>
+    [SerializeField] private bool _isFirstLoad = true;
+    public bool IsFirstLoad => _isFirstLoad;
+    
     public override UniTask OnAwake()
     {
         if (Instance != null && Instance != this)
@@ -23,6 +29,19 @@ public class GameManager : ViewBase
         Instance = this;
         DontDestroyOnLoad(gameObject);
         
+        _currentGameState
+            .Skip(1) // 初期値はスキップ
+            .Take(1) // 最初の一回だけのみ処理
+            .Subscribe(newState => 
+            {
+                // Titleから他のステートに変わった時点でフラグをオフにする
+                if (newState != GameStateEnum.Title)
+                {
+                    _isFirstLoad = false;
+                }
+            })
+            .AddTo(this);
+        
         return base.OnAwake();
     }
 
@@ -34,7 +53,7 @@ public class GameManager : ViewBase
     /// <summary>
     /// 現在のゲーム状態を変更する
     /// </summary>
-    public void ChangeGameState(GameStateEnum gameState) => _currentGameState.Value = gameState;
+    public void SetGameState(GameStateEnum gameState) => _currentGameState.Value = gameState;
     
     /// <summary>
     /// 現在選択中のモードのデータを取得する

@@ -28,6 +28,16 @@ public class MainSceneUIManager : SceneUIManagerBase
         InitializeCanvasControllers();
         return base.OnAwake();
     }
+
+    public override UniTask OnStart()
+    {
+        // 最初の読み込みではなければすぐにホーム画面に遷移する
+        if (!GameManager.Instance.IsFirstLoad)
+        {
+            _defaultCanvasIndex = HOME_SCREEN_INDEX;
+        }
+        return base.OnStart();
+    }
     
     /// <summary>
     /// キャストしてクラスの参照を取得する

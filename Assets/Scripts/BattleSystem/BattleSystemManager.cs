@@ -1,22 +1,37 @@
+using System;
+
 /// <summary>
 /// インゲームのバトルを統括管理するクラス
 /// </summary>
-public class BattleSystemManager : IBattleSystem
+public class BattleSystemManager : IBattleSystem, IDisposable
 {
     private readonly IDirectionDecider _directionDecider;
     private readonly IBattleJudge _battleJudge;
     private readonly IVisualUpdater _visualUpdater;
+    private readonly IItemManager _itemManager;
     
     public bool IsVictory { get; private set; }
 
     public BattleSystemManager(
         IDirectionDecider directionDecider, 
         IBattleJudge battleJudge,
-        IVisualUpdater visualUpdater)
+        IVisualUpdater visualUpdater,
+        IItemManager itemManager)
     {
         _directionDecider = directionDecider;
         _battleJudge = battleJudge;
         _visualUpdater = visualUpdater;
+        _itemManager = itemManager;
+        
+        BindItemManager();
+    }
+
+    /// <summary>
+    /// アイテムマネージャーとバトルシステムを繋ぐ
+    /// </summary>
+    private void BindItemManager()
+    {
+        _itemManager.UseModifyDirectionProbabilityItem += ModifyDirectionProbability;
     }
 
     /// <summary>
@@ -44,5 +59,10 @@ public class BattleSystemManager : IBattleSystem
     public void ModifyDirectionProbability(DirectionEnum direction, float addedProbability)
     {
         _directionDecider.ModifyProbability(direction, addedProbability);
+    }
+
+    public void Dispose()
+    {
+        _itemManager.UseModifyDirectionProbabilityItem -= ModifyDirectionProbability;
     }
 }

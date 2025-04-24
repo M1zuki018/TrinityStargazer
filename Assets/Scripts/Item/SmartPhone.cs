@@ -7,7 +7,7 @@ public class SmartPhone : ItemBase
 {
     public SmartPhone(RarityEnum rarity)
     {
-        Name = "";
+        Name = "スマートフォン";
         Rarity = rarity;
     }
     

@@ -10,6 +10,8 @@ public class CanvasController_Title : WindowBase
 {
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _creditButton;
+    [SerializeField] private Button _quitButton;
+    
     public event Action OnHomeButtonClicked;
     public event Action OnCreditButtonClicked;
     
@@ -17,6 +19,7 @@ public class CanvasController_Title : WindowBase
     {
         if(_startButton != null) _startButton.onClick.AddListener(GameStart);
         if(_creditButton != null) _creditButton.onClick.AddListener(OpenCredit);
+        if(_quitButton != null) _quitButton.onClick.AddListener(Quit);
         return base.OnAwake();
     }
 
@@ -36,10 +39,23 @@ public class CanvasController_Title : WindowBase
     /// </summary>
     private void OpenCredit() => OnCreditButtonClicked?.Invoke();
 
+    /// <summary>
+    /// ゲーム終了処理
+    /// </summary>
+    private void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+      Application.Quit();
+#endif
+    }
+
     private void OnDestroy()
     {
         if(_startButton != null) _startButton.onClick?.RemoveAllListeners();
         if(_creditButton != null) _creditButton.onClick?.RemoveAllListeners();
+        if(_quitButton != null) _quitButton.onClick?.RemoveAllListeners();
     }
 
     public override void Show()

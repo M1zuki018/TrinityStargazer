@@ -15,6 +15,7 @@ public class MainSceneUIManager : SceneUIManagerBase
     private const int SHOP_SCREEN_INDEX = 3;
     private const int ITEMMENU_SCREEN_INDEX = 4;
     private const int SETTINGS_SCREEN_INDEX = 5;
+    private const int CREDIT_SCREEN_INDEX = 6;
 
     private CanvasController_Title _ccTitle;
     private CanvasController_Home _ccHome;
@@ -22,6 +23,7 @@ public class MainSceneUIManager : SceneUIManagerBase
     private CanvasController_Shop _ccShop;
     private CanvasController_ItemMenu _ccItemMenu;
     private CanvasController_Settings _ccSettings;
+    private CanvasController_Credit _ccCredit;
     
     public override UniTask OnAwake()
     {

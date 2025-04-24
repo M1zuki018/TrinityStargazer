@@ -34,6 +34,11 @@ public enum GameStateEnum
     Settings,
     
     /// <summary>
+    /// クレジットパネル
+    /// </summary>
+    Credit,
+    
+    /// <summary>
     /// バトルの一番ベースとなる画面状態
     /// </summary>
     Base,

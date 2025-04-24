@@ -5,8 +5,9 @@ using System;
 /// </summary>
 public interface IItemManager
 {
-    public void AddActiveEffect(ActiveEffect activeEffect);
-    public void UpdateTurn();
-    public event Action<DirectionEnum> UseLimitItem;
+    void AddActiveEffect(ActiveEffect activeEffect);
+    void UpdateTurn();
+    event Action<DirectionEnum> UseLimitItem;
+    event Action<DirectionEnum> RemoveLimitItem;
 
 }

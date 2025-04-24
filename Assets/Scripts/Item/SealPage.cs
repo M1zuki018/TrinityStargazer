@@ -3,17 +3,18 @@ using System.Collections.Generic;
 
 /// <summary>
 /// 「封印のページ/SealPage」：指定した○方向を○ターンの間使用禁止にする（禁止方向に✕マーク）
+/// （共鳴ライトとの使い分け：こちらは効果持続型）
 /// </summary>
 public class SealPage : ItemBase
 {
-    // クラス全体で共有する静的Dictionaryを使用
+    // レアリティごとの効果をまとめた辞書
     private static readonly Dictionary<RarityEnum, (int limit, int effectiveTurns)> RarityEffects = new()
     {
-        { RarityEnum.N,   (limit: 1, effectiveTurns: 1) },
-        { RarityEnum.C,   (limit: 2, effectiveTurns: 1) },
-        { RarityEnum.R,   (limit: 2, effectiveTurns: 2) },
-        { RarityEnum.SR,  (limit: 3, effectiveTurns: 2) },
-        { RarityEnum.SSR, (limit: 4, effectiveTurns: 3) }
+        { RarityEnum.N,   (limit: 1, effectiveTurns: 2) },
+        { RarityEnum.C,   (limit: 1, effectiveTurns: 3) },
+        { RarityEnum.R,   (limit: 1, effectiveTurns: 4) },
+        { RarityEnum.SR,  (limit: 2, effectiveTurns: 3) },
+        { RarityEnum.SSR, (limit: 2, effectiveTurns: 4) }
     };
 
     public int LimitCount { get; private set; }

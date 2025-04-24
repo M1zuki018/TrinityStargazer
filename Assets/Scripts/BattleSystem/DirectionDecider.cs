@@ -45,6 +45,25 @@ public class DirectionDecider : IDirectionDecider
             _directionProbabilities[dir] *= normalizeFactor;
         }
     }
+
+    /// <summary>
+    /// 方向に制限をつける
+    /// </summary>
+    public void LimitProbability(DirectionEnum direction)
+    {
+        float total = _directionProbabilities.Values.Sum();
+        
+        _directionProbabilities.Remove(direction); // 一時的に辞書から取り除く
+        
+        float newTotal = _directionProbabilities.Values.Sum();
+        
+        // 正規化
+        float normalizeFactor = total / newTotal;
+        foreach (var dir in _directionProbabilities.Keys.ToList())
+        {
+            _directionProbabilities[dir] *= normalizeFactor;
+        }
+    }
     
     /// <summary>
     /// 確率に基づいて方向を決定する

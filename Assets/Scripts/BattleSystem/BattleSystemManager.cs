@@ -1,7 +1,7 @@
 /// <summary>
 /// インゲームのバトルを統括管理するクラス
 /// </summary>
-public class BattleSystemManager
+public class BattleSystemManager : IBattleSystem
 {
     private readonly IDirectionDecider _directionDecider;
     private readonly IBattleJudge _battleJudge;

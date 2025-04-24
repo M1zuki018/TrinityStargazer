@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class GameManager : ViewBase
 {
-    public static GameManager Instance;
+    public static GameManager Instance { get; private set; }
 
     [SerializeField][ExpandableSO] private GameModeSO _modeSO;
-    
-    public GameModeEnum GameMode { get; private set; } = GameModeEnum.Normal;
+    [SerializeField] private GameModeEnum _currentGameMode = GameModeEnum.Normal;
     
     private ReactiveProperty<GameStateEnum> _currentGameState = new ReactiveProperty<GameStateEnum>(GameStateEnum.Title);
     
     public override UniTask OnAwake()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
-            DontDestroyOnLoad(this);
+            // 既に別のインスタンスが存在する場合、このオブジェクトを破棄
+            Destroy(gameObject);
+            return base.OnAwake();
         }
-        else
-        {
-            Destroy(this);
-        }
+        
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
         
         return base.OnAwake();
     }
@@ -30,7 +29,7 @@ public class GameManager : ViewBase
     /// <summary>
     /// ゲームモードを変更する
     /// </summary>
-    public void SetGameMode(GameModeEnum mode) => GameMode = mode;
+    public void SetGameMode(GameModeEnum mode) => _currentGameMode = mode;
     
     /// <summary>
     /// 現在のゲーム状態を変更する
@@ -40,5 +39,5 @@ public class GameManager : ViewBase
     /// <summary>
     /// 現在選択中のモードのデータを取得する
     /// </summary>
-    public ModeData GetGameModeData() => _modeSO.GetModeData(GameMode);
+    public ModeData GetGameModeData() => _modeSO.GetModeData(_currentGameMode);
 }

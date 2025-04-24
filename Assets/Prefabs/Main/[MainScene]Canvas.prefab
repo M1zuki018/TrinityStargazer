@@ -5106,7 +5106,7 @@ MonoBehaviour:
   - {fileID: 2699249574430579231}
   _titleLayer: {fileID: 4370353019705513858}
   _backgroundFactor: 0.02
-  _characterFactorBase: 0.05
+  _characterFactorBase: 0.02
   _titleFactor: 0.03
   _uiFactor: 0.01
   _smoothTime: 0.2

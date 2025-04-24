@@ -9,11 +9,14 @@ using UnityEngine.UI;
 public class CanvasController_Title : WindowBase
 {
     [SerializeField] private Button _startButton;
+    [SerializeField] private Button _creditButton;
     public event Action OnHomeButtonClicked;
+    public event Action OnCreditButtonClicked;
     
     public  override UniTask OnAwake()
     {
         if(_startButton != null) _startButton.onClick.AddListener(GameStart);
+        if(_creditButton != null) _creditButton.onClick.AddListener(OpenCredit);
         return base.OnAwake();
     }
 
@@ -27,10 +30,16 @@ public class CanvasController_Title : WindowBase
     /// ゲーム開始→ホーム画面に遷移するボタン
     /// </summary>
     private void GameStart() => OnHomeButtonClicked?.Invoke();
+    
+    /// <summary>
+    /// クレジットパネルを開くボタン
+    /// </summary>
+    private void OpenCredit() => OnCreditButtonClicked?.Invoke();
 
     private void OnDestroy()
     {
         if(_startButton != null) _startButton.onClick?.RemoveAllListeners();
+        if(_creditButton != null) _creditButton.onClick?.RemoveAllListeners();
     }
 
     public override void Show()

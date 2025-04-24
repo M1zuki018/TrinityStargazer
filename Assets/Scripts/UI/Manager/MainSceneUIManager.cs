@@ -107,6 +107,16 @@ public class MainSceneUIManager : SceneUIManagerBase
         {
             Debug.LogError($"キャストに失敗しました: インデックス {SETTINGS_SCREEN_INDEX} のオブジェクトは CanvasController_Settings ではありません");
         }
+        
+        // クレジットパネルのキャンバスコントローラー
+        if (_canvasObjects[CREDIT_SCREEN_INDEX] is CanvasController_Credit creditController)
+        {
+            _ccCredit = creditController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {CREDIT_SCREEN_INDEX} のオブジェクトは CanvasController_Credit ではありません");
+        }
     }
     catch (IndexOutOfRangeException ex)
     {
@@ -123,6 +133,7 @@ public class MainSceneUIManager : SceneUIManagerBase
         if (_ccTitle != null)
         {
             _ccTitle.OnHomeButtonClicked += HandleToHome;
+            _ccTitle.OnCreditButtonClicked += HandleOpenCredit;
         }
 
         if (_ccHome != null)
@@ -153,7 +164,19 @@ public class MainSceneUIManager : SceneUIManagerBase
         {
             _ccSettings.OnHomeButtonClicked += HandleToHome;
         }
+
+        if (_ccCredit != null)
+        {
+            _ccCredit.OnCloseButtonClicked += HandlePopCanvas;
+        }
     }
+
+    #region 各遷移用メソッド
+
+    /// <summary>
+    /// オーバーレイを一つ閉じる
+    /// </summary>
+    private void HandlePopCanvas() => PopCanvas();
 
     /// <summary>
     /// タイトル画面へ遷移
@@ -189,12 +212,21 @@ public class MainSceneUIManager : SceneUIManagerBase
     /// インゲームへ遷移
     /// </summary>
     private void HandleToInGame() => SceneManager.LoadScene(1);
+    
+    /// <summary>
+    /// クレジットパネルを開く
+    /// </summary>
+    private void HandleOpenCredit() => PushCanvas(CREDIT_SCREEN_INDEX);
+
+    #endregion
+    
 
     private void OnDestroy()
     {
         if (_ccTitle != null)
         {
             _ccTitle.OnHomeButtonClicked -= HandleToHome;
+            _ccTitle.OnCreditButtonClicked -= HandleOpenCredit;
         }
 
         if (_ccHome != null)
@@ -224,6 +256,11 @@ public class MainSceneUIManager : SceneUIManagerBase
         if (_ccSettings != null)
         {
             _ccSettings.OnHomeButtonClicked -= HandleToHome;
+        }
+
+        if (_ccCredit != null)
+        {
+            _ccCredit.OnCloseButtonClicked -= HandlePopCanvas;
         }
     }
 }

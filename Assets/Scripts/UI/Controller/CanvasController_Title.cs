@@ -16,6 +16,12 @@ public class CanvasController_Title : WindowBase
         if(_startButton != null) _startButton.onClick.AddListener(GameStart);
         return base.OnAwake();
     }
+
+    public override UniTask OnUIInitialize()
+    {
+        AnimationUtility.Expand(_startButton.transform, 2f);
+        return base.OnUIInitialize();
+    }
     
     /// <summary>
     /// ゲーム開始→ホーム画面に遷移するボタン

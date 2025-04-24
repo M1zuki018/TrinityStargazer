@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _modeData:
   - _gameMode: 0
-    _gameModeName: 
+    _gameModeName: "\u661F\u5EA7\u306E\u5C0E\u304D"
     _maxTurn: 5
-  - _gameMode: 0
-    _gameModeName: 
-    _maxTurn: 8
+  - _gameMode: 1
+    _gameModeName: "\u6D41\u661F\u306E\u77AC\u304D"
+    _maxTurn: 3
   - _gameMode: 0
     _gameModeName: 
     _maxTurn: 0

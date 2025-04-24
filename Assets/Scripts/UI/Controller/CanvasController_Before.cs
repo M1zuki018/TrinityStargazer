@@ -14,6 +14,7 @@ public class CanvasController_Before : WindowBase
     [SerializeField] private Button _chatButton;
     [SerializeField] private Text _turnText;
     [SerializeField] private ResultMark _resultMark;
+    [SerializeField] private Text _modeText;
     
     public event Action OnPauseButtonClicked;
     public event Action OnBattleButtonClicked;
@@ -26,6 +27,8 @@ public class CanvasController_Before : WindowBase
         if (_battleButton != null) _battleButton.onClick.AddListener(OnBattleButtonClick);
         if (_itemSelectButton != null) _itemSelectButton.onClick.AddListener(OnItemSelectButtonClick);
         if (_chatButton != null) _chatButton.onClick.AddListener(OnChatButtonClick);
+        
+        SetModeText();
         
         return base.OnUIInitialize();
     }
@@ -59,6 +62,11 @@ public class CanvasController_Before : WindowBase
     /// 勝敗の表示を更新する
     /// </summary>
     public void SetResultMark(int turn, bool isVictory) => _resultMark.MarkUpdate(turn, isVictory);
+    
+    /// <summary>
+    /// 対戦モードの表示を更新する
+    /// </summary>
+    private void SetModeText() => _modeText.text = $"対戦モード　{GameManager.Instance.GetGameModeData().GameModeName}";
 
     private void OnDestroy()
     {

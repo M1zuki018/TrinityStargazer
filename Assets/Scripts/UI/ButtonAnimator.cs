@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using UnityEngine.UI;
 
 /// <summary>
 /// ボタンアニメーション用のクラス
@@ -10,16 +11,27 @@ public class ButtonAnimator : ViewBase, IPointerEnterHandler, IPointerExitHandle
 {
     private Tween _pulseTween;
     private Vector3 _originalScale;
-    private float _pulseDuration = 1.0f;
+    private float _pulseDuration = 3.0f;
     private float _pulseMagnitude = 1.05f;
+    private Text _text;
 
     public override UniTask OnStart()
     {
         _originalScale = transform.localScale;
+        _text = GetComponentInChildren<Text>();
         StartPulseAnimation();
+        TextAnimation();
         return base.OnStart();
     }
 
+    private void TextAnimation()
+    {
+        // ボタンテキストの光るアニメーション
+        _text.DOColor(new Color(1f, 1f, 1f, 0.8f), 1.2f)
+            .SetEase(Ease.InOutQuad)
+            .SetLoops(-1, LoopType.Yoyo);
+    }
+    
     /// <summary>
     /// アニメーションを開始する処理
     /// </summary>

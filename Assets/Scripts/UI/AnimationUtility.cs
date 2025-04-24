@@ -13,4 +13,12 @@ public static class AnimationUtility
     {
         return transform.DOScale(mag, duration).SetLoops(-1, LoopType.Yoyo);
     }
+
+    /// <summary>
+    /// フェード処理
+    /// </summary>
+    public static void Fade(CanvasGroup canvasGroup, float duration = 1.0f, float alpha = 1.0f)
+    {
+        canvasGroup.DOFade(alpha, duration);
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class SmartPhone : ItemBase
 {
-    public SmartPhone(RarityEnum rarity)
+    public SmartPhone(RarityEnum rarity) : base(rarity, ItemTypeEnum.SealPage)
     {
         Name = "スマートフォン";
         Rarity = rarity;

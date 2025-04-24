@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class ResonanceLight : ItemBase
 {
-    public ResonanceLight(RarityEnum rarity)
+    public ResonanceLight(RarityEnum rarity) : base(rarity, ItemTypeEnum.SealPage)
     {
         Name = "";
         Rarity = rarity;

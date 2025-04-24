@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class StarAttraction : ItemBase
 {
-    public StarAttraction(RarityEnum rarity)
+    public StarAttraction(RarityEnum rarity) : base(rarity, ItemTypeEnum.SealPage)
     {
         Name = "";
         Rarity = rarity;

@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class CelestialForecast : ItemBase
 {
-    public CelestialForecast(RarityEnum rarity)
+    public CelestialForecast(RarityEnum rarity) : base(rarity, ItemTypeEnum.SealPage)
     {
         Name = "";
         Rarity = rarity;

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -5,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class ReverseBroom : ItemBase
 {
-    public ReverseBroom(RarityEnum rarity)
+    public ReverseBroom(RarityEnum rarity) : base(rarity, ItemTypeEnum.SealPage)
     {
         Name = "";
         Rarity = rarity;
@@ -14,5 +15,12 @@ public class ReverseBroom : ItemBase
     public override void Use()
     {
         throw new System.NotImplementedException();
+    }
+    
+    /// <summary>
+    /// 効果を設定する
+    /// </summary>
+    private void EffectSetting(RarityEnum rarity)
+    {
     }
 }

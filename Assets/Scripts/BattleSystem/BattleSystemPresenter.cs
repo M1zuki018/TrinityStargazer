@@ -23,15 +23,19 @@ public class BattleSystemPresenter : ViewBase
     
     public override UniTask OnAwake()
     {
-        _battleSystemManager = new BattleSystemManager(_seiImage, _playerHandImage);
+        IDirectionDecider directionDecider = new DirectionDecider();
+        IBattleJudge battleJudge = new BattleJudge();
+        IVisualUpdater visualUpdater = new VisualUpdater(_seiImage, _playerHandImage);
+        
+        _battleSystemManager = new BattleSystemManager(directionDecider, battleJudge, visualUpdater);
         _turnManager = new TurnManager();
         return base.OnAwake();
     }
     
     public override UniTask OnBind()
     {
-        _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat; // 方向決定ボタンを押したタイミングで呼ばれる処理
-        _ccAfter.OnNextButtonClicked += HandleNextTurn; // 次のターンに進むタイミングで処理を行うもの
+        _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat;
+        _ccAfter.OnNextButtonClicked += HandleNextTurn;
         _turnManager.OnGameFinished += TurnManagerOnOnGameFinished;
         return base.OnBind();
     }
@@ -47,7 +51,7 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     private void InitializeUI()
     {
-        _ccBefore.SetTurnText(_turnManager.TurnText()); // ターンテキストの初期化
+        _ccBefore.SetTurnText(_turnManager.TurnText());
     }
 
     private void TurnManagerOnOnGameFinished() => OnBattleEnded?.Invoke();
@@ -57,7 +61,7 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     private void HandleVictoryOrDefeat(DirectionEnum direction)
     {
-        _battleSystemManager.SetSprite(direction);
+        _battleSystemManager.ExecuteBattle(direction);
         _ccAfter.SetText(_battleSystemManager.IsVictory);
         _ccBefore.SetResultMark(_turnManager.CurrentTurn - 1, _battleSystemManager.IsVictory);
     }
@@ -67,19 +71,9 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     private void HandleNextTurn()
     {
-        _turnManager.NextTurn(); // ターンのカウントを進める
-        _battleSystemManager.ResetDirectionProbabilities();　// 相手がどの方向を向くか、確率をリセットする
-        ResetSprite();
-        _ccBefore.SetTurnText(_turnManager.TurnText()); // ターンテキストの更新
-    }
-
-    /// <summary>
-    /// キャラクターのスプライトをデフォルトに戻す
-    /// </summary>
-    private void ResetSprite()
-    {
-        _seiImage.ResetSprite();
-        _playerHandImage.ResetSprite();
+        _turnManager.NextTurn();
+        _battleSystemManager.ResetBattle();
+        _ccBefore.SetTurnText(_turnManager.TurnText());
     }
 
     private void OnDestroy()

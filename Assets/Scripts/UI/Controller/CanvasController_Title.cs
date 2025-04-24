@@ -26,4 +26,10 @@ public class CanvasController_Title : WindowBase
     {
         if(_startButton != null) _startButton.onClick?.RemoveAllListeners();
     }
+
+    public override void Show()
+    {
+        GlobalFadePanel.RequestFadeIn(2.0f);
+        base.Show();
+    }
 }

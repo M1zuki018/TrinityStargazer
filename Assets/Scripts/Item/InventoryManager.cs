@@ -45,6 +45,13 @@ public class InventoryManager : ViewBase
         // TODO: 特別な設定があればここで上書きする
     }
 
+    [ContextMenu("ItemUse")]
+    private void ItemUseTest()
+    {
+        AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
+        UseItem(ItemTypeEnum.SealPage, RarityEnum.C);
+    }
+
     /// <summary>
     /// Inventoryにアイテムを追加する
     /// </summary>
@@ -63,6 +70,7 @@ public class InventoryManager : ViewBase
         }
         
         _inventory[(itemType, rarity)] += amount;
+        Debug.Log("Add");
         
         return true;
     }
@@ -89,6 +97,7 @@ public class InventoryManager : ViewBase
         
         // イベント発火
         OnInventoryChanged?.Invoke(itemType, rarity, _inventory[(itemType, rarity)]);
+        Debug.Log("Use");
         
         return true;
     }

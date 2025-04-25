@@ -14,6 +14,7 @@ public abstract class ItemBase
     {
         Rarity = rarity;
         Type = type;
+        InventoryManager.Instance.AddItem(type, rarity);
     }
     
     public virtual void Use(IItemManager itemManager)

@@ -3,7 +3,6 @@
 /// </summary>
 public interface IGameManager
 {
-    static IGameManager Instance { get; }
     bool IsFirstLoad { get; }
     void SetGameMode(GameModeEnum mode);
     

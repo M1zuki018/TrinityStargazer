@@ -34,7 +34,7 @@ public class MainSceneUIManager : SceneUIManagerBase
     public override UniTask OnStart()
     {
         // 最初の読み込みではなければすぐにホーム画面に遷移する
-        if (!IGameManager.Instance.IsFirstLoad)
+        if (!GameManagerServiceLocator.Instance.IsFirstLoad)
         {
             _defaultCanvasIndex = HOME_SCREEN_INDEX;
         }

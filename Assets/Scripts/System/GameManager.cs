@@ -2,31 +2,30 @@ using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
+/// <summary>
+/// ゲームマネージャー
+/// </summary>
 public class GameManager : ViewBase, IGameManager
 {
     public static IGameManager Instance { get; private set; }
 
     [SerializeField][ExpandableSO] private GameModeSO _modeSO;
     [SerializeField] private GameModeEnum _currentGameMode = GameModeEnum.Normal;
-    
     private ReactiveProperty<GameStateEnum> _currentGameState = new ReactiveProperty<GameStateEnum>(GameStateEnum.Title);
-    
-    /// <summary>
-    /// 最初の読み込みかどうか（タイトル画面を表示するかどうかを決める）
-    /// </summary>
-    [SerializeField] private bool _isFirstLoad = true;
+    private bool _isFirstLoad = true; // 最初の読み込みかどうか
     public bool IsFirstLoad => _isFirstLoad;
     
     public override UniTask OnAwake()
     {
-        if (Instance != null && Instance != this)
+        // 既に別のインスタンスが存在する場合、このオブジェクトを破棄
+        if (GameManagerServiceLocator.IsInitialized() && GameManagerServiceLocator.Instance != this)
         {
-            // 既に別のインスタンスが存在する場合、このオブジェクトを破棄
             Destroy(gameObject);
             return base.OnAwake();
         }
         
-        Instance = this;
+        // サービスロケーターに自身を登録
+        GameManagerServiceLocator.SetInstance(this);
         DontDestroyOnLoad(gameObject);
         
         _currentGameState
@@ -59,4 +58,13 @@ public class GameManager : ViewBase, IGameManager
     /// 現在選択中のモードのデータを取得する
     /// </summary>
     public ModeData GetGameModeData() => _modeSO.GetModeData(_currentGameMode);
+    
+    private void OnDestroy()
+    {
+        // 自身がインスタンスとして登録されている場合のみリセット
+        if (GameManagerServiceLocator.Instance == this)
+        {
+            GameManagerServiceLocator.Reset();
+        }
+    }
 }

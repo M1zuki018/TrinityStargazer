@@ -60,7 +60,7 @@ public abstract class SceneUIManagerBase : ViewBase
         _canvasObjects[index]?.Show();
         
         _currentCanvasIndex = index; // 現在のインデックスを更新
-        IGameManager.Instance.SetGameState((GameStateEnum)index); // ゲームの状態を更新
+        GameManagerServiceLocator.Instance.SetGameState((GameStateEnum)index); // ゲームの状態を更新
         OnAfterCanvasChange?.Invoke(_currentCanvasIndex); // 切り替え後イベント発火
     }
     
@@ -97,7 +97,7 @@ public abstract class SceneUIManagerBase : ViewBase
         
         _canvasStack.Push(index); // スタックに新しいインデックスをプッシュ
         _currentCanvasIndex = index; // 現在のインデックスを更新
-        IGameManager.Instance.SetGameState((GameStateEnum)index); // ゲームの状態を更新
+        GameManagerServiceLocator.Instance.SetGameState((GameStateEnum)index); // ゲームの状態を更新
         OnAfterCanvasChange?.Invoke(_currentCanvasIndex); // 切り替え後イベント発火
     }
 
@@ -122,7 +122,7 @@ public abstract class SceneUIManagerBase : ViewBase
         _canvasObjects[previousIndex]?.Unblock();　// 一つ前の画面のブロックを解除
         
         _currentCanvasIndex = previousIndex; // 現在のインデックスを更新
-        IGameManager.Instance.SetGameState((GameStateEnum)previousIndex); // ゲームの状態を更新
+        GameManagerServiceLocator.Instance.SetGameState((GameStateEnum)previousIndex); // ゲームの状態を更新
         OnAfterCanvasChange?.Invoke(_currentCanvasIndex); // 切り替え後イベント発火
     }
     
@@ -155,7 +155,7 @@ public abstract class SceneUIManagerBase : ViewBase
         _canvasObjects[targetIndex]?.Unblock();
         
         _currentCanvasIndex = targetIndex; // 現在のインデックスを更新
-        IGameManager.Instance.SetGameState((GameStateEnum)targetIndex); // ゲームの状態を更新
+        GameManagerServiceLocator.Instance.SetGameState((GameStateEnum)targetIndex); // ゲームの状態を更新
         OnAfterCanvasChange?.Invoke(_currentCanvasIndex); // 切り替え後イベント発火
     }
     

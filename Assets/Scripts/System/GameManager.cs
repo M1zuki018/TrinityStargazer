@@ -2,9 +2,9 @@ using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
-public class GameManager : ViewBase
+public class GameManager : ViewBase, IGameManager
 {
-    public static GameManager Instance { get; private set; }
+    public static IGameManager Instance { get; private set; }
 
     [SerializeField][ExpandableSO] private GameModeSO _modeSO;
     [SerializeField] private GameModeEnum _currentGameMode = GameModeEnum.Normal;

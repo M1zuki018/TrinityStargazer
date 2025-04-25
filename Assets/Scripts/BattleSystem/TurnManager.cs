@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class TurnManager
 {
-    private readonly int _maxTurn = GameManager.Instance.GetGameModeData().MaxTurn;
+    private readonly int _maxTurn = IGameManager.Instance.GetGameModeData().MaxTurn;
     private int _currentTurn = 1;
     public int CurrentTurn => _currentTurn;
     public event Action OnGameFinished; // 最大ターンに到達したことを通知する

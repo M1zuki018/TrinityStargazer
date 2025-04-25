@@ -43,7 +43,7 @@ public class CanvasController_ModeSelect : WindowBase
     /// </summary>
     private void SelectGameMode(GameModeEnum mode)
     {
-        GameManager.Instance.SetGameMode(mode);
+        IGameManager.Instance.SetGameMode(mode);
         OnGameModeButtonClicked?.Invoke();
     }
 

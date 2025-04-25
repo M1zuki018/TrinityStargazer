@@ -66,7 +66,7 @@ public class CanvasController_Before : WindowBase
     /// <summary>
     /// 対戦モードの表示を更新する
     /// </summary>
-    private void SetModeText() => _modeText.text = $"対戦モード　{GameManager.Instance.GetGameModeData().GameModeName}";
+    private void SetModeText() => _modeText.text = $"対戦モード　{IGameManager.Instance.GetGameModeData().GameModeName}";
 
     private void OnDestroy()
     {

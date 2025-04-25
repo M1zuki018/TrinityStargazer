@@ -14,7 +14,7 @@ public class ResultMark : ViewBase
     
     public override UniTask OnUIInitialize()
     {
-        int maxTurn = GameManager.Instance.GetGameModeData().MaxTurn;
+        int maxTurn = IGameManager.Instance.GetGameModeData().MaxTurn;
         for (int i = 0; i < maxTurn; i++)
         {
             // 子オブジェクトにマークを生成（LayoutGroupがついているので自動整列）

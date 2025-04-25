@@ -49,18 +49,13 @@ public class BattleSystemPresenter : ViewBase
     }
 
     [ContextMenu("アイテムテスト")]
-    public bool UseSealPage(RarityEnum rarity)
+    public void UseSealPage()
     {
-        // 1. まずInventoryからアイテムを消費できるか確認
-        if (InventoryManager.Instance.UseItem(ItemTypeEnum.SealPage, rarity))
+        if (InventoryManager.Instance.UseItem(_itemManager, ItemTypeEnum.SealPage, RarityEnum.C))
         {
-            // 2. 消費できたら戦闘効果を適用
-            var sealPage = new SealPage(rarity);
-            sealPage.Use(_itemManager);
-            return true;
+            return;
         }
-        // 在庫不足などの理由で使用できない
-        return false;
+        return; // 在庫不足などの理由で使用できない
     }
     
     /// <summary>

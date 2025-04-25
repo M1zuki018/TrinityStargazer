@@ -9,6 +9,7 @@ using UnityEngine;
 public class InventoryManager : ViewBase
 {
     public static InventoryManager Instance;
+    private ItemFactory _itemFactory = new ItemFactory(); // アイテムのインスタンス生成Factory
     
     // (アイテムの種類, レアリティ) 個数のkvp
     private Dictionary<(ItemTypeEnum, RarityEnum), int> _inventory = new Dictionary<(ItemTypeEnum, RarityEnum), int>();
@@ -44,15 +45,9 @@ public class InventoryManager : ViewBase
         }
         // TODO: 特別な設定があればここで上書きする
     }
-
-    [ContextMenu("ItemUse")]
-    private void ItemUseTest()
-    {
-        UseItem(ItemTypeEnum.SealPage, RarityEnum.C);
-    }
-
+    
     /// <summary>
-    /// Inventoryにアイテムを追加する
+    /// Inventoryにアイテムを追加する(この時点ではまだアイテムのインスタンスは生成されない)
     /// </summary>
     public bool AddItem(ItemTypeEnum itemType, RarityEnum rarity, int amount = 1)
     {
@@ -77,25 +72,24 @@ public class InventoryManager : ViewBase
     /// <summary>
     /// Inventoryからアイテムを使う
     /// </summary>
-    public bool UseItem(ItemTypeEnum itemType, RarityEnum rarity, int amount = 1)
+    public bool UseItem(IItemManager itemManager, ItemTypeEnum itemType, RarityEnum rarity, int amount = 1)
     {
-        // キーが存在しない場合は追加
-        if (!_inventory.ContainsKey((itemType, rarity)))
+        // 在庫チェック
+        if (!_inventory.ContainsKey((itemType, rarity)) || _inventory[(itemType, rarity)] < amount)
         {
-            _inventory[(itemType, rarity)] = 0;
+            Debug.LogWarning($"{itemType}(レアリティ{rarity})の在庫が足りません。必要:{amount}, 所持:{GetItemCount(itemType, rarity)}");
             return false;
         }
-        
-        if (_inventory[(itemType, rarity)] < amount)
+
+        // アイテム効果を発動する処理
+        for (int i = 0; i < amount; i++)
         {
-            Debug.LogWarning($"{itemType}(レアリティ{rarity})の在庫が足りません。必要:{amount}, 所持:{_inventory[(itemType, rarity)]}");
-            return false;
+            ItemBase item = _itemFactory.CreateItem(itemType, rarity);
+            item.Use(itemManager);
+            _inventory[(itemType, rarity)] -= amount;
+            OnInventoryChanged?.Invoke(itemType, rarity, _inventory[(itemType, rarity)]);
+            Debug.Log($"[Inventory] アイテムが使用されました {itemType}(レアリティ{rarity})");
         }
-        
-        _inventory[(itemType, rarity)] -= amount;
-        
-        //TODO: ここでItemBaseクラスのUse()を呼びたい
-        Debug.Log("Use");
         
         return true;
     }

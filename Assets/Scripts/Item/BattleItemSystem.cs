@@ -51,6 +51,6 @@ public class BattleItemSystem : IItemManager
     
     public List<DirectionEnum> ShowDirectionSelectionUI(int count)
     {
-        throw new NotImplementedException();
+        return null;
     }
 }

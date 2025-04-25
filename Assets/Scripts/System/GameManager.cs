@@ -13,8 +13,6 @@ public class GameManager : ViewBase, IGameManager
     private bool _isFirstLoad = true; // 最初の読み込みかどうか
     public bool IsFirstLoad => _isFirstLoad;
     
-    private ItemFactory _itemFactory = new ItemFactory();
-    
     public override UniTask OnAwake()
     {
         // 既に別のインスタンスが存在する場合、このオブジェクトを破棄
@@ -47,9 +45,9 @@ public class GameManager : ViewBase, IGameManager
     [ContextMenu("アイテムテスト")]
     public void ItemTest()
     {
-        _itemFactory.CreateItem(ItemTypeEnum.SealPage, RarityEnum.C);
-        _itemFactory.CreateItem(ItemTypeEnum.SealPage, RarityEnum.C);
-        _itemFactory.CreateItem(ItemTypeEnum.SealPage, RarityEnum.C);
+        InventoryManager.Instance.AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
+        InventoryManager.Instance.AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
+        InventoryManager.Instance.AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
     }
     
     /// <summary>

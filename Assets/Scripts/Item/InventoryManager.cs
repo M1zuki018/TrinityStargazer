@@ -94,8 +94,7 @@ public class InventoryManager : ViewBase
         
         _inventory[(itemType, rarity)] -= amount;
         
-        // イベント発火
-        OnInventoryChanged?.Invoke(itemType, rarity, _inventory[(itemType, rarity)]);
+        //TODO: ここでItemBaseクラスのUse()を呼びたい
         Debug.Log("Use");
         
         return true;

@@ -48,7 +48,6 @@ public class InventoryManager : ViewBase
     [ContextMenu("ItemUse")]
     private void ItemUseTest()
     {
-        AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
         UseItem(ItemTypeEnum.SealPage, RarityEnum.C);
     }
 
@@ -70,7 +69,7 @@ public class InventoryManager : ViewBase
         }
         
         _inventory[(itemType, rarity)] += amount;
-        Debug.Log("Add");
+        Debug.Log($"[Inventory] アイテムが追加されました {itemType}(レアリティ{rarity})");
         
         return true;
     }

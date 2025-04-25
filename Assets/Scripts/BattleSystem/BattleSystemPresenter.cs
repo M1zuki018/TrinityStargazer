@@ -27,8 +27,8 @@ public class BattleSystemPresenter : ViewBase
         IDirectionDecider directionDecider = new DirectionDecider();
         IBattleJudge battleJudge = new BattleJudge();
         IVisualUpdater visualUpdater = new VisualUpdater(_seiImage, _playerHandImage);
-        
-        _itemManager = new ItemManager();
+
+        _itemManager = new BattleItemSystem();
         _battleSystemManager = new BattleSystemManager(directionDecider, battleJudge, visualUpdater, _itemManager);
         _turnManager = new TurnManager();
         return base.OnAwake();

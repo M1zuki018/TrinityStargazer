@@ -4,7 +4,7 @@ using System.Collections.Generic;
 /// <summary>
 /// バトルに関わるアイテム効果を管理するためのクラス
 /// </summary>
-public class ItemManager : IItemManager
+public class BattleItemSystem : IItemManager
 {
     private List<ActiveEffect> _activeItems = new List<ActiveEffect>(); // 効果発動中のアイテムのリスト
     private IItemManager _itemManagerImplementation;

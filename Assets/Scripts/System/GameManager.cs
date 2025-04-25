@@ -7,8 +7,6 @@ using UnityEngine;
 /// </summary>
 public class GameManager : ViewBase, IGameManager
 {
-    public static IGameManager Instance { get; private set; }
-
     [SerializeField][ExpandableSO] private GameModeSO _modeSO;
     [SerializeField] private GameModeEnum _currentGameMode = GameModeEnum.Normal;
     private ReactiveProperty<GameStateEnum> _currentGameState = new ReactiveProperty<GameStateEnum>(GameStateEnum.Title);

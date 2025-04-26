@@ -9,6 +9,7 @@ public class BattleSystemManager
     private readonly IBattleMediator _mediator; // バトルに必要な機能が入ったインターフェースなどはこのクラスで管理
     public IBattleMediator Mediator => _mediator;
     public bool IsVictory { get; private set; }
+    private bool _isWinLastBattle; // 前回のバトルで勝利したか
     private int _victoryCount;
     private int _getWinPoint = 1;
     
@@ -41,7 +42,12 @@ public class BattleSystemManager
         if (IsVictory)
         {
             _victoryCount += _getWinPoint;
+            _isWinLastBattle = true;
             OnVictoryCountChanged?.Invoke(_victoryCount);
+        }
+        else
+        {
+            _isWinLastBattle = false;
         }
     }
 
@@ -49,6 +55,19 @@ public class BattleSystemManager
     /// 勝利した時に得られるポイント数を変更する
     /// </summary>
     public void SetGetWinPoint(int getWinPoint) => _getWinPoint = getWinPoint;
+
+    /// <summary>
+    /// ターン巻き戻し処理
+    /// </summary>
+    public void BackTurn()
+    {
+        // 前回のバトルで勝っていた場合は勝利数を変更する処理を行う
+        if (_isWinLastBattle)
+        {
+            _victoryCount -= _getWinPoint;
+            OnVictoryCountChanged?.Invoke(_victoryCount);
+        }
+    }
     
     /// <summary>
     /// バトルの初期化

@@ -33,4 +33,12 @@ public class ResultMark : ViewBase
     {
         _marks[turn].color = isVictory ? Color.red : Color.blue;
     }
+
+    /// <summary>
+    /// マークの色をリセットする
+    /// </summary>
+    public void ResetMark(int turn)
+    {
+        _marks[turn].color = _defalutColor;
+    }
 }

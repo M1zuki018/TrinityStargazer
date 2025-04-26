@@ -140,6 +140,18 @@ public class BattleSystemPresenter : ViewBase
     }
 
     /// <summary>
+    /// アイテム：逆行のほうきを使ったときに1ターン巻き戻すための処理
+    /// （現状アイテム効果のリセット・経過ターン数のリセットは行っていない）
+    /// </summary>
+    public void UseReverseBroom()
+    {
+        _turnManager.BackTurn();
+        _ccBefore.SetTurnText(_turnManager.TurnText());
+        _battleSystemManager.BackTurn();
+        _ccBefore.ResetResultMark(_turnManager.CurrentTurn - 1); // CurrentTurnは1オリジンなので、indexとして扱うために-1する
+    }
+
+    /// <summary>
     /// 次のターンに移行するときに必要な処理
     /// </summary>
     private void HandleNextTurn()

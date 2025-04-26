@@ -62,6 +62,11 @@ public class CanvasController_Before : WindowBase
     /// 勝敗の表示を更新する
     /// </summary>
     public void SetResultMark(int turn, bool isVictory) => _resultMark.MarkUpdate(turn, isVictory);
+
+    /// <summary>
+    /// 指定した勝敗の表示をリセットする
+    /// </summary>
+    public void ResetResultMark(int turn) => _resultMark.ResetMark(turn);
     
     /// <summary>
     /// 対戦モードの表示を更新する

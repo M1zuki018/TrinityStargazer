@@ -25,6 +25,17 @@ public class TurnManager
     }
 
     /// <summary>
+    /// ターンを一つ戻す
+    /// </summary>
+    public void BackTurn()
+    {
+        if (_currentTurn > 1) // 0ターンにはならないようにする
+        {
+            _currentTurn--;
+        }
+    }
+
+    /// <summary>
     /// 残りのターンを飛ばしてゲーム終了イベントを発火
     /// </summary>
     public void GameFinished()

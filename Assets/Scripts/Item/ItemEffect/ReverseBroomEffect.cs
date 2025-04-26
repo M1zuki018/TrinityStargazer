@@ -1,27 +1,27 @@
-using UnityEngine;
-
 /// <summary>
 /// 逆行のほうきの効果データ
 /// </summary>
 public class ReverseBroomEffect : IItemEffect
 {
+    private int _remainingTurns = 1; // 効果持続時間 = 1ターン
+    
     public void Apply(IBattleMediator mediator)
     {
-        throw new System.NotImplementedException();
+        mediator.BattleSystemPresenter.UseReverseBroom();
     }
 
     public void Remove(IBattleMediator mediator)
     {
-        throw new System.NotImplementedException();
+        // 特に処理はない
     }
 
     public bool IsExpired()
     {
-        throw new System.NotImplementedException();
+        return _remainingTurns <= 0;
     }
 
     public void UpdateTurn()
     {
-        throw new System.NotImplementedException();
+        _remainingTurns--;
     }
 }

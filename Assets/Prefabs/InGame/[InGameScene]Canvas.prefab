@@ -2013,6 +2013,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96837313b90a4446b537fb90ea9f028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _closeButton: {fileID: 3151681463012976653}
+  _testItemButton: {fileID: 8204768662990934261}
 --- !u!1 &3061339466336627349
 GameObject:
   m_ObjectHideFlags: 0

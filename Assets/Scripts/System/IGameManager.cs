@@ -9,4 +9,5 @@ public interface IGameManager
     void SetGameState(GameStateEnum gameState);
     
     ModeData GetGameModeData();
+    void ItemTest();
 }

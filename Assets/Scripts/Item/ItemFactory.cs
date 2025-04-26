@@ -20,8 +20,8 @@ public class ItemFactory
                 return new CelestialForecast(rarity);
             case ItemTypeEnum.SmartPhone:
                 return new SmartPhone(rarity);
-            case ItemTypeEnum.ResonanceLight:
-                return new ResonanceLight(rarity);
+            case ItemTypeEnum.ResonanceCable:
+                return new ResonanceCable(rarity);
             case ItemTypeEnum.ChallengeRose:
                 return new ChallengeRose(rarity);
             case ItemTypeEnum.StarAttraction:

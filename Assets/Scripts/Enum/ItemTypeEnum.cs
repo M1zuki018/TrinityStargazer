@@ -7,7 +7,7 @@ public enum ItemTypeEnum
     ReverseBroom,     // 逆行のほうき
     CelestialForecast,// 星の予測盤
     SmartPhone,       // スマートフォン
-    ResonanceLight,   // 共鳴ライト
+    ResonanceCable,   // 共鳴ケーブル
     ChallengeRose,    // 決闘の薔薇
     StarAttraction    // とっておき
 }

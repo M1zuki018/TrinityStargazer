@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// 「封印のページ/SealPage」：指定した○方向を○ターンの間使用禁止にする（禁止方向に✕マーク）
@@ -16,23 +15,22 @@ public class SealPage : ItemBase
         { RarityEnum.SR,  (limit: 2, effectiveTurns: 3) },
         { RarityEnum.SSR, (limit: 2, effectiveTurns: 4) }
     };
-    
-    public int LimitCount { get; private set; }
-    public int EffectiveTurns { get; private set; }
+
+    private int _limitCount;
+    private int _effectiveTurns;
     
     public SealPage(RarityEnum rarity) : base(rarity, ItemTypeEnum.SealPage)
     {
         Name = "封印のページ";
         EffectSetting(rarity);
-        Description = $"{LimitCount}方向を{EffectiveTurns}ターンの間使用禁止にします";
+        Description = $"{_limitCount}方向を{_effectiveTurns}ターンの間使用禁止にします";
     }
     
     public override IItemEffect CreateEffect()
     {
-        // 方向選択UIを表示
-        //TODO: List<DirectionEnum> selectedDirections = battleMediator.ShowDirectionSelectionUI(LimitCount);
+        //TODO: _limitCountの数だけ方向を生成するように修正する（既に発動中のものと被らないようにしたい）
         var selectedDirections = new List<DirectionEnum> { DirectionEnum.Up, DirectionEnum.Down };
-        return new SealPageEffect(selectedDirections, EffectiveTurns);
+        return new SealPageEffect(selectedDirections, _effectiveTurns);
     }
 
     /// <summary>
@@ -45,6 +43,6 @@ public class SealPage : ItemBase
             throw new ArgumentException($"未知のレアリティです: {rarity}");
         }
         
-        (LimitCount, EffectiveTurns) = effects;
+        (_limitCount, _effectiveTurns) = effects;
     }
 }

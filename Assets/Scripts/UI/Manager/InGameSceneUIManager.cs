@@ -135,6 +135,11 @@ public class InGameSceneUIManager : SceneUIManagerBase
             _ccBefore.OnChatButtonClicked += HandleChat;
         }
 
+        if (_ccItemSelect != null)
+        {
+            _ccItemSelect.OnCloseButtonClicked += HandleResume;
+        }
+
         if (_ccPause != null)
         {
             _ccPause.OnResumeButtonClicked += HandleResume;
@@ -188,7 +193,7 @@ public class InGameSceneUIManager : SceneUIManagerBase
     private void HandlePause() => PushCanvas(PAUSE_SCREEN_INDEX);
 
     /// <summary>
-    /// ポーズ画面を閉じる
+    /// オーバーレイパネルを閉じる
     /// </summary>
     private void HandleResume() => PopCanvas();
     

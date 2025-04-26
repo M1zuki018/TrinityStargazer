@@ -11,6 +11,7 @@ public class BattleSystemPresenter : ViewBase
     [SerializeField] private CanvasController_Before _ccBefore;
     [SerializeField] private CanvasController_Direction _ccDirection;
     [SerializeField] private CanvasController_After _ccAfter;
+    [SerializeField] private CanvasController_ItemSelect _ccItemSelect;
     
     [Header("その他のUI")]
     [SerializeField] private DirectionalImages _seiImage;
@@ -37,6 +38,7 @@ public class BattleSystemPresenter : ViewBase
     {
         _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat;
         _ccAfter.OnNextButtonClicked += HandleNextTurn;
+        _ccItemSelect.OnTestItemClicked += UseItem;
         _turnManager.OnGameFinished += TurnManagerOnOnGameFinished;
         return base.OnBind();
     }
@@ -47,15 +49,13 @@ public class BattleSystemPresenter : ViewBase
         return base.OnStart();
     }
 
-    [ContextMenu("アイテムテスト")]
-    public void UseSealPage()
+    /// <summary>
+    /// アイテムを使用する
+    /// </summary>
+    private void UseItem(ItemTypeEnum itemType, RarityEnum rarity, int count)
     {
         _battleMediator = _battleSystemManager.Mediator;
-        if (InventoryManager.Instance.UseItem(_battleMediator, ItemTypeEnum.SealPage, RarityEnum.C))
-        {
-            return;
-        }
-        return; // 在庫不足などの理由で使用できない
+        InventoryManager.Instance.UseItem(_battleMediator, itemType, rarity, count);
     }
     
     /// <summary>

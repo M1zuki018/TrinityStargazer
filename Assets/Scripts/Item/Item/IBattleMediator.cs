@@ -6,6 +6,7 @@ public interface IBattleMediator
     IDirectionDecider DirectionDecider { get; }
     IBattleJudge BattleJudge { get; }
     IVisualUpdater VisualUpdater { get; }
+    BattleSystemPresenter BattleSystemPresenter { get; }
     
     void RegisterEffect(IItemEffect effect);
     void RemoveEffect(IItemEffect effect);

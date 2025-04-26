@@ -35,7 +35,7 @@ public class BattleSystemPresenter : ViewBase
         _battleJudge = new BattleJudge();
         _visualUpdater = new VisualUpdater(_seiImage, _playerHandImage, _ccDirection.DirectionButtons);
 
-        _battleSystemManager = new BattleSystemManager(_directionDecider, _battleJudge, _visualUpdater);
+        _battleSystemManager = new BattleSystemManager(_directionDecider, _battleJudge, _visualUpdater, this);
         _turnManager = new TurnManager();
         return base.OnAwake();
     }
@@ -96,7 +96,7 @@ public class BattleSystemPresenter : ViewBase
     /// <summary>
     /// 勝敗を管理するメソッド
     /// </summary>
-    private void HandleVictoryOrDefeat(DirectionEnum direction)
+    public void HandleVictoryOrDefeat(DirectionEnum direction)
     {
         _battleSystemManager.ExecuteBattle(direction, _enemyDirection);
         _ccAfter.SetText(_battleSystemManager.IsVictory);

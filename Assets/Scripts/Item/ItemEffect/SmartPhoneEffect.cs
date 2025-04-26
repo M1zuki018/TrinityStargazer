@@ -1,11 +1,16 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// スマートフォンの効果データ
 /// </summary>
 public class SmartPhoneEffect : IItemEffect
 {
+    private int _remainingTurns = 1; // 効果持続時間 = 1ターン
     private int _accuracyRate;
+    private IBattleMediator _mediator;
+    private DirectionEnum _effectDirection;
 
     public SmartPhoneEffect(int accuracyRate)
     {
@@ -14,21 +19,73 @@ public class SmartPhoneEffect : IItemEffect
     
     public void Apply(IBattleMediator mediator)
     {
-        throw new System.NotImplementedException();
+        Debug.Log($"[スマートフォン] やあマキくん。");
+        _mediator = mediator;
+        _mediator.DirectionDecider.OnEnemyDirectionChanged += HandleCallKhalil;
+    }
+
+    /// <summary>
+    /// アイテム効果の具体的な処理
+    /// 方向決定に入ったタイミングで呼び出されて、バトルを自動進行する
+    /// </summary>
+    private void HandleCallKhalil(DirectionEnum enemyDirection)
+    {
+        if (ShouldPredictCorrectly())
+        {
+            // 乱数が的中率以下の場合は成功判定。正しい予測でUIを更新する
+            _effectDirection = enemyDirection;
+            Debug.Log($"[スマートフォン] 予測成功");
+        }
+        else
+        {
+            _effectDirection = GenerateRandomIncorrectDirection();
+            Debug.Log($"[スマートフォン] 予測失敗");
+        }
+        
+        _mediator.BattleSystemPresenter.HandleVictoryOrDefeat(_effectDirection); // 勝敗判定まで進める
+    }
+    
+    /// <summary>
+    /// 正しく予測を出すべきか処理を行う
+    /// </summary>
+    private bool ShouldPredictCorrectly()
+    {
+        return Random.Range(0, 100) <= _accuracyRate;
+    }
+    
+    /// <summary>
+    /// 予測失敗時に提示する方向を返す
+    /// </summary>
+    private DirectionEnum GenerateRandomIncorrectDirection()
+    {
+        int directionCount = Enum.GetValues(typeof(DirectionEnum)).Length;
+        int randomIndex = Random.Range(0, directionCount - 1);
+        
+        // 正しい方向と同じになった場合は別の方向に変更する
+        if (randomIndex >= (int)_effectDirection)
+        {
+            randomIndex++;
+            if (randomIndex >= directionCount) // 範囲を超えた場合は0に戻す
+            {
+                randomIndex = 0;
+            }
+        }
+
+        return (DirectionEnum)randomIndex;
     }
 
     public void Remove(IBattleMediator mediator)
     {
-        throw new System.NotImplementedException();
+        _mediator.DirectionDecider.OnEnemyDirectionChanged -= HandleCallKhalil;
     }
 
     public bool IsExpired()
     {
-        throw new System.NotImplementedException();
+        return _remainingTurns <= 0;
     }
 
     public void UpdateTurn()
     {
-        throw new System.NotImplementedException();
+        _remainingTurns--;
     }
 }

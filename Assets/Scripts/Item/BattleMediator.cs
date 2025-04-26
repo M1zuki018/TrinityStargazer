@@ -11,16 +11,20 @@ public class BattleMediator : IBattleMediator
     public IBattleJudge BattleJudge { get; }
     public IVisualUpdater VisualUpdater { get; }
     
+    public BattleSystemPresenter BattleSystemPresenter { get; }
+
     public BattleMediator(
         IDirectionDecider directionDecider,
         IBattleJudge battleJudge,
-        IVisualUpdater visualUpdater)
+        IVisualUpdater visualUpdater,
+        BattleSystemPresenter battleSystemPresenter)
     {
         DirectionDecider = directionDecider;
         BattleJudge = battleJudge;
         VisualUpdater = visualUpdater;
+        BattleSystemPresenter = battleSystemPresenter;
     }
-    
+
     public void RegisterEffect(IItemEffect effect)
     {
         _activeEffects.Add(effect);

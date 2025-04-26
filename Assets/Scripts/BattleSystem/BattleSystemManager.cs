@@ -10,9 +10,10 @@ public class BattleSystemManager
     public BattleSystemManager(
         IDirectionDecider directionDecider, 
         IBattleJudge battleJudge,
-        IVisualUpdater visualUpdater)
+        IVisualUpdater visualUpdater,
+        BattleSystemPresenter battleSystemPresenter)
     {
-        _mediator = new BattleMediator(directionDecider, battleJudge, visualUpdater);
+        _mediator = new BattleMediator(directionDecider, battleJudge, visualUpdater, battleSystemPresenter);
     }
 
     /// <summary>

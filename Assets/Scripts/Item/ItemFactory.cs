@@ -16,6 +16,8 @@ public class ItemFactory
                 return new SealPage(rarity);
             
             case ItemTypeEnum.ReverseBroom:
+                if(rarity != RarityEnum.SSR)
+                    throw new ArgumentException($"[逆行のほうき] {rarity} は設定されていません");
                 return new ReverseBroom(rarity);
             
             case ItemTypeEnum.CelestialForecast:

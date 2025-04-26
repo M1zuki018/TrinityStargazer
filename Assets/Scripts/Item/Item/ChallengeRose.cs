@@ -33,8 +33,7 @@ public class ChallengeRose : ItemBase
     /// </summary>
     private void EffectSetting(RarityEnum rarity)
     {
-        ModeData currentGameMode = GameManagerServiceLocator.Instance.GetGameModeData();
-        RarityEffects[RarityEnum.SSR] = currentGameMode.MaxTurn;
+        RarityEffects[RarityEnum.SSR] = GameManagerServiceLocator.Instance.GetGameModeData().MaxTurn;
         
         if (!RarityEffects.TryGetValue(rarity, out var effects))
         {

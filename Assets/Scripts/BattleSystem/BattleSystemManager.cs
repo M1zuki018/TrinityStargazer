@@ -1,7 +1,7 @@
 /// <summary>
 /// インゲームのバトルを統括管理するクラス
 /// </summary>
-public class BattleSystemManager : IBattleSystem
+public class BattleSystemManager
 {
     private readonly IBattleMediator _mediator; // バトルに必要な機能が入ったインターフェースなどはこのクラスで管理
     public IBattleMediator Mediator => _mediator;
@@ -32,29 +32,5 @@ public class BattleSystemManager : IBattleSystem
     {
         _mediator.DirectionDecider.ResetProbabilities();
         _mediator.VisualUpdater.ResetSprites();
-    }
-    
-    /// <summary>
-    /// 方向の確率を調整
-    /// </summary>
-    public void ModifyDirectionProbability(DirectionEnum direction, float addedProbability)
-    {
-        _mediator.DirectionDecider.ModifyProbability(direction, addedProbability);
-    }
-
-    /// <summary>
-    /// 方向に制限をかける
-    /// </summary>
-    private void LimitProbability(DirectionEnum direction)
-    {
-        _mediator.DirectionDecider.LimitProbability(direction);
-    }
-    
-    /// <summary>
-    /// 方向の制限を解除する
-    /// </summary>
-    private void RemoveLimitProbability(DirectionEnum direction)
-    {
-        _mediator.DirectionDecider.RemoveLimitProbability(direction);
     }
 }

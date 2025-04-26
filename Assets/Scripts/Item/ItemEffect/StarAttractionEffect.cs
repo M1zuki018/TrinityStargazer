@@ -1,33 +1,40 @@
 using UnityEngine;
 
+/// <summary>
+/// とっておきの効果データ
+/// </summary>
 public class StarAttractionEffect : IItemEffect
 {
-    private int _value;
+    private readonly float _value;
     private int _remainingTurns;
+    DirectionEnum _effectDirection;
     
     public StarAttractionEffect(int value, int remainingTurns)
     {
-        _value = value;
+        _value = value * 0.01f; // 使用時の形に単位を整える
         _remainingTurns = remainingTurns;
     }
     
     public void Apply(IBattleMediator mediator)
     {
-        throw new System.NotImplementedException();
+        _effectDirection = (DirectionEnum)Random.Range(0, 8);
+        mediator.DirectionDecider.ModifyProbability(_effectDirection, _value);
+        Debug.Log($"[とっておき] 効果発動中 {_effectDirection}");
     }
 
     public void Remove(IBattleMediator mediator)
     {
-        throw new System.NotImplementedException();
+        mediator.DirectionDecider.ResetProbabilities(); // 値をもとに戻す
+        Debug.Log($"[とっておき] 解除");
     }
 
     public bool IsExpired()
     {
-        throw new System.NotImplementedException();
+        return _remainingTurns <= 0;
     }
 
     public void UpdateTurn()
     {
-        throw new System.NotImplementedException();
+        _remainingTurns--;
     }
 }

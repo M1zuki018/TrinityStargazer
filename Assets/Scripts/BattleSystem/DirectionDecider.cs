@@ -42,17 +42,53 @@ public class DirectionDecider : IDirectionDecider
         if (_limitedDirections.Contains(direction))
             return;
             
-        float total = _directionProbabilities.Values.Sum();
+        float originalProbability = _directionProbabilities[direction];
+        float newProbability = originalProbability + addedProbability;
+        newProbability = Mathf.Clamp01(newProbability); // 確率の範囲は0~1に制限する
         
-        _directionProbabilities[direction] += addedProbability;
-        
-        // 負の確率にならないよう制限
-        if (_directionProbabilities[direction] < 0)
+        float probabilityDifference = newProbability - originalProbability;
+    
+        // 他の方向から確率を引く（選ばれた方向以外から比例配分で減らす）
+        if (probabilityDifference > 0)
         {
-            _directionProbabilities[direction] = 0;
-        }
+            // 調整可能な方向の合計確率を計算
+            float adjustableProbabilitySum = 0;
+            foreach (var dir in _directionProbabilities.Keys)
+            {
+                if (dir != direction && !_limitedDirections.Contains(dir))
+                {
+                    adjustableProbabilitySum += _directionProbabilities[dir];
+                }
+            }
         
-        NormalizeProbabilities(total);
+            // 調整可能な方向がない場合は終了
+            if (adjustableProbabilitySum <= 0)
+            {
+                Debug.LogWarning("他の方向の確率を調整できません");
+                return;
+            }
+        
+            // 各方向の確率を比例配分で減らす
+            foreach (var dir in _directionProbabilities.Keys.ToList())
+            {
+                if (dir != direction && !_limitedDirections.Contains(dir))
+                {
+                    float reductionRatio = _directionProbabilities[dir] / adjustableProbabilitySum;
+                    _directionProbabilities[dir] -= probabilityDifference * reductionRatio;
+                
+                    // 負の確率にならないように
+                    _directionProbabilities[dir] = Mathf.Max(0, _directionProbabilities[dir]);
+                }
+            }
+        }
+    
+        // 目標方向の確率を設定
+        _directionProbabilities[direction] = newProbability;
+
+        foreach (var dir in _directionProbabilities.Keys.ToList())
+        {
+            Debug.Log($"{dir}{_directionProbabilities[dir]}");
+        }
     }
 
     /// <summary>
@@ -99,6 +135,7 @@ public class DirectionDecider : IDirectionDecider
             if (!_limitedDirections.Contains(dir))
             {
                 _directionProbabilities[dir] *= normalizeFactor;
+                Debug.Log($"{dir}{_directionProbabilities[dir]}");
             }
         }
     }

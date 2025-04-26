@@ -19,6 +19,10 @@ public class ItemFactory
             case ItemTypeEnum.CelestialForecast:
                 return new CelestialForecast(rarity);
             case ItemTypeEnum.SmartPhone:
+                if (rarity == RarityEnum.C || rarity == RarityEnum.N || rarity == RarityEnum.R)
+                {
+                    throw new ArgumentException($"[スマートフォン] {rarity} は設定されていません");
+                }
                 return new SmartPhone(rarity);
             case ItemTypeEnum.ResonanceCable:
                 return new ResonanceCable(rarity);

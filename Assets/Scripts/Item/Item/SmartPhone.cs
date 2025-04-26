@@ -10,7 +10,7 @@ public class SmartPhone : ItemBase
     private static readonly Dictionary<RarityEnum, int> RarityEffects = new()
     {
         { RarityEnum.SR,  80},
-        { RarityEnum.SSR, 100}
+        { RarityEnum.SSR, 90}
     };
 
     private int _accuracyRate; // 正確性

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class VisualUpdater : IVisualUpdater
     private readonly DirectionalImages _playerImage;
     private readonly Button[] _directionalButtons;
     private readonly Color _defaultColor;
+    private Tweener _forecastTweener;
     
     public VisualUpdater(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons)
     {
@@ -67,5 +69,24 @@ public class VisualUpdater : IVisualUpdater
     public void ReleaseDirectionButton(DirectionEnum direction)
     {
         _directionalButtons[(int)direction].image.color = _defaultColor;
+    }
+
+    /// <summary>
+    /// 星の予測盤：アニメーション
+    /// </summary>
+    public void ForecastDirectionButton(DirectionEnum direction)
+    {
+        _forecastTweener?.Kill(); // 念のため、アニメーションを始める前にキルしておく
+        _directionalButtons[(int)direction].transform.localScale = Vector3.one;
+        _forecastTweener = _directionalButtons[(int)direction].transform.DOScale(1.2f, 1f).SetLoops(-1, LoopType.Yoyo);
+    }
+
+    /// <summary>
+    /// 星の予測盤：元にもどす
+    /// </summary>
+    public void ReleaseForecastDirectionButton(DirectionEnum direction)
+    {
+        _forecastTweener?.Kill();
+        _directionalButtons[(int)direction].transform.localScale = Vector3.one;
     }
 }

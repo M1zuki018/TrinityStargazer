@@ -11,4 +11,7 @@ public interface IVisualUpdater
     
     public void LinkDirectionButton(DirectionEnum direction);
     public void ReleaseDirectionButton(DirectionEnum direction);
+    
+    public void ForecastDirectionButton(DirectionEnum direction);
+    public void ReleaseForecastDirectionButton(DirectionEnum direction);
 }

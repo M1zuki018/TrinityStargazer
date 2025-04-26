@@ -172,13 +172,13 @@ public class DirectionDecider : IDirectionDecider
             cumulativeProbability += kvp.Value;
             if (rand < cumulativeProbability)
             {
-                OnLimitedDirection?.Invoke(kvp.Key);
+                OnEnemyDirectionChanged?.Invoke(kvp.Key);
                 return kvp.Key;
             }
         }
         
         // 浮動小数点の誤差で到達した場合に備えてデフォルト値を返す
-        OnLimitedDirection?.Invoke(DirectionEnum.Up);
+        OnEnemyDirectionChanged?.Invoke(DirectionEnum.Up);
         return DirectionEnum.Up;
     }
     

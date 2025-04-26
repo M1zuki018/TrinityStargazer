@@ -102,8 +102,6 @@ public class DirectionDecider : IDirectionDecider
             // すべての方向が制限された場合のフォールバック
             ResetNonLimitedProbabilities();
         }
-        
-        Debug.Log(_limitedDirections.Count);
     }
     
     /// <summary>

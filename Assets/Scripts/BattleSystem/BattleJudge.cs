@@ -9,7 +9,7 @@ public class BattleJudge : IBattleJudge
 {
     // 同一のものとして扱う方向
     private List<DirectionEnum> _linkingDirections = new List<DirectionEnum>();
-    public event Action<DirectionEnum> OnLink;
+    public event Action<DirectionEnum, Color> OnLink;
     public event Action<DirectionEnum> OnRelease;
 
     /// <summary>
@@ -44,7 +44,7 @@ public class BattleJudge : IBattleJudge
         _linkingDirections = directions;
         foreach (var direction in directions)
         {
-            OnLink?.Invoke(direction);
+            OnLink?.Invoke(direction, Color.cyan);
         }
         Debug.Log("[共鳴ケーブル] リンク中");
     }

@@ -53,8 +53,8 @@ public class BattleSystemPresenter : ViewBase
         _directionDecider.OnUnlimitedDirection += _visualUpdater.SetButtonsNonInteractive;
         
         // 共鳴ケーブル
-        _battleJudge.OnLink += _visualUpdater.LinkDirectionButton;
-        _battleJudge.OnRelease += _visualUpdater.ReleaseDirectionButton;
+        _battleJudge.OnLink += _visualUpdater.ChangeButtonColor;
+        _battleJudge.OnRelease += _visualUpdater.ResetButtonColor;
         
         return base.OnBind();
     }
@@ -144,7 +144,7 @@ public class BattleSystemPresenter : ViewBase
         _directionDecider.OnUnlimitedDirection -= _visualUpdater.SetButtonsNonInteractive;
         
         // 共鳴ケーブル
-        _battleJudge.OnLink -= _visualUpdater.LinkDirectionButton;
-        _battleJudge.OnRelease -= _visualUpdater.ReleaseDirectionButton;
+        _battleJudge.OnLink -= _visualUpdater.ChangeButtonColor;
+        _battleJudge.OnRelease -= _visualUpdater.ResetButtonColor;
     }
 }

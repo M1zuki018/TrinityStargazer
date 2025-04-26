@@ -56,17 +56,17 @@ public class VisualUpdater : IVisualUpdater
     }
 
     /// <summary>
-    /// 共鳴ケーブル：ボタンの色を変える
+    /// 共鳴ケーブル・とっておき：ボタンの色を変える
     /// </summary>
-    public void LinkDirectionButton(DirectionEnum direction)
+    public void ChangeButtonColor(DirectionEnum direction, Color color)
     {
-        _directionalButtons[(int)direction].image.color = Color.cyan;
+        _directionalButtons[(int)direction].image.color = color;
     }
 
     /// <summary>
-    /// 共鳴ケーブル：ボタンの色を戻す
+    /// 共鳴ケーブル・とっておき：ボタンの色を戻す
     /// </summary>
-    public void ReleaseDirectionButton(DirectionEnum direction)
+    public void ResetButtonColor(DirectionEnum direction)
     {
         _directionalButtons[(int)direction].image.color = _defaultColor;
     }

@@ -1,48 +1,28 @@
-using System;
-
 /// <summary>
 /// インゲームのバトルを統括管理するクラス
 /// </summary>
-public class BattleSystemManager : IBattleSystem, IDisposable
+public class BattleSystemManager : IBattleSystem
 {
-    private readonly IDirectionDecider _directionDecider;
-    private readonly IBattleJudge _battleJudge;
-    private readonly IVisualUpdater _visualUpdater;
-    private readonly IItemManager _itemManager;
-    
+    private readonly IBattleMediator _mediator; // バトルに必要な機能が入ったインターフェースなどはこのクラスで管理
+    public IBattleMediator Mediator => _mediator;
     public bool IsVictory { get; private set; }
 
     public BattleSystemManager(
         IDirectionDecider directionDecider, 
         IBattleJudge battleJudge,
-        IVisualUpdater visualUpdater,
-        IItemManager itemManager)
+        IVisualUpdater visualUpdater)
     {
-        _directionDecider = directionDecider;
-        _battleJudge = battleJudge;
-        _visualUpdater = visualUpdater;
-        _itemManager = itemManager;
-        
-        BindItemManager();
+        _mediator = new BattleMediator(directionDecider, battleJudge, visualUpdater);
     }
-
-    /// <summary>
-    /// アイテムマネージャーとバトルシステムを繋ぐ
-    /// </summary>
-    private void BindItemManager()
-    {
-        _itemManager.UseLimitItem += LimitProbability;
-        _itemManager.RemoveLimitItem += RemoveLimitProbability;
-    }
-
+    
     /// <summary>
     /// バトルの実行
     /// </summary>
     public void ExecuteBattle(DirectionEnum playerDirection)
     {
-        DirectionEnum enemyDirection = _directionDecider.DecideDirection();
-        _visualUpdater.UpdateSprites(enemyDirection, playerDirection);
-        IsVictory = _battleJudge.Judge(enemyDirection, playerDirection);
+        DirectionEnum enemyDirection = _mediator.DirectionDecider.DecideDirection();
+        _mediator.VisualUpdater.UpdateSprites(enemyDirection, playerDirection);
+        IsVictory = _mediator.BattleJudge.Judge(enemyDirection, playerDirection);
     }
     
     /// <summary>
@@ -50,8 +30,8 @@ public class BattleSystemManager : IBattleSystem, IDisposable
     /// </summary>
     public void ResetBattle()
     {
-        _directionDecider.ResetProbabilities();
-        _visualUpdater.ResetSprites();
+        _mediator.DirectionDecider.ResetProbabilities();
+        _mediator.VisualUpdater.ResetSprites();
     }
     
     /// <summary>
@@ -59,7 +39,7 @@ public class BattleSystemManager : IBattleSystem, IDisposable
     /// </summary>
     public void ModifyDirectionProbability(DirectionEnum direction, float addedProbability)
     {
-        _directionDecider.ModifyProbability(direction, addedProbability);
+        _mediator.DirectionDecider.ModifyProbability(direction, addedProbability);
     }
 
     /// <summary>
@@ -67,7 +47,7 @@ public class BattleSystemManager : IBattleSystem, IDisposable
     /// </summary>
     private void LimitProbability(DirectionEnum direction)
     {
-        _directionDecider.LimitProbability(direction);
+        _mediator.DirectionDecider.LimitProbability(direction);
     }
     
     /// <summary>
@@ -75,12 +55,6 @@ public class BattleSystemManager : IBattleSystem, IDisposable
     /// </summary>
     private void RemoveLimitProbability(DirectionEnum direction)
     {
-        _directionDecider.RemoveLimitProbability(direction);
-    }
-
-    public void Dispose()
-    {
-        _itemManager.UseLimitItem -= LimitProbability;
-        _itemManager.RemoveLimitItem -= RemoveLimitProbability;
+        _mediator.DirectionDecider.RemoveLimitProbability(direction);
     }
 }

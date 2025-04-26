@@ -7,8 +7,8 @@ public abstract class ItemBase
 {
     public string Name { get; protected set; }
     public string Description { get; protected set; }
-    public RarityEnum Rarity { get; protected set; }
-    public ItemTypeEnum Type { get; protected set; }
+    public RarityEnum Rarity { get; }
+    public ItemTypeEnum Type { get; }
     
     protected ItemBase(RarityEnum rarity, ItemTypeEnum type)
     {
@@ -16,8 +16,17 @@ public abstract class ItemBase
         Type = type;
     }
     
-    public virtual void Use(IItemManager itemManager)
+    /// <summary>
+    /// アイテム使用時に特定の効果を生成する
+    /// </summary>
+    public abstract IItemEffect CreateEffect();
+    
+    /// <summary>
+    /// アイテム使用
+    /// </summary>
+    public virtual void Use(IBattleMediator mediator)
     {
-        Debug.Log($"{Name}を使用しました");
+        var effect = CreateEffect();
+        mediator.RegisterEffect(effect);
     }
 }

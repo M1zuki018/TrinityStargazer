@@ -9,18 +9,15 @@ public class ReverseBroom : ItemBase
     public ReverseBroom(RarityEnum rarity) : base(rarity, ItemTypeEnum.SealPage)
     {
         Name = "";
-        Rarity = rarity;
     }
-    
-    public override void Use(IItemManager itemManager)
+
+    public override IItemEffect CreateEffect()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Use(IBattleMediator battleMediator)
     {
         throw new System.NotImplementedException();
-    }
-    
-    /// <summary>
-    /// 効果を設定する
-    /// </summary>
-    private void EffectSetting(RarityEnum rarity)
-    {
     }
 }

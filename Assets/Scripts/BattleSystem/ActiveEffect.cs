@@ -3,6 +3,7 @@
 /// </summary>
 public class ActiveEffect
 {
+    /*
     public ItemTypeEnum Type { get; }
     public int RemainingTurns 
     { 
@@ -16,4 +17,5 @@ public class ActiveEffect
         Type = type;
         EffectData = effectData;
     }
+    */
 }

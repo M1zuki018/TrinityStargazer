@@ -72,7 +72,7 @@ public class InventoryManager : ViewBase
     /// <summary>
     /// Inventoryからアイテムを使う
     /// </summary>
-    public bool UseItem(IItemManager itemManager, ItemTypeEnum itemType, RarityEnum rarity, int amount = 1)
+    public bool UseItem(IBattleMediator battleMediator, ItemTypeEnum itemType, RarityEnum rarity, int amount = 1)
     {
         // 在庫チェック
         if (!_inventory.ContainsKey((itemType, rarity)) || _inventory[(itemType, rarity)] < amount)
@@ -85,7 +85,7 @@ public class InventoryManager : ViewBase
         for (int i = 0; i < amount; i++)
         {
             ItemBase item = _itemFactory.CreateItem(itemType, rarity);
-            item.Use(itemManager);
+            item.Use(battleMediator);
             _inventory[(itemType, rarity)] -= amount;
             OnInventoryChanged?.Invoke(itemType, rarity, _inventory[(itemType, rarity)]);
             Debug.Log($"[Inventory] アイテムが使用されました {itemType}(レアリティ{rarity})");

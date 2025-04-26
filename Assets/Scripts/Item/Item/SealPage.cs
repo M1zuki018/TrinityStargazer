@@ -27,18 +27,12 @@ public class SealPage : ItemBase
         Description = $"{LimitCount}方向を{EffectiveTurns}ターンの間使用禁止にします";
     }
     
-    public override void Use(IItemManager itemManager)
+    public override IItemEffect CreateEffect()
     {
-        base.Use(itemManager);
-        
         // 方向選択UIを表示
-        List<DirectionEnum> selectedDirections = itemManager.ShowDirectionSelectionUI(LimitCount);
-        
-        if (selectedDirections != null && selectedDirections.Count > 0)
-        {
-            var effectData = new SealPageEffectData(EffectiveTurns, selectedDirections); // 効果データを作成
-            itemManager.AddActiveEffect(new ActiveEffect(Type, effectData)); // アクティブ効果を登録
-        }
+        //TODO: List<DirectionEnum> selectedDirections = battleMediator.ShowDirectionSelectionUI(LimitCount);
+        var selectedDirections = new List<DirectionEnum> { DirectionEnum.Up, DirectionEnum.Down };
+        return new SealPageEffect(selectedDirections, EffectiveTurns);
     }
 
     /// <summary>

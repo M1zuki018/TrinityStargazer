@@ -20,9 +20,9 @@ public class BattleSystemPresenter : ViewBase
 
     private BattleSystemManager _battleSystemManager;
     private TurnManager _turnManager;
-    private IItemManager _itemManager;
+    private IBattleMediator _battleMediator;
     
-    public IItemManager ItemManager => _itemManager;
+    public IBattleMediator BattleMediator => _battleMediator;
     
     public event Action OnBattleEnded;
     
@@ -34,8 +34,7 @@ public class BattleSystemPresenter : ViewBase
         IBattleJudge battleJudge = new BattleJudge();
         IVisualUpdater visualUpdater = new VisualUpdater(_seiImage, _playerHandImage);
 
-        _itemManager = new BattleItemSystem();
-        _battleSystemManager = new BattleSystemManager(directionDecider, battleJudge, visualUpdater, _itemManager);
+        _battleSystemManager = new BattleSystemManager(directionDecider, battleJudge, visualUpdater);
         _turnManager = new TurnManager();
         return base.OnAwake();
     }
@@ -57,7 +56,8 @@ public class BattleSystemPresenter : ViewBase
     [ContextMenu("アイテムテスト")]
     public void UseSealPage()
     {
-        if (InventoryManager.Instance.UseItem(_itemManager, ItemTypeEnum.SealPage, RarityEnum.C))
+        _battleMediator = _battleSystemManager.Mediator;
+        if (InventoryManager.Instance.UseItem(_battleMediator, ItemTypeEnum.SealPage, RarityEnum.C))
         {
             return;
         }
@@ -92,7 +92,6 @@ public class BattleSystemPresenter : ViewBase
         _turnManager.NextTurn();
         _battleSystemManager.ResetBattle();
         _ccBefore.SetTurnText(_turnManager.TurnText());
-        _itemManager.UpdateTurn();
     }
 
     private void OnDestroy()

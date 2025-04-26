@@ -8,10 +8,14 @@ public class SmartPhone : ItemBase
     public SmartPhone(RarityEnum rarity) : base(rarity, ItemTypeEnum.SealPage)
     {
         Name = "スマートフォン";
-        Rarity = rarity;
     }
-    
-    public override void Use(IItemManager itemManager)
+
+    public override IItemEffect CreateEffect()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Use(IBattleMediator battleMediator)
     {
         throw new System.NotImplementedException();
     }

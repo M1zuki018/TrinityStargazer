@@ -24,7 +24,7 @@ public class ResonanceCable : ItemBase
     {
         Name = "共鳴ケーブル";
         EffectSetting(rarity);
-        Description = $"{_limitCount}つの方向をリンクさせ、共通の方向として扱います";
+        Description = $"{_limitCount}つの方向をリンクさせ共通の方向として扱う";
 
     }
 

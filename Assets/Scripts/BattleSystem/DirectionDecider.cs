@@ -51,17 +51,7 @@ public class DirectionDecider : IDirectionDecider
             _directionProbabilities[direction] = 0;
         }
         
-        float newTotal = _directionProbabilities.Values.Sum();
-        
-        // 正規化
-        float normalizeFactor = total / newTotal;
-        foreach (var dir in _directionProbabilities.Keys.ToList())
-        {
-            if (!_limitedDirections.Contains(dir))
-            {
-                _directionProbabilities[dir] *= normalizeFactor;
-            }
-        }
+        NormalizeProbabilities(total);
     }
 
     /// <summary>
@@ -88,19 +78,27 @@ public class DirectionDecider : IDirectionDecider
         // 残りの方向の確率を再配分
         if (newTotal > 0)
         {
-            float redistributeFactor = total / newTotal;
-            foreach (var dir in _directionProbabilities.Keys.ToList())
-            {
-                if (!_limitedDirections.Contains(dir))
-                {
-                    _directionProbabilities[dir] *= redistributeFactor;
-                }
-            }
+            NormalizeProbabilities(total);
         }
         else
         {
             // すべての方向が制限された場合のフォールバック
             ResetNonLimitedProbabilities();
+        }
+    }
+    
+    /// <summary>
+    /// 正規化
+    /// </summary>
+    private void NormalizeProbabilities(float total)
+    {
+        float normalizeFactor = total / _directionProbabilities.Values.Sum(); // 元の合計と新しい合計
+        foreach (var dir in _directionProbabilities.Keys.ToList())
+        {
+            if (!_limitedDirections.Contains(dir))
+            {
+                _directionProbabilities[dir] *= normalizeFactor;
+            }
         }
     }
     
@@ -114,11 +112,9 @@ public class DirectionDecider : IDirectionDecider
             return;
         
         OnUnlimitedDirection?.Invoke(direction);
+        _limitedDirections.Remove(direction); // 制限済みリストから削除
         
         float total = _directionProbabilities.Values.Sum();
-        
-        // 制限済みリストから削除
-        _limitedDirections.Remove(direction);
         
         // 元の確率に戻す（または均等な確率を設定）
         float originalProb = _originalProbabilities.ContainsKey(direction) 
@@ -128,14 +124,7 @@ public class DirectionDecider : IDirectionDecider
         _directionProbabilities[direction] = originalProb;
         _originalProbabilities.Remove(direction);
         
-        float newTotal = _directionProbabilities.Values.Sum();
-        
-        // 正規化
-        float normalizeFactor = total / newTotal;
-        foreach (var dir in _directionProbabilities.Keys.ToList())
-        {
-            _directionProbabilities[dir] *= normalizeFactor;
-        }
+        NormalizeProbabilities(total);
     }
     
     /// <summary>

@@ -13,4 +13,6 @@ public interface IDirectionDecider
     
     event Action<DirectionEnum> OnLimitedDirection;
     event Action<DirectionEnum> OnUnlimitedDirection;
+    
+    event Action<DirectionEnum> OnEnemyDirectionChanged;
 }

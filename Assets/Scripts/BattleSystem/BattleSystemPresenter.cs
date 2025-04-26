@@ -28,7 +28,6 @@ public class BattleSystemPresenter : ViewBase
     private DirectionEnum _enemyDirection;
     
     public event Action OnBattleEnded;
-    public event Action OnEnemyDirectionChanged;
     
     public override UniTask OnAwake()
     {
@@ -91,7 +90,6 @@ public class BattleSystemPresenter : ViewBase
     private void HandleDirection()
     {
         _enemyDirection = _battleSystemManager.EnemyDirection();
-        OnEnemyDirectionChanged?.Invoke(); // 方向が変更されたことを通知
         Debug.Log($"次の方向：{_enemyDirection}");
     }
     

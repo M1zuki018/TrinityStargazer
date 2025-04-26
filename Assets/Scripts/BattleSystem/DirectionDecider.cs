@@ -17,7 +17,8 @@ public class DirectionDecider : IDirectionDecider
     
     public event Action<DirectionEnum> OnLimitedDirection; // 方向制限がかかったときに呼び出されるイベント
     public event Action<DirectionEnum> OnUnlimitedDirection; // 方向制限が解除されたときに呼び出されるイベント
-    
+    public event Action<DirectionEnum> OnEnemyDirectionChanged; // 敵が向く方向が決まった時に呼び出されるイベント
+
     public DirectionDecider()
     {
         InitializeProbabilities();
@@ -155,8 +156,11 @@ public class DirectionDecider : IDirectionDecider
     {
         // 全方向が制限されている場合はデフォルト値を返す
         if (_limitedDirections.Count == Enum.GetValues(typeof(DirectionEnum)).Length)
+        {
+            OnEnemyDirectionChanged?.Invoke(DirectionEnum.Up);
             return DirectionEnum.Up;
-            
+        }
+        
         float rand = Random.value;
         float cumulativeProbability = 0f;
         
@@ -168,11 +172,13 @@ public class DirectionDecider : IDirectionDecider
             cumulativeProbability += kvp.Value;
             if (rand < cumulativeProbability)
             {
+                OnLimitedDirection?.Invoke(kvp.Key);
                 return kvp.Key;
             }
         }
         
         // 浮動小数点の誤差で到達した場合に備えてデフォルト値を返す
+        OnLimitedDirection?.Invoke(DirectionEnum.Up);
         return DirectionEnum.Up;
     }
     

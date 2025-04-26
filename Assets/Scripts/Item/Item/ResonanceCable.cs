@@ -10,11 +10,11 @@ public class ResonanceCable : ItemBase
     // レアリティごとの効果をまとめた辞書
     private static readonly Dictionary<RarityEnum, (int limit, int effectiveTurns)> RarityEffects = new()
     {
-        { RarityEnum.N,   (limit: 1, effectiveTurns: 1) },
-        { RarityEnum.C,   (limit: 2, effectiveTurns: 1) },
-        { RarityEnum.R,   (limit: 3, effectiveTurns: 1) },
-        { RarityEnum.SR,  (limit: 4, effectiveTurns: 1) },
-        { RarityEnum.SSR, (limit: 5, effectiveTurns: 1) }
+        { RarityEnum.N,   (limit: 2, effectiveTurns: 1) },
+        { RarityEnum.C,   (limit: 3, effectiveTurns: 1) },
+        { RarityEnum.R,   (limit: 4, effectiveTurns: 1) },
+        { RarityEnum.SR,  (limit: 5, effectiveTurns: 1) },
+        { RarityEnum.SSR, (limit: 6, effectiveTurns: 1) }
     };
     
     private int _limitCount;
@@ -30,7 +30,7 @@ public class ResonanceCable : ItemBase
 
     public override IItemEffect CreateEffect()
     {
-        return new ResonanceCableEffect();
+        return new ResonanceCableEffect(_limitCount, _effectiveTurns);
     }
     
     /// <summary>

@@ -46,7 +46,7 @@ public class GameManager : ViewBase, IGameManager
     public void ItemTest()
     {
         InventoryManager.Instance.AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
-        InventoryManager.Instance.AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
+        InventoryManager.Instance.AddItem(ItemTypeEnum.ResonanceCable, RarityEnum.C);
         InventoryManager.Instance.AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
     }
     

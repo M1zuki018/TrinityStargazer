@@ -32,7 +32,7 @@ public class CanvasController_ItemSelect : WindowBase
     /// </summary>
     private void OnTestItemClick()
     {
-        OnTestItemClicked?.Invoke(ItemTypeEnum.SealPage, RarityEnum.C, 1); // アイテムを追加
+        OnTestItemClicked?.Invoke(ItemTypeEnum.ResonanceCable, RarityEnum.C, 1); // アイテムを追加
         OnCloseButtonClicked?.Invoke();
     }
 

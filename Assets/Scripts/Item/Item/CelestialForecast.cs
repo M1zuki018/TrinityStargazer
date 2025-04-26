@@ -27,7 +27,7 @@ public class CelestialForecast : ItemBase
 
     public override IItemEffect CreateEffect()
     {
-        throw new System.NotImplementedException();
+        return new CelestialForecastEffect(_value);
     }
     
     /// <summary>

@@ -24,8 +24,11 @@ public class BattleSystemPresenter : ViewBase
     private IDirectionDecider _directionDecider;
     private IBattleJudge _battleJudge;
     private IVisualUpdater _visualUpdater;
+
+    private DirectionEnum _enemyDirection;
     
     public event Action OnBattleEnded;
+    public event Action OnEnemyDirectionChanged;
     
     public override UniTask OnAwake()
     {
@@ -40,6 +43,7 @@ public class BattleSystemPresenter : ViewBase
     
     public override UniTask OnBind()
     {
+        _ccBefore.OnBattleButtonClicked += HandleDirection;
         _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat;
         _ccAfter.OnNextButtonClicked += HandleNextTurn;
         _ccItemSelect.OnTestItemClicked += UseItem;
@@ -82,11 +86,21 @@ public class BattleSystemPresenter : ViewBase
     private void TurnManagerOnOnGameFinished() => OnBattleEnded?.Invoke();
 
     /// <summary>
+    /// バトルを始めた時の情報で敵の方向は決めてしまう
+    /// </summary>
+    private void HandleDirection()
+    {
+        _enemyDirection = _battleSystemManager.EnemyDirection();
+        OnEnemyDirectionChanged?.Invoke(); // 方向が変更されたことを通知
+        Debug.Log($"次の方向：{_enemyDirection}");
+    }
+    
+    /// <summary>
     /// 勝敗を管理するメソッド
     /// </summary>
     private void HandleVictoryOrDefeat(DirectionEnum direction)
     {
-        _battleSystemManager.ExecuteBattle(direction);
+        _battleSystemManager.ExecuteBattle(direction, _enemyDirection);
         _ccAfter.SetText(_battleSystemManager.IsVictory);
         _ccBefore.SetResultMark(_turnManager.CurrentTurn - 1, _battleSystemManager.IsVictory);
     }
@@ -104,6 +118,7 @@ public class BattleSystemPresenter : ViewBase
 
     private void OnDestroy()
     {
+        _ccBefore.OnBattleButtonClicked -= HandleDirection;
         _ccDirection.OnDirectionButtonClicked -= HandleVictoryOrDefeat;
         _ccAfter.OnNextButtonClicked -= HandleNextTurn;
         _ccItemSelect.OnTestItemClicked -= UseItem;

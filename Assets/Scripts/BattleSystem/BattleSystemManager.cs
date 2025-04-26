@@ -14,13 +14,20 @@ public class BattleSystemManager
     {
         _mediator = new BattleMediator(directionDecider, battleJudge, visualUpdater);
     }
+
+    /// <summary>
+    /// 敵が向く方向を決定して返す
+    /// </summary>
+    public DirectionEnum EnemyDirection()
+    {
+        return _mediator.DirectionDecider.DecideDirection();
+    }
     
     /// <summary>
     /// バトルの実行
     /// </summary>
-    public void ExecuteBattle(DirectionEnum playerDirection)
+    public void ExecuteBattle(DirectionEnum playerDirection, DirectionEnum enemyDirection)
     {
-        DirectionEnum enemyDirection = _mediator.DirectionDecider.DecideDirection();
         _mediator.VisualUpdater.UpdateSprites(enemyDirection, playerDirection);
         IsVictory = _mediator.BattleJudge.Judge(enemyDirection, playerDirection);
     }

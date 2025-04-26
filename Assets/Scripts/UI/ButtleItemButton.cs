@@ -1,4 +1,5 @@
 
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,19 +8,26 @@ using UnityEngine.UI;
 /// </summary>
 public class ButtleItemButton : MonoBehaviour
 {
-    private ItemBase _item;
     private Button _button;
-    
+    private ItemTypeEnum _item;
+    private RarityEnum _rarity;
+    private CanvasController_ItemSelect _canvasController;
+
+    private int _stock; // 在庫
+
     /// <summary>
     /// 初期化処理
     /// </summary>
-    public void Initialize(ItemBase item)
+    public void Initialize(ItemTypeEnum itemType, RarityEnum rarity, CanvasController_ItemSelect canvasController)
     {
-        _item = item;
-        
         if (TryGetComponent(out _button))
         {
-            _button.gameObject.GetComponentInChildren<Text>().text = _item.Name;
+            _item = itemType;
+            _rarity = rarity;
+            _canvasController = canvasController;
+            _stock++;
+            
+            _button.gameObject.GetComponentInChildren<Text>().text = itemType.ToString();
             _button.onClick.AddListener(OnClick); // メソッドを登録
         }
         
@@ -31,6 +39,13 @@ public class ButtleItemButton : MonoBehaviour
     /// </summary>
     public void OnClick()
     {
-       //TODO: ここからアイテム処理を呼ぶようにしたい InventoryManager.Instance.UseItem()
+       _canvasController.OnTestItemClick(_item, _rarity);
+       _stock--; // 在庫数を減らす
+       
+       if (_stock <= 0)
+       {
+           _canvasController.RemoveList(this);
+           Destroy(gameObject);
+       }
     }
 }

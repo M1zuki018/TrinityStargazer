@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,15 +10,19 @@ using UnityEngine.UI;
 public class CanvasController_ItemSelect : WindowBase
 {
     [SerializeField] private Button _closeButton;
-    [SerializeField] private Button _testItemButton;
-    
+    [SerializeField] private InventoryManager _inventoryManager;
+    [SerializeField] private GameObject _itemButtonPrefab;
+    [SerializeField] private Transform _itemButtonParent;
+    private List<ButtleItemButton> _buttons = new List<ButtleItemButton>(10);
+        
     public event Action OnCloseButtonClicked;
     public event Action<ItemTypeEnum, RarityEnum, int> OnTestItemClicked;
     
     public override UniTask OnUIInitialize()
     {
+        _inventoryManager.OnInventoryChanged += CreateItemButton;
+        
         if(_closeButton != null) _closeButton.onClick.AddListener(OnCloseButtonClick);
-        if(_testItemButton != null) _testItemButton.onClick.AddListener(OnTestItemClick);
         
         return base.OnUIInitialize();
     }
@@ -30,15 +35,31 @@ public class CanvasController_ItemSelect : WindowBase
     /// <summary>
     /// アイテムを使用した上でパネルを閉じる
     /// </summary>
-    private void OnTestItemClick()
+    public void OnTestItemClick(ItemTypeEnum itemType, RarityEnum rarity)
     {
-        OnTestItemClicked?.Invoke(ItemTypeEnum.ResonanceCable, RarityEnum.C, 1); // アイテムを追加
+        OnTestItemClicked?.Invoke(itemType, rarity, 1); // アイテムを追加
         OnCloseButtonClicked?.Invoke();
+    }
+
+    /// <summary>
+    /// Inventoryが変化した時にアイテムボタンを生成する
+    /// </summary>
+    private void CreateItemButton(ItemTypeEnum itemType, RarityEnum rarity, int count)
+    {
+        ButtleItemButton button = Instantiate(_itemButtonPrefab, _itemButtonParent).GetComponent<ButtleItemButton>();
+        button.Initialize(itemType, rarity, this); // ボタンの表示の初期化を行う
+    }
+
+    /// <summary>
+    /// リストから自身を削除する
+    /// </summary>
+    public void RemoveList(ButtleItemButton button)
+    {
+        _buttons.Remove(button);
     }
 
     private void OnDestroy()
     {
         if(_closeButton != null) _closeButton.onClick.RemoveListener(OnCloseButtonClick);
-        if(_testItemButton != null) _testItemButton.onClick.RemoveListener(OnTestItemClick);
     }
 }

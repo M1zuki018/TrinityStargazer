@@ -66,6 +66,8 @@ public class InventoryManager : ViewBase
         _inventory[(itemType, rarity)] += amount;
         Debug.Log($"[Inventory] アイテムが追加されました {itemType}(レアリティ{rarity})");
         
+        OnInventoryChanged?.Invoke(itemType, rarity, _inventory[(itemType, rarity)]);
+        
         return true;
     }
 
@@ -87,7 +89,6 @@ public class InventoryManager : ViewBase
             ItemBase item = _itemFactory.CreateItem(itemType, rarity);
             item.Use(battleMediator);
             _inventory[(itemType, rarity)] -= amount;
-            OnInventoryChanged?.Invoke(itemType, rarity, _inventory[(itemType, rarity)]);
             Debug.Log($"[Inventory] アイテムが使用されました {itemType}(レアリティ{rarity})");
         }
         

@@ -67,7 +67,6 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     private void UseItem(ItemTypeEnum itemType, RarityEnum rarity, int count)
     {
-        GameManagerServiceLocator.Instance.ItemTest();
         _battleMediator = _battleSystemManager.Mediator;
         InventoryManager.Instance.UseItem(_battleMediator, itemType, rarity, count);
     }

@@ -316,6 +316,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &875020176 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3757042160314776078, guid: 37f6254e06d58964289ee0108a645153, type: 3}
+  m_PrefabInstance: {fileID: 5593618212657154300}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ffb2179a363ba4aab16c8b9f5dcf50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &887545810 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6003368304581033694, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
@@ -795,9 +806,21 @@ PrefabInstance:
       propertyPath: m_Size
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3530730115361300499, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
-      propertyPath: m_Value
-      value: 1
+    - target: {fileID: 6003368304581033694, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
+      propertyPath: _inventoryManager
+      value: 
+      objectReference: {fileID: 875020176}
+    - target: {fileID: 6380200905027924707, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6380200905027924707, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6380200905027924707, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6442094066022859415, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
       propertyPath: m_Name
@@ -841,10 +864,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9160257055422802791, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.8328793
+      value: -0.0005356727
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2224274304367288173, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3cf81c426001cc4486d98f81368e454, type: 3}

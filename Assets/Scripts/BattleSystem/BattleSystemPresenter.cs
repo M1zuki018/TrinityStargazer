@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class BattleSystemPresenter : ViewBase
 {
+    public static BattleSystemPresenter Instance;
+    
     [Header("CanvasControllerクラス")]
     [SerializeField] private CanvasController_Before _ccBefore;
     [SerializeField] private CanvasController_Direction _ccDirection;
@@ -20,10 +22,14 @@ public class BattleSystemPresenter : ViewBase
     private TurnManager _turnManager;
     private IItemManager _itemManager;
     
+    public IItemManager ItemManager => _itemManager;
+    
     public event Action OnBattleEnded;
     
     public override UniTask OnAwake()
     {
+        Instance = this;
+        
         IDirectionDecider directionDecider = new DirectionDecider();
         IBattleJudge battleJudge = new BattleJudge();
         IVisualUpdater visualUpdater = new VisualUpdater(_seiImage, _playerHandImage);

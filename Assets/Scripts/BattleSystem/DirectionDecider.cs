@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -96,6 +97,8 @@ public class DirectionDecider : IDirectionDecider
             // すべての方向が制限された場合のフォールバック
             ResetNonLimitedProbabilities();
         }
+        
+        Debug.Log(_limitedDirections.Count);
     }
     
     /// <summary>

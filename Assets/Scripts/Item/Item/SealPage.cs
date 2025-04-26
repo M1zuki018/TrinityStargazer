@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// 「封印のページ/SealPage」：指定した○方向を○ターンの間使用禁止にする（禁止方向に✕マーク）
@@ -35,11 +36,8 @@ public class SealPage : ItemBase
         
         if (selectedDirections != null && selectedDirections.Count > 0)
         {
-            // 効果データを作成
-            var effectData = new SealPageEffectData(EffectiveTurns, selectedDirections);
-            
-            // アクティブ効果を登録
-            itemManager.AddActiveEffect(new ActiveEffect(Type, effectData));
+            var effectData = new SealPageEffectData(EffectiveTurns, selectedDirections); // 効果データを作成
+            itemManager.AddActiveEffect(new ActiveEffect(Type, effectData)); // アクティブ効果を登録
         }
     }
 

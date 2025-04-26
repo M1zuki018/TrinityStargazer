@@ -10,13 +10,14 @@ public class SealPageEffectData : EffectBase
     public SealPageEffectData(int turns, List<DirectionEnum> sealedDirections) : base(turns)
     {
         SealedDirections = sealedDirections;
+        ApplyEffect(BattleSystemPresenter.Instance.ItemManager);
     }
     
     public override void ApplyEffect(IItemManager itemManager)
     {
         foreach (var direction in SealedDirections)
         {
-            //TODO: itemManager.UseLimitItem?.Invoke(direction);
+            itemManager.UsedLimitItem(direction);
         }
     }
     
@@ -24,7 +25,7 @@ public class SealPageEffectData : EffectBase
     {
         foreach (var direction in SealedDirections)
         {
-            //TODO: itemManager.RemoveLimitItem?.Invoke(direction);
+            itemManager.RemovedLimitItem(direction);
         }
     }
 }

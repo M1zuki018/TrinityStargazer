@@ -51,6 +51,9 @@ public class BattleItemSystem : IItemManager
     
     public List<DirectionEnum> ShowDirectionSelectionUI(int count)
     {
-        return null;
+        return new List<DirectionEnum> { DirectionEnum.Up ,DirectionEnum.Down };
     }
+
+    public void UsedLimitItem(DirectionEnum direction) => UseLimitItem(direction);
+    public void RemovedLimitItem(DirectionEnum direction) => RemoveLimitItem(direction);
 }

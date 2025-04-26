@@ -1,3 +1,5 @@
+using System;
+
 /// <summary>
 /// 方向を決定するインターフェース
 /// </summary>
@@ -8,4 +10,7 @@ public interface IDirectionDecider
     void LimitProbability(DirectionEnum direction);
     void RemoveLimitProbability(DirectionEnum direction);
     void ResetProbabilities();
+    
+    event Action<DirectionEnum> OnLimitedDirection;
+    event Action<DirectionEnum> OnUnlimitedDirection;
 }

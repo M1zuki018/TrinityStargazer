@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class CanvasController_Direction : WindowBase
 {
     [SerializeField] private Button[] _directionButtons = new Button[8];
+    public Button[] DirectionButtons => _directionButtons; // アイテム効果をUIに反映させるために公開する
     
     public event Action<DirectionEnum> OnDirectionButtonClicked;
     

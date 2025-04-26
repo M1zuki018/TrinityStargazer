@@ -15,6 +15,9 @@ public class DirectionDecider : IDirectionDecider
     private HashSet<DirectionEnum> _limitedDirections = new HashSet<DirectionEnum>();
     private Dictionary<DirectionEnum, float> _originalProbabilities = new Dictionary<DirectionEnum, float>();
     
+    public event Action<DirectionEnum> OnLimitedDirection; // 方向制限がかかったときに呼び出されるイベント
+    public event Action<DirectionEnum> OnUnlimitedDirection; // 方向制限が解除されたときに呼び出されるイベント
+    
     public DirectionDecider()
     {
         InitializeProbabilities();
@@ -66,6 +69,8 @@ public class DirectionDecider : IDirectionDecider
     /// </summary>
     public void LimitProbability(DirectionEnum direction)
     {
+        OnLimitedDirection?.Invoke(direction);
+        
         // 元の確率を保存
         _originalProbabilities[direction] = _directionProbabilities[direction];
         
@@ -110,6 +115,8 @@ public class DirectionDecider : IDirectionDecider
         if (!_limitedDirections.Contains(direction))
             return;
             
+        OnUnlimitedDirection?.Invoke(direction);
+        
         float total = _directionProbabilities.Values.Sum();
         
         // 制限済みリストから削除

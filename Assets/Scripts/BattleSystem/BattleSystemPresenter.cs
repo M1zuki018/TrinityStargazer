@@ -21,15 +21,18 @@ public class BattleSystemPresenter : ViewBase
     private TurnManager _turnManager;
     private IBattleMediator _battleMediator;
     
+    private IDirectionDecider _directionDecider;
+    private IVisualUpdater _visualUpdater;
+    
     public event Action OnBattleEnded;
     
     public override UniTask OnAwake()
     {
-        IDirectionDecider directionDecider = new DirectionDecider();
+        _directionDecider = new DirectionDecider();
         IBattleJudge battleJudge = new BattleJudge();
-        IVisualUpdater visualUpdater = new VisualUpdater(_seiImage, _playerHandImage);
+        _visualUpdater = new VisualUpdater(_seiImage, _playerHandImage, _ccDirection.DirectionButtons);
 
-        _battleSystemManager = new BattleSystemManager(directionDecider, battleJudge, visualUpdater);
+        _battleSystemManager = new BattleSystemManager(_directionDecider, battleJudge, _visualUpdater);
         _turnManager = new TurnManager();
         return base.OnAwake();
     }
@@ -40,6 +43,10 @@ public class BattleSystemPresenter : ViewBase
         _ccAfter.OnNextButtonClicked += HandleNextTurn;
         _ccItemSelect.OnTestItemClicked += UseItem;
         _turnManager.OnGameFinished += TurnManagerOnOnGameFinished;
+
+        _directionDecider.OnLimitedDirection += _visualUpdater.LimitDirectionButton;
+        _directionDecider.OnUnlimitedDirection += _visualUpdater.UnlimitDirectionButton;
+        
         return base.OnBind();
     }
 
@@ -93,6 +100,10 @@ public class BattleSystemPresenter : ViewBase
     {
         _ccDirection.OnDirectionButtonClicked -= HandleVictoryOrDefeat;
         _ccAfter.OnNextButtonClicked -= HandleNextTurn;
+        _ccItemSelect.OnTestItemClicked -= UseItem;
         _turnManager.OnGameFinished -= TurnManagerOnOnGameFinished;
+        
+        _directionDecider.OnLimitedDirection -= _visualUpdater.LimitDirectionButton;
+        _directionDecider.OnUnlimitedDirection -= _visualUpdater.UnlimitDirectionButton;
     }
 }

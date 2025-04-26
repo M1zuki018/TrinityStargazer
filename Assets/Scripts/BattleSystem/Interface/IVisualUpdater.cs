@@ -5,4 +5,7 @@ public interface IVisualUpdater
 {
     void UpdateSprites(DirectionEnum enemyDirection, DirectionEnum playerDirection);
     void ResetSprites();
+
+    public void LimitDirectionButton(DirectionEnum direction);
+    public void UnlimitDirectionButton(DirectionEnum direction);
 }

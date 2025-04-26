@@ -112,7 +112,7 @@ public class DirectionDecider : IDirectionDecider
         // 制限されていない場合は何もしない
         if (!_limitedDirections.Contains(direction))
             return;
-            
+        
         OnUnlimitedDirection?.Invoke(direction);
         
         float total = _directionProbabilities.Values.Sum();
@@ -192,7 +192,6 @@ public class DirectionDecider : IDirectionDecider
     /// </summary>
     public void ResetProbabilities()
     {
-        _limitedDirections.Clear();
         _originalProbabilities.Clear();
         
         foreach (DirectionEnum direction in Enum.GetValues(typeof(DirectionEnum)))

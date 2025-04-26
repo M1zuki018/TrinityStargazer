@@ -28,6 +28,7 @@ public class SealPageEffect : IItemEffect
         {
             mediator.DirectionDecider.RemoveLimitProbability(direction);
         }
+        _sealedDirections.Clear();
     }
     
     public bool IsExpired()

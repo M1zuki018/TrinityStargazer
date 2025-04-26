@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 /// <summary>
@@ -33,10 +32,27 @@ public class BattleMediator : IBattleMediator
         effect.Remove(this);
         _activeEffects.Remove(effect);
     }
-    
+
+    /// <summary>
+    /// ターンの変わり目にアイテム効果に対する処理を行う
+    /// </summary>
     public void UpdateEffects()
     {
-        // ターン更新時の処理など
-        // 例えばターン数が減少したエフェクトの削除など
+        // 効果発動中のアイテムがなければreturn
+        if (_activeEffects.Count <= 0)
+            return;
+
+        // foreach文の中でListを書き換えないように一度配列にコピーする
+        var tmpEffects = _activeEffects.ToArray();
+        
+        foreach (var effect in tmpEffects)
+        {
+            effect.UpdateTurn();
+            if (effect.IsExpired()) // 効果が切れたか確認して解除処理を行う
+            {
+                RemoveEffect(effect);
+            }
+        }
+
     }
 }

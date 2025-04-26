@@ -94,6 +94,7 @@ public class BattleSystemPresenter : ViewBase
         _turnManager.NextTurn();
         _battleSystemManager.ResetBattle();
         _ccBefore.SetTurnText(_turnManager.TurnText());
+        if(_battleMediator != null)_battleMediator.UpdateEffects();
     }
 
     private void OnDestroy()

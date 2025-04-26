@@ -46,9 +46,10 @@ public class GameManager : ViewBase, IGameManager
     public void ItemTest()
     {
         InventoryManager.Instance.AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
-        InventoryManager.Instance.AddItem(ItemTypeEnum.ResonanceCable, RarityEnum.C);
+        InventoryManager.Instance.AddItem(ItemTypeEnum.ReverseBroom, RarityEnum.SSR);
         InventoryManager.Instance.AddItem(ItemTypeEnum.CelestialForecast, RarityEnum.C);
         InventoryManager.Instance.AddItem(ItemTypeEnum.SmartPhone, RarityEnum.SSR);
+        InventoryManager.Instance.AddItem(ItemTypeEnum.ResonanceCable, RarityEnum.C);
         InventoryManager.Instance.AddItem(ItemTypeEnum.ChallengeRose, RarityEnum.SSR);
         InventoryManager.Instance.AddItem(ItemTypeEnum.StarAttraction, RarityEnum.R);
     }

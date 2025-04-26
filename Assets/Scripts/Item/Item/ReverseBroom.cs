@@ -16,8 +16,4 @@ public class ReverseBroom : ItemBase
         throw new NotImplementedException();
     }
 
-    public override void Use(IBattleMediator battleMediator)
-    {
-        throw new System.NotImplementedException();
-    }
 }

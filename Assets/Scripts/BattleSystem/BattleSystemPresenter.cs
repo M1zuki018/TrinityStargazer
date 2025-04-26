@@ -47,6 +47,7 @@ public class BattleSystemPresenter : ViewBase
         _ccAfter.OnNextButtonClicked += HandleNextTurn;
         _ccItemSelect.OnTestItemClicked += UseItem;
         _turnManager.OnGameFinished += TurnManagerOnOnGameFinished;
+        _battleSystemManager.OnVictoryCountChanged += HandleVictory;
 
         // 封印のページ
         _directionDecider.OnLimitedDirection += _visualUpdater.SetButtonsInteractive;
@@ -82,7 +83,25 @@ public class BattleSystemPresenter : ViewBase
         _ccBefore.SetTurnText(_turnManager.TurnText());
     }
 
-    private void TurnManagerOnOnGameFinished() => OnBattleEnded?.Invoke();
+    /// <summary>
+    /// ゲーム終了処理を呼び出す
+    /// </summary>
+    private void TurnManagerOnOnGameFinished()
+    {
+        OnBattleEnded?.Invoke();   
+    }
+
+    /// <summary>
+    /// 勝利判定と最大ターン数の比較を行う
+    /// </summary>
+    private void HandleVictory(int victoryCount)
+    {
+        // 勝利数が最大ターン数を上回ったら
+        if (victoryCount >= GameManagerServiceLocator.Instance.GetGameModeData().MaxTurn)
+        {
+            _turnManager.GameFinished(); // ゲーム終了処理を呼ぶ
+        }
+    }
 
     /// <summary>
     /// バトルを始めた時の情報で敵の方向は決めてしまう
@@ -131,6 +150,14 @@ public class BattleSystemPresenter : ViewBase
         if(_battleMediator != null)_battleMediator.UpdateEffects();
     }
 
+    /// <summary>
+    /// アイテム：決闘の薔薇用　勝利時に獲得するポイントの数を変更する
+    /// </summary>
+    public void SetGetWinPoint(int getWinPoint)
+    {
+        _battleSystemManager.SetGetWinPoint(getWinPoint);
+    }
+
     private void OnDestroy()
     {
         _ccBefore.OnBattleButtonClicked -= HandleDirection;
@@ -138,6 +165,7 @@ public class BattleSystemPresenter : ViewBase
         _ccAfter.OnNextButtonClicked -= HandleNextTurn;
         _ccItemSelect.OnTestItemClicked -= UseItem;
         _turnManager.OnGameFinished -= TurnManagerOnOnGameFinished;
+        _battleSystemManager.OnVictoryCountChanged -= HandleVictory;
         
         // 封印のページ
         _directionDecider.OnLimitedDirection -= _visualUpdater.SetButtonsInteractive;

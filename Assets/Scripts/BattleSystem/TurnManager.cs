@@ -25,6 +25,14 @@ public class TurnManager
     }
 
     /// <summary>
+    /// 残りのターンを飛ばしてゲーム終了イベントを発火
+    /// </summary>
+    public void GameFinished()
+    {
+        OnGameFinished?.Invoke();
+    }
+
+    /// <summary>
     /// ターンのテキスト表示の部分に合うような文字列を返す
     /// </summary>
     public string TurnText()

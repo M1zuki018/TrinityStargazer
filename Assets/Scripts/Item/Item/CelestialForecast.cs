@@ -10,24 +10,24 @@ public class CelestialForecast : ItemBase
     private static readonly Dictionary<RarityEnum, int> RarityEffects = new()
     {
         { RarityEnum.N,   40},
-        { RarityEnum.C,   55},
-        { RarityEnum.R,   70},
-        { RarityEnum.SR,  85},
-        { RarityEnum.SSR, 100}
+        { RarityEnum.C,   50},
+        { RarityEnum.R,   60},
+        { RarityEnum.SR,  70},
+        { RarityEnum.SSR, 90}
     };
 
-    private int _value;
+    private int _accuracyRate;
     
     public CelestialForecast(RarityEnum rarity) : base(rarity, ItemTypeEnum.SealPage)
     {
         Name = "星の予測盤";
         EffectSetting(rarity);
-        Description = $"相手が次に向く方向を{_value}%の確率で予測する";
+        Description = $"相手が次に向く方向を{_accuracyRate}%の確率で予測する";
     }
 
     public override IItemEffect CreateEffect()
     {
-        return new CelestialForecastEffect(_value);
+        return new CelestialForecastEffect(_accuracyRate);
     }
     
     /// <summary>
@@ -40,6 +40,6 @@ public class CelestialForecast : ItemBase
             throw new ArgumentException($"未知のレアリティです: {rarity}");
         }
         
-        _value = effects;
+        _accuracyRate = effects;
     }
 }

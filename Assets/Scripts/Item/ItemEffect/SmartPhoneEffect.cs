@@ -22,8 +22,11 @@ public class SmartPhoneEffect : IItemEffect
         Debug.Log($"[スマートフォン] やあマキくん。");
         _mediator = mediator;
         _mediator.DirectionDecider.OnEnemyDirectionChanged += HandleCallKhalil;
+        LimitButtons();
     }
 
+    
+    
     /// <summary>
     /// アイテム効果の具体的な処理
     /// 方向決定に入ったタイミングで呼び出されて、バトルを自動進行する
@@ -42,7 +45,7 @@ public class SmartPhoneEffect : IItemEffect
             Debug.Log($"[スマートフォン] 予測失敗");
         }
         
-        _mediator.BattleSystemPresenter.HandleVictoryOrDefeat(_effectDirection); // 勝敗判定まで進める
+        _mediator.BattleSystemPresenter.UseSmartPhone(_effectDirection); // 勝敗判定まで進める
     }
     
     /// <summary>
@@ -76,7 +79,32 @@ public class SmartPhoneEffect : IItemEffect
 
     public void Remove(IBattleMediator mediator)
     {
+        UnlimitButtons();
         _mediator.DirectionDecider.OnEnemyDirectionChanged -= HandleCallKhalil;
+    }
+    
+    /// <summary>
+    /// ボタンを押せないようにする
+    /// </summary>
+    private void LimitButtons()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            int index = i;
+            _mediator.VisualUpdater.LimitDirectionButton((DirectionEnum)index);
+        }
+    }
+
+    /// <summary>
+    /// ボタンの制限を解除する
+    /// </summary>
+    private void UnlimitButtons()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            int index = i;
+            _mediator.VisualUpdater.UnlimitDirectionButton((DirectionEnum)index);
+        }
     }
 
     public bool IsExpired()

@@ -96,11 +96,28 @@ public class BattleSystemPresenter : ViewBase
     /// <summary>
     /// 勝敗を管理するメソッド
     /// </summary>
-    public void HandleVictoryOrDefeat(DirectionEnum direction)
+    private void HandleVictoryOrDefeat(DirectionEnum direction)
     {
         _battleSystemManager.ExecuteBattle(direction, _enemyDirection);
         _ccAfter.SetText(_battleSystemManager.IsVictory);
         _ccBefore.SetResultMark(_turnManager.CurrentTurn - 1, _battleSystemManager.IsVictory);
+    }
+
+    /// <summary>
+    /// アイテム：スマートフォンを使った時に自動でバトルを進行するための処理
+    /// </summary>
+    public void UseSmartPhone(DirectionEnum direction)
+    {
+        UseSmartPhoneAsync(direction).Forget();
+    }
+
+    private async UniTask UseSmartPhoneAsync(DirectionEnum direction)
+    {
+        // ここで一瞬待たないと、敵の方向が決まる前にアイテム使用処理が終わってしまい、
+        // 意図した挙動にならないため注意
+        await UniTask.Delay(TimeSpan.FromSeconds(1)); // TODO: ここで演出
+        
+        _ccDirection.OnDirectionButtonClick(direction); // 方向ボタンを押したときのイベントを発火
     }
 
     /// <summary>

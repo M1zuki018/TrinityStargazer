@@ -27,9 +27,9 @@ public class CanvasController_Direction : WindowBase
     }
 
     /// <summary>
-    /// 方向決定ボタンを押した時の処理
+    /// 方向決定ボタンを押した時の処理（アイテム効果で外部から呼び出す必要がある）
     /// </summary>
-    private void OnDirectionButtonClick(DirectionEnum direction)
+    public void OnDirectionButtonClick(DirectionEnum direction)
     {
         OnDirectionButtonClicked?.Invoke(direction);
     }

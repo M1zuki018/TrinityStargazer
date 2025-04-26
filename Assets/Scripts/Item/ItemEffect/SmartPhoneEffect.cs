@@ -21,19 +21,17 @@ public class SmartPhoneEffect : IItemEffect
     {
         Debug.Log($"[スマートフォン] やあマキくん。");
         _mediator = mediator;
-        _mediator.DirectionDecider.OnEnemyDirectionChanged += HandleCallKhalil;
-        LimitButtons();
+        _mediator.DirectionDecider.OnEnemyDirectionChanged += ExecuteDirectionPredictionAndBattle;
+        SetButtonsInteractive();
     }
-
-    
     
     /// <summary>
     /// アイテム効果の具体的な処理
-    /// 方向決定に入ったタイミングで呼び出されて、バトルを自動進行する
+    /// 敵の方向が決定された際に予測を行い、バトルを自動進行する
     /// </summary>
-    private void HandleCallKhalil(DirectionEnum enemyDirection)
+    private void ExecuteDirectionPredictionAndBattle(DirectionEnum enemyDirection)
     {
-        if (ShouldPredictCorrectly())
+        if (IsPredictionSuccessful())
         {
             // 乱数が的中率以下の場合は成功判定。正しい予測でUIを更新する
             _effectDirection = enemyDirection;
@@ -51,7 +49,7 @@ public class SmartPhoneEffect : IItemEffect
     /// <summary>
     /// 正しく予測を出すべきか処理を行う
     /// </summary>
-    private bool ShouldPredictCorrectly()
+    private bool IsPredictionSuccessful()
     {
         return Random.Range(0, 100) <= _accuracyRate;
     }
@@ -79,31 +77,31 @@ public class SmartPhoneEffect : IItemEffect
 
     public void Remove(IBattleMediator mediator)
     {
-        UnlimitButtons();
-        _mediator.DirectionDecider.OnEnemyDirectionChanged -= HandleCallKhalil;
+        SetButtonsNonInteractive();
+        _mediator.DirectionDecider.OnEnemyDirectionChanged -= ExecuteDirectionPredictionAndBattle;
     }
     
     /// <summary>
     /// ボタンを押せないようにする
     /// </summary>
-    private void LimitButtons()
+    private void SetButtonsInteractive()
     {
         for (int i = 0; i < 8; i++)
         {
             int index = i;
-            _mediator.VisualUpdater.LimitDirectionButton((DirectionEnum)index);
+            _mediator.VisualUpdater.SetButtonsInteractive((DirectionEnum)index);
         }
     }
 
     /// <summary>
     /// ボタンの制限を解除する
     /// </summary>
-    private void UnlimitButtons()
+    private void SetButtonsNonInteractive()
     {
         for (int i = 0; i < 8; i++)
         {
             int index = i;
-            _mediator.VisualUpdater.UnlimitDirectionButton((DirectionEnum)index);
+            _mediator.VisualUpdater.SetButtonsNonInteractive((DirectionEnum)index);
         }
     }
 

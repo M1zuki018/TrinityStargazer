@@ -42,7 +42,7 @@ public class VisualUpdater : IVisualUpdater
     /// <summary>
     /// 封印のページ：ボタンを使用出来ないようにする
     /// </summary>
-    public void LimitDirectionButton(DirectionEnum direction)
+    public void SetButtonsInteractive(DirectionEnum direction)
     {
         _directionalButtons[(int)direction].interactable = false;
     }
@@ -50,7 +50,7 @@ public class VisualUpdater : IVisualUpdater
     /// <summary>
     /// 封印のページ：ボタンを使用出来るようにする
     /// </summary>
-    public void UnlimitDirectionButton(DirectionEnum direction)
+    public void SetButtonsNonInteractive(DirectionEnum direction)
     {
         _directionalButtons[(int)direction].interactable = true;
     }

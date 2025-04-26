@@ -25,7 +25,7 @@ public class CelestialForecastEffect : IItemEffect
 
     private void HandleDirectionChanged(DirectionEnum direction)
     {
-        if (ShouldPredictCorrectly())
+        if (IsPredictionSuccessful())
         {
             // 乱数が的中率以下の場合は成功判定。正しい予測でUIを更新する
             _effectDirection = direction;
@@ -43,7 +43,7 @@ public class CelestialForecastEffect : IItemEffect
     /// <summary>
     /// 正しく予測を出すべきか処理を行う
     /// </summary>
-    private bool ShouldPredictCorrectly()
+    private bool IsPredictionSuccessful()
     {
         return Random.Range(0, 100) <= _accuracyRate;
     }

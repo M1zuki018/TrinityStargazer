@@ -49,8 +49,8 @@ public class BattleSystemPresenter : ViewBase
         _turnManager.OnGameFinished += TurnManagerOnOnGameFinished;
 
         // 封印のページ
-        _directionDecider.OnLimitedDirection += _visualUpdater.LimitDirectionButton;
-        _directionDecider.OnUnlimitedDirection += _visualUpdater.UnlimitDirectionButton;
+        _directionDecider.OnLimitedDirection += _visualUpdater.SetButtonsInteractive;
+        _directionDecider.OnUnlimitedDirection += _visualUpdater.SetButtonsNonInteractive;
         
         // 共鳴ケーブル
         _battleJudge.OnLink += _visualUpdater.LinkDirectionButton;
@@ -140,8 +140,8 @@ public class BattleSystemPresenter : ViewBase
         _turnManager.OnGameFinished -= TurnManagerOnOnGameFinished;
         
         // 封印のページ
-        _directionDecider.OnLimitedDirection -= _visualUpdater.LimitDirectionButton;
-        _directionDecider.OnUnlimitedDirection -= _visualUpdater.UnlimitDirectionButton;
+        _directionDecider.OnLimitedDirection -= _visualUpdater.SetButtonsInteractive;
+        _directionDecider.OnUnlimitedDirection -= _visualUpdater.SetButtonsNonInteractive;
         
         // 共鳴ケーブル
         _battleJudge.OnLink -= _visualUpdater.LinkDirectionButton;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 /// <summary>
@@ -5,6 +6,9 @@ using System.Collections.Generic;
 /// </summary>
 public interface IBattleJudge
 {
+    event Action<DirectionEnum> OnLink;
+    event Action<DirectionEnum> OnRelease;
+    
     bool Judge(DirectionEnum enemyDirection, DirectionEnum playerDirection);
     void LinkingDirection(List<DirectionEnum> directions);
     void ReleasingDirection();

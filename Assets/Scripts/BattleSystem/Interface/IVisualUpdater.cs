@@ -8,4 +8,7 @@ public interface IVisualUpdater
 
     public void LimitDirectionButton(DirectionEnum direction);
     public void UnlimitDirectionButton(DirectionEnum direction);
+    
+    public void LinkDirectionButton(DirectionEnum direction);
+    public void ReleaseDirectionButton(DirectionEnum direction);
 }

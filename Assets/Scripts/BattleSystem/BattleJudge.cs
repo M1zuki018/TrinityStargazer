@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class BattleJudge : IBattleJudge
 {
     // 同一のものとして扱う方向
     private List<DirectionEnum> _linkingDirections = new List<DirectionEnum>();
+    public event Action<DirectionEnum> OnLink;
+    public event Action<DirectionEnum> OnRelease;
 
     /// <summary>
     /// 敵と自分の方向から勝敗を判定する
@@ -20,7 +23,7 @@ public class BattleJudge : IBattleJudge
             bool judge = false;
             foreach (var direction in _linkingDirections)
             {
-                Debug.Log("探索");
+                Debug.Log("[共鳴ケーブル] 探索");
                 if (direction == playerDirection)
                 {
                     judge = true;
@@ -39,7 +42,11 @@ public class BattleJudge : IBattleJudge
     {
         _linkingDirections.Clear(); // 念のためクリアしておく
         _linkingDirections = directions;
-        Debug.Log("リンク中");
+        foreach (var direction in directions)
+        {
+            OnLink?.Invoke(direction);
+        }
+        Debug.Log("[共鳴ケーブル] リンク中");
     }
 
     /// <summary>
@@ -47,6 +54,11 @@ public class BattleJudge : IBattleJudge
     /// </summary>
     public void ReleasingDirection()
     {
+        foreach (var direction in _linkingDirections)
+        {
+            OnRelease?.Invoke(direction);
+        }
         _linkingDirections.Clear();
+        Debug.Log("[共鳴ケーブル] Release");
     }
 }

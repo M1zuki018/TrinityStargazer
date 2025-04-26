@@ -22,6 +22,7 @@ public class BattleSystemPresenter : ViewBase
     private IBattleMediator _battleMediator;
     
     private IDirectionDecider _directionDecider;
+    private IBattleJudge _battleJudge;
     private IVisualUpdater _visualUpdater;
     
     public event Action OnBattleEnded;
@@ -29,10 +30,10 @@ public class BattleSystemPresenter : ViewBase
     public override UniTask OnAwake()
     {
         _directionDecider = new DirectionDecider();
-        IBattleJudge battleJudge = new BattleJudge();
+        _battleJudge = new BattleJudge();
         _visualUpdater = new VisualUpdater(_seiImage, _playerHandImage, _ccDirection.DirectionButtons);
 
-        _battleSystemManager = new BattleSystemManager(_directionDecider, battleJudge, _visualUpdater);
+        _battleSystemManager = new BattleSystemManager(_directionDecider, _battleJudge, _visualUpdater);
         _turnManager = new TurnManager();
         return base.OnAwake();
     }
@@ -44,8 +45,13 @@ public class BattleSystemPresenter : ViewBase
         _ccItemSelect.OnTestItemClicked += UseItem;
         _turnManager.OnGameFinished += TurnManagerOnOnGameFinished;
 
+        // 封印のページ
         _directionDecider.OnLimitedDirection += _visualUpdater.LimitDirectionButton;
         _directionDecider.OnUnlimitedDirection += _visualUpdater.UnlimitDirectionButton;
+        
+        // 共鳴ケーブル
+        _battleJudge.OnLink += _visualUpdater.LinkDirectionButton;
+        _battleJudge.OnRelease += _visualUpdater.ReleaseDirectionButton;
         
         return base.OnBind();
     }
@@ -104,7 +110,12 @@ public class BattleSystemPresenter : ViewBase
         _ccItemSelect.OnTestItemClicked -= UseItem;
         _turnManager.OnGameFinished -= TurnManagerOnOnGameFinished;
         
+        // 封印のページ
         _directionDecider.OnLimitedDirection -= _visualUpdater.LimitDirectionButton;
         _directionDecider.OnUnlimitedDirection -= _visualUpdater.UnlimitDirectionButton;
+        
+        // 共鳴ケーブル
+        _battleJudge.OnLink -= _visualUpdater.LinkDirectionButton;
+        _battleJudge.OnRelease -= _visualUpdater.ReleaseDirectionButton;
     }
 }

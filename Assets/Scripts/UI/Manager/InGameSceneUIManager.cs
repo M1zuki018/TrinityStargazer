@@ -163,7 +163,7 @@ public class InGameSceneUIManager : SceneUIManagerBase
 
         if (_battleSystemPresenter != null)
         {
-            _battleSystemPresenter.OnBattleEnded += HandleResult;
+            _battleSystemPresenter.OnBattleCompleted += HandleResult;
         }
     }
 
@@ -244,7 +244,7 @@ public class InGameSceneUIManager : SceneUIManagerBase
 
         if (_battleSystemPresenter != null)
         {
-            _battleSystemPresenter.OnBattleEnded -= HandleResult;
+            _battleSystemPresenter.OnBattleCompleted -= HandleResult;
         }
     }
 }

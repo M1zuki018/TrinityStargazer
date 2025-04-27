@@ -29,7 +29,7 @@ public class ItemEffecter : IItemEffecter
         // 意図した挙動にならないため注意
         await UniTask.Delay(TimeSpan.FromSeconds(1)); // TODO: ここで演出
         
-        _controller.PressDirectionButton(direction); // 方向ボタンを押したときのイベントを発火
+        _controller.RequestDirectionSelection(direction); // 方向ボタンを押したときのイベントを発火
     }
     
     // アイテム：逆行のほうき
@@ -39,7 +39,7 @@ public class ItemEffecter : IItemEffecter
     /// </summary>
     public void UseReverseBroom()
     {
-        _controller.BackTurn();
+        _controller.RevertTurn();
     }
     
     // アイテム：決闘の薔薇
@@ -49,7 +49,7 @@ public class ItemEffecter : IItemEffecter
     /// </summary>
     public void SetGetWinPoint(int getWinPoint)
     {
-        _controller.SetGetWinPoint(getWinPoint);
+        _controller.SetVictoryPointValue(getWinPoint);
     }
     
 }

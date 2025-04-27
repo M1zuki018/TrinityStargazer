@@ -13,7 +13,7 @@ public class TurnHandler
     /// <summary>
     /// 次のターンに進める
     /// </summary>
-    public void NextTurn()
+    public void AdvanceToNextTurn()
     {
         if (_currentTurn >= _maxTurn) // 最大ターンであれば
         {
@@ -37,7 +37,7 @@ public class TurnHandler
     /// <summary>
     /// 残りのターンを飛ばしてゲーム終了イベントを発火
     /// </summary>
-    public void GameFinished()
+    public void CompleteBattle()
     {
         OnGameFinished?.Invoke();
     }

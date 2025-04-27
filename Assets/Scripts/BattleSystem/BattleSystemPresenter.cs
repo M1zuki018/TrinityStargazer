@@ -21,7 +21,7 @@ public class BattleSystemPresenter : ViewBase
     // ロジック側
     private IBattleController _battleController;
     
-    public event Action OnBattleEnded; // ゲーム終了を通知するイベント
+    public event Action OnBattleCompleted; // ゲーム終了を通知するイベント
     
     public override UniTask OnAwake()
     {
@@ -35,11 +35,11 @@ public class BattleSystemPresenter : ViewBase
         // UIイベント登録
         _ccBefore.OnBattleButtonClicked += _battleController.DecideEnemyDirection;
         _ccItemSelect.OnTestItemClicked += _battleController.UseItem;
-        _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat;
-        _ccAfter.OnNextButtonClicked += _battleController.ResetBattle;
+        _ccDirection.OnDirectionButtonClicked += ProcessBattleResult;
+        _ccAfter.OnNextButtonClicked += _battleController.PrepareBattleForNextTurn;
         
         // ロジックイベント登録
-        _battleController.OnGameFinished += GameFinished;
+        _battleController.OnBattleCompleated += NotifyBattleCompletion;
         _battleController.OnDirectionRequest += _ccDirection.OnDirectionButtonClick;
         return base.OnBind();
     }
@@ -47,7 +47,7 @@ public class BattleSystemPresenter : ViewBase
     /// <summary>
     /// 方向決定したあとの処理。引数としてUI側からプレイヤーが選択した方向が渡される
     /// </summary>
-    private void HandleVictoryOrDefeat(DirectionEnum direction)
+    private void ProcessBattleResult(DirectionEnum direction)
     {
         _battleController.ExecuteBattle(direction); // バトルの実行
         _ccAfter.SetText(_battleController.IsVictory); // UI書き換え
@@ -57,18 +57,18 @@ public class BattleSystemPresenter : ViewBase
     /// ゲーム終了処理を呼び出す
     /// Controllerから呼び出されて、InGameUIManagerが受け取り リザルト画面に進む
     /// </summary>
-    private void GameFinished()
+    private void NotifyBattleCompletion()
     {
-        OnBattleEnded?.Invoke();   
+        OnBattleCompleted?.Invoke();   
     }
 
     private void OnDestroy()
     {
         _ccBefore.OnBattleButtonClicked -= _battleController.DecideEnemyDirection;
         _ccItemSelect.OnTestItemClicked -= _battleController.UseItem;
-        _ccDirection.OnDirectionButtonClicked -= HandleVictoryOrDefeat;
-        _ccAfter.OnNextButtonClicked -= _battleController.ResetBattle;
-        _battleController.OnGameFinished -= GameFinished;
+        _ccDirection.OnDirectionButtonClicked -= ProcessBattleResult;
+        _ccAfter.OnNextButtonClicked -= _battleController.PrepareBattleForNextTurn;
+        _battleController.OnBattleCompleated -= NotifyBattleCompletion;
         _battleController.OnDirectionRequest -= _ccDirection.OnDirectionButtonClick;
     }
 }

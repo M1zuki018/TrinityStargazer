@@ -25,8 +25,7 @@ public class BattleSystemPresenter : ViewBase
     
     public override UniTask OnAwake()
     {
-        _battleController = new BattleController(_seiImage, _playerHandImage, _ccDirection.DirectionButtons,
-            _turnUIs, this);
+        _battleController = new BattleController(_seiImage, _playerHandImage, _ccDirection.DirectionButtons, _turnUIs);
         return base.OnAwake();
     }
     
@@ -34,18 +33,14 @@ public class BattleSystemPresenter : ViewBase
     {
         // UIイベント登録
         _ccBefore.OnBattleButtonClicked += _battleController.DecideEnemyDirection;
+        _ccItemSelect.OnTestItemClicked += _battleController.UseItem;
         _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat;
-        _ccAfter.OnNextButtonClicked += HandleNextTurn;
-        _ccItemSelect.OnTestItemClicked += UseItem;
+        _ccAfter.OnNextButtonClicked += _battleController.ResetBattle;
+        
+        // ロジックイベント登録
+        _battleController.OnGameFinished += GameFinished;
+        _battleController.OnDirectionRequest += _ccDirection.OnDirectionButtonClick;
         return base.OnBind();
-    }
-    
-    /// <summary>
-    /// アイテムメニューからボタンを押したときにアイテムを使用する
-    /// </summary>
-    private void UseItem(ItemTypeEnum itemType, RarityEnum rarity, int count)
-    {
-        _battleController.UseItem(itemType, rarity, count);
     }
     
     /// <summary>
@@ -58,26 +53,10 @@ public class BattleSystemPresenter : ViewBase
     }
     
     /// <summary>
-    /// 次のターンに移行するボタンを押したときに呼び出される処理
-    /// </summary>
-    private void HandleNextTurn()
-    {
-        _battleController.ResetBattle();
-    }
-
-    /// <summary>
-    /// 方向ボタンを押す処理をロジック側から呼びだすためのメソッド
-    /// </summary>
-    public void PressDirectionButton(DirectionEnum direction)
-    {
-        _ccDirection.OnDirectionButtonClick(direction);
-    }
-    
-    /// <summary>
     /// ゲーム終了処理を呼び出す
     /// Controllerから呼び出されて、InGameUIManagerが受け取り リザルト画面に進む
     /// </summary>
-    public void GameFinished()
+    private void GameFinished()
     {
         OnBattleEnded?.Invoke();   
     }
@@ -85,8 +64,10 @@ public class BattleSystemPresenter : ViewBase
     private void OnDestroy()
     {
         _ccBefore.OnBattleButtonClicked -= _battleController.DecideEnemyDirection;
+        _ccItemSelect.OnTestItemClicked -= _battleController.UseItem;
         _ccDirection.OnDirectionButtonClicked -= HandleVictoryOrDefeat;
-        _ccAfter.OnNextButtonClicked -= HandleNextTurn;
-        _ccItemSelect.OnTestItemClicked -= UseItem;
+        _ccAfter.OnNextButtonClicked -= _battleController.ResetBattle;
+        _battleController.OnGameFinished -= GameFinished;
+        _battleController.OnDirectionRequest -= _ccDirection.OnDirectionButtonClick;
     }
 }

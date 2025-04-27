@@ -10,12 +10,10 @@ public class BattleController : IDisposable
     private bool _isWinLastBattle; // 前回のバトルで勝利したか
     private int _victoryCount; // 勝利数
     private int _getWinPoint = 1; // 勝利時に獲得するポイント数（初期値は1。アイテム決闘の薔薇の効果で変動する）
-    
     private bool _isVictory;
     public bool IsVictory => _isVictory;
     
     // コンポーネント
-    private readonly BattleSystemPresenter _presenter;
     private readonly IBattleMediator _mediator; // バトルに必要な機能が入ったインターフェースなどはこのクラスで管理
     private readonly IDirectionDecider _directionDecider; // 方向決定
     private readonly IBattleJudge _battleJudge; // 勝敗判定
@@ -25,10 +23,11 @@ public class BattleController : IDisposable
     
     private DirectionEnum _enemyDirection; // 敵が向きを決めるタイミングと勝敗判定のタイミングが異なるため保存しておくための変数
 
-    public BattleController(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, 
-        TurnUIs turnUIs, BattleSystemPresenter presenter)
+    public event Action OnGameFinished;
+    public event Action<DirectionEnum> OnDirectionRequest;
+    
+    public BattleController(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, TurnUIs turnUIs)
     {
-        _presenter = presenter;
         _directionDecider = new DirectionDecider();
         _battleJudge = new BattleJudge();
         _visualUpdater = new VisualUpdater(enemyImage, playerImage, directionalButtons, turnUIs);
@@ -55,11 +54,12 @@ public class BattleController : IDisposable
     private int GetCurrentTurnToIndex() => _turnHandler.CurrentTurn - 1;
     
     /// <summary>
-    /// 方向ボタンを押す処理をロジック側から呼び出すためのメソッド（アイテム：スマートフォン用）
+    /// 方向ボタンを押す処理をロジック側から呼び出すためのイベントを発火
+    /// アイテム：スマートフォン用
     /// </summary>
     public void PressDirectionButton(DirectionEnum direction)
     {
-        _presenter.PressDirectionButton(direction);
+        OnDirectionRequest?.Invoke(direction);
     }
     
     /// <summary>
@@ -122,7 +122,7 @@ public class BattleController : IDisposable
     /// </summary>
     private void GameFinished()
     {
-        _presenter.GameFinished();
+        OnGameFinished?.Invoke();
     }
     
     /// <summary>

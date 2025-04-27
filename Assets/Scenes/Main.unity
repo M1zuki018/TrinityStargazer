@@ -554,10 +554,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 78300066340342477, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 219224248617226698, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 489027648138255894, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 636063248813555230, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 873719967205495465, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 971650964383765524, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 1029058329864961357, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
     - target: {fileID: 1090012663108756563, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Camera
       value: 
@@ -566,6 +590,46 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 1381970263364241462, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: _saleButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381970263364241462, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: _synthesisButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586163678082793291, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 1630028372570470450, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 2325031255793968606, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 2523496127069852013, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 2561832347410839307, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 3097075822575634559, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 3466708368147121386, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 3846017915926304762, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
     - target: {fileID: 4085664110004102947, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -650,22 +714,74 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 4369744335188664609, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 4448999925049147785, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546863267049784440, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 4595824098196426662, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 4661358342994553702, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 4992265716285606751, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 5080140511464434693, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 5197612076027383069, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 5410095177158235319, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
     - target: {fileID: 5540528243250404001, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 6311889538686114370, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
     - target: {fileID: 6437131777605292468, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 7112217761401147877, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
     - target: {fileID: 7399820376618362368, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Name
       value: '[MainScene]Canvas'
       objectReference: {fileID: 0}
+    - target: {fileID: 7560042310200331826, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
     - target: {fileID: 7653291747827008197, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 7854957339016350303, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
     - target: {fileID: 7988949038870439096, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Camera
       value: 
@@ -674,6 +790,22 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 8353859798411786277, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 8360616026474900501, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 8851090017985598582, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
+    - target: {fileID: 9146549559272949190, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 29287446ffd0f6b42878af7f475c9022, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

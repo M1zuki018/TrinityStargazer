@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// 方向を決定するインターフェース
@@ -6,6 +7,7 @@ using System;
 public interface IDirectionDecider
 {
      DirectionEnum DecideDirection();
+     HashSet<DirectionEnum> GetSealedDirections();
     void ModifyProbability(DirectionEnum direction, float addedProbability);
     void LimitProbability(DirectionEnum direction);
     void RemoveLimitProbability(DirectionEnum direction);

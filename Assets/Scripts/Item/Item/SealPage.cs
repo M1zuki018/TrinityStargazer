@@ -28,9 +28,7 @@ public class SealPage : ItemBase
     
     public override IItemEffect CreateEffect()
     {
-        //TODO: _limitCountの数だけ方向を生成するように修正する（既に発動中のものと被らないようにしたい）
-        var selectedDirections = new List<DirectionEnum> { DirectionEnum.Up, DirectionEnum.Down };
-        return new SealPageEffect(selectedDirections, _effectiveTurns);
+        return new SealPageEffect(_limitCount, _effectiveTurns);
     }
 
     /// <summary>

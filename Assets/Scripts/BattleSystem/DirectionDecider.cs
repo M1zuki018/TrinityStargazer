@@ -32,7 +32,12 @@ public class DirectionDecider : IDirectionDecider
             _directionProbabilities[direction] = DEFAULT_PROBABILITY;
         }
     }
-    
+
+    /// <summary>
+    /// 制限中の方向を返す
+    /// </summary>
+    public HashSet<DirectionEnum> GetSealedDirections() => _limitedDirections;
+
     /// <summary>
     /// 方向の確率を変更する
     /// </summary>
@@ -135,7 +140,6 @@ public class DirectionDecider : IDirectionDecider
             if (!_limitedDirections.Contains(dir))
             {
                 _directionProbabilities[dir] *= normalizeFactor;
-                Debug.Log($"{dir}{_directionProbabilities[dir]}");
             }
         }
     }

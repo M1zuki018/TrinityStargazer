@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class GlobalFadePanel : ViewBase
 {
     [SerializeField] private Image _fadePanel;
-    private CanvasGroup _canvasGroup;
+    private static CanvasGroup _canvasGroup;
     private Tween _currentFadeTween;
     
     public static event Action<float> OnFadeOutRequested; // フェードアウト
@@ -101,6 +101,14 @@ public class GlobalFadePanel : ViewBase
         // レイキャストのブロックを解除
         _canvasGroup.blocksRaycasts = false;
     }
+    
+    /// <summary>
+    /// フェードの進行状況を直接操作するメソッド
+    /// </summary>
+    public static void RequestFadeProgress(float alpha)
+    {
+        _canvasGroup.alpha = alpha;
+    }
 
     /// <summary>
     /// パネルの色変更
@@ -116,4 +124,5 @@ public class GlobalFadePanel : ViewBase
         OnFadeInRequested -= HandleFadeInRequest;
         OnColorChangeRequested -= ChangeColor;
     }
+    
 }

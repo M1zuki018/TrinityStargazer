@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1036920775708146481
+--- !u!1 &4271919465987429393
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5942641544426314046}
-  - component: {fileID: 6521025154632067673}
+  - component: {fileID: 6872145421793764105}
+  - component: {fileID: 3038849842352001500}
   m_Layer: 0
-  m_Name: LifeSycleController
+  m_Name: RewordSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5942641544426314046
+--- !u!4 &6872145421793764105
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1036920775708146481}
+  m_GameObject: {fileID: 4271919465987429393}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,24 +32,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6521025154632067673
+--- !u!114 &3038849842352001500
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1036920775708146481}
+  m_GameObject: {fileID: 4271919465987429393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e945a7dce86e1364b9d076f9186486d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 55aa1b67adae23940b609aac7eb05e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugMode: 1
-  _isLogFormatEnabled: 0
-  _isLoggingEnabled: 0
-  _prefabsToInstantiate:
-  - {fileID: 6892080736701214548, guid: c6c2441336eec084ba6c4796c08fabb6, type: 3}
-  - {fileID: 909823680221647841, guid: 37f6254e06d58964289ee0108a645153, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 4271919465987429393, guid: 03c166d2ccaab0d488e118108bfc2487, type: 3}
+  _rewordTable: {fileID: 11400000, guid: 4b57a2943c119564f90ea5535ac70856, type: 2}

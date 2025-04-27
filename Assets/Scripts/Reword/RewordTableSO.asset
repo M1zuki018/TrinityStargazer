@@ -29,6 +29,17 @@ MonoBehaviour:
       _rate: 0
     - _itemType: 6
       _rate: 0
+    _rarityRates:
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
   - _gameMode: 1
     _gameModes:
     - _itemType: 0
@@ -44,6 +55,17 @@ MonoBehaviour:
     - _itemType: 0
       _rate: 0
     - _itemType: 0
+      _rate: 0
+    _rarityRates:
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
       _rate: 0
   - _gameMode: 2
     _gameModes:
@@ -61,6 +83,17 @@ MonoBehaviour:
       _rate: 0
     - _itemType: 0
       _rate: 0
+    _rarityRates:
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
   - _gameMode: 3
     _gameModes:
     - _itemType: 0
@@ -76,6 +109,17 @@ MonoBehaviour:
     - _itemType: 0
       _rate: 0
     - _itemType: 0
+      _rate: 0
+    _rarityRates:
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
       _rate: 0
   - _gameMode: 4
     _gameModes:
@@ -93,3 +137,15 @@ MonoBehaviour:
       _rate: 0
     - _itemType: 0
       _rate: 0
+    _rarityRates:
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+    - _rarity: 0
+      _rate: 0
+  _victoryCountGuarantees: []

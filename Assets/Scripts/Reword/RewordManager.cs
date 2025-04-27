@@ -6,5 +6,4 @@ using UnityEngine;
 public class RewordManager : ViewBase
 {
     [SerializeField][ExpandableSO] private RewordTableSO _rewordTable;
-    // 勝利数による変動 ○点以上でR以上確定みたいな感じ
 }

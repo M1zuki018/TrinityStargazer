@@ -45,13 +45,24 @@ public class GameManager : ViewBase, IGameManager
     [ContextMenu("アイテムテスト")]
     public void ItemTest()
     {
-        InventoryManager.Instance.AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
-        InventoryManager.Instance.AddItem(ItemTypeEnum.ReverseBroom, RarityEnum.SSR);
-        InventoryManager.Instance.AddItem(ItemTypeEnum.CelestialForecast, RarityEnum.C);
-        InventoryManager.Instance.AddItem(ItemTypeEnum.SmartPhone, RarityEnum.SSR);
-        InventoryManager.Instance.AddItem(ItemTypeEnum.ResonanceCable, RarityEnum.C);
-        InventoryManager.Instance.AddItem(ItemTypeEnum.ChallengeRose, RarityEnum.SSR);
-        InventoryManager.Instance.AddItem(ItemTypeEnum.StarAttraction, RarityEnum.R);
+        for (int i = 0; i < 3; i++)
+        {
+            InventoryManager.Instance.AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.ReverseBroom, RarityEnum.SSR);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.CelestialForecast, RarityEnum.C);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.SmartPhone, RarityEnum.SSR);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.ResonanceCable, RarityEnum.C);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.ChallengeRose, RarityEnum.SSR);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.StarAttraction, RarityEnum.R);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ItemTest();
+        }
     }
     
     /// <summary>

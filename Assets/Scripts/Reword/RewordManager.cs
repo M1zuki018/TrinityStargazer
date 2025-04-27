@@ -10,6 +10,7 @@ public class RewordManager : ViewBase
 {
     [SerializeField] private BattleSystemPresenter _battleSystemPresenter;
     [SerializeField][ExpandableSO] private RewordTableSO _rewordTable;
+    [SerializeField] private RarityRate[] _currencyRates = new RarityRate[5]; // TODO: 後で難易度ごとに変更できるようにする
 
     public override UniTask OnAwake()
     {
@@ -22,39 +23,113 @@ public class RewordManager : ViewBase
     /// </summary>
     private void GetRewords()
     {
-        int count = 5; // TODO: 個数指定を追加
-        int minimum = 10; // TODO: 仮
+        // 通貨を獲得する処理
         int victoryPoints = GameManagerServiceLocator.Instance.VictoryPoints; // 勝利数
+        GetCurrencyRewords(victoryPoints); // 獲得
         
-        PlayerData.Money += victoryPoints * 10 + minimum; // ゲーム内通貨を獲得
-        Debug.Log($"ゲーム内通貨　獲得：{victoryPoints * 10 + minimum} 現在：{PlayerData.Money}");
-        
-        // 現在のゲームモードの報酬テーブルを取得
-        var table = _rewordTable.GetRateTable(GameManagerServiceLocator.Instance.GetGameModeData().GameMode);
+        // アイテム報酬を用意する
+        int baseItemCount = Mathf.Max(1, 1 + victoryPoints); // アイテムの獲得数のベース（最低1個 + 勝利数）
+        int rand = Random.Range(0, 100); // 乱数を生成
+        int itemCount = Mathf.Max(0, baseItemCount - rand); // アイテム獲得数のベースから乱数を引いて、残った分を報酬として提供する
 
-        // 勝利数に基づく保証レアリティを確認
-        RarityEnum? guaranteedRarity = _rewordTable.GetGuaranteedRarity(victoryPoints);
-        
-        for (int i = 0; i < count; i++)
+        if (itemCount <= 0)
         {
-            // 最初のアイテムに保証レアリティを適用
-            if (i == 0 && guaranteedRarity.HasValue)
-            {
-                // 保証レアリティに対応するアイテムを抽選
-                var item = ItemTypeLotteryWithValidRarity(table.Item1, guaranteedRarity.Value);
-                InventoryManager.Instance.AddItem(item, guaranteedRarity.Value);
-            }
-            else
-            {
-                // 通常の抽選
-                var rarity = RarityLottery(table.Item2);
-                // このレアリティが有効なアイテムのみで抽選
-                var item = ItemTypeLotteryWithValidRarity(table.Item1, rarity);
-                InventoryManager.Instance.AddItem(item, rarity);
-            }
+            return; // アイテムを用意する必要がなければ以下の処理は行わない
+        }
+        
+        var table = _rewordTable.GetRateTable(GameManagerServiceLocator.Instance.GetGameModeData().GameMode);
+        for (int i = 0; i < itemCount; i++)
+        {
+            var rarity = RarityLottery(table.Item2);
+            var item = ItemTypeLotteryWithValidRarity(table.Item1, rarity);
+            InventoryManager.Instance.AddItem(item, rarity);
         }
     }
 
+    /// <summary>
+    /// 通貨報酬を獲得する
+    /// </summary>
+    private void GetCurrencyRewords(int victoryPoints)
+    {
+        // 勝利数に基づく通貨量の計算（ベース数 + 勝利数×2）
+        int minimum = 1;
+        int baseCurrencyAmount = minimum + (victoryPoints * 2);
+        
+        // 勝利数が多いほど高レアリティの通貨が出やすくなる補正
+        float rarityBonus = Mathf.Min(0.5f, victoryPoints * 0.02f); // 最大50%のボーナス
+        
+        // 通貨のドロップ数範囲を取得
+        Vector2Int countRange = new Vector2Int(1, 5);
+        
+        // 実際のドロップ数をランダムに決定
+        int currencyDrops = Random.Range(countRange.x, countRange.y + 1);
+        
+        // 通貨ドロップの実行
+        for (int i = 0; i < currencyDrops; i++)
+        {
+            // 勝利数による補正を適用した確率でレアリティを決定
+            RarityEnum currencyRarity = CurrencyLottery(_currencyRates, rarityBonus);
+            
+            // 通貨量の計算（レアリティが高いほど少なくなる）
+            int amount = CalculateCurrencyAmount(baseCurrencyAmount, currencyRarity);
+            
+            // 通貨を追加
+            PlayerData.AddCurrency(currencyRarity, amount);
+            Debug.Log($"通貨獲得：{currencyRarity} 量：{amount} PlayerData：{PlayerData.GetCurrency(currencyRarity)}");
+        }
+    }
+    
+    /// <summary>
+    /// 通貨のレアリティを抽選する
+    /// </summary>
+    private RarityEnum CurrencyLottery(RarityRate[] currencyRates, float rarityBonus = 0f)
+    {
+        // 勝利ボーナスによる高レア補正
+        float[] adjustedRates = new float[currencyRates.Length];
+        float totalRate = 0f;
+        
+        // レートの補正計算
+        for (int i = 0; i < currencyRates.Length; i++)
+        {
+            // 高レアリティほどボーナスの恩恵を受ける（低レアリティは逆に出にくくなる）
+            float rarityModifier = 1f + ((float)i / (currencyRates.Length - 1) * 2 - 1) * rarityBonus;
+            adjustedRates[i] = currencyRates[i].GetRate() * rarityModifier;
+            totalRate += adjustedRates[i];
+        }
+        
+        // 乱数でレアリティを決定
+        float random = Random.Range(0f, totalRate);
+        float cumulativeRate = 0f;
+        
+        for (int i = 0; i < currencyRates.Length; i++)
+        {
+            cumulativeRate += adjustedRates[i];
+            if (random < cumulativeRate)
+            {
+                return currencyRates[i].GetRarity();
+            }
+        }
+        
+        // フォールバック（最低レアリティ）
+        return RarityEnum.R;
+    }
+    
+    /// <summary>
+    /// 通貨量を計算する
+    /// </summary>
+    private int CalculateCurrencyAmount(int baseAmount, RarityEnum rarity)
+    {
+        // レアリティに応じた係数
+        float[] rarityMultipliers = { 1.0f, 0.5f, 0.25f, 0.1f, 0.05f };
+        int rarityIndex = (int)rarity;
+        
+        // 基本量 × レアリティ係数（端数は切り上げ）
+        int amount = Mathf.CeilToInt(baseAmount * rarityMultipliers[rarityIndex]);
+        
+        // 最低保証量（少なくとも1個は入手できるようにする）
+        return Mathf.Max(1, amount);
+    }
+    
     /// <summary>
     /// レアリティを決める抽選
     /// </summary>

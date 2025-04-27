@@ -567,6 +567,34 @@ PrefabInstance:
       propertyPath: _battleSystemPresenter
       value: 
       objectReference: {fileID: 546949282}
+    - target: {fileID: 3038849842352001500, guid: 03c166d2ccaab0d488e118108bfc2487, type: 3}
+      propertyPath: _currencyRates.Array.data[2]._rate
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038849842352001500, guid: 03c166d2ccaab0d488e118108bfc2487, type: 3}
+      propertyPath: _currencyRates.Array.data[3]._rate
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038849842352001500, guid: 03c166d2ccaab0d488e118108bfc2487, type: 3}
+      propertyPath: _currencyRates.Array.data[4]._rate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038849842352001500, guid: 03c166d2ccaab0d488e118108bfc2487, type: 3}
+      propertyPath: _currencyRates.Array.data[1]._rarity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038849842352001500, guid: 03c166d2ccaab0d488e118108bfc2487, type: 3}
+      propertyPath: _currencyRates.Array.data[2]._rarity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038849842352001500, guid: 03c166d2ccaab0d488e118108bfc2487, type: 3}
+      propertyPath: _currencyRates.Array.data[3]._rarity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038849842352001500, guid: 03c166d2ccaab0d488e118108bfc2487, type: 3}
+      propertyPath: _currencyRates.Array.data[4]._rarity
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4271919465987429393, guid: 03c166d2ccaab0d488e118108bfc2487, type: 3}
       propertyPath: m_Name
       value: RewordSystem

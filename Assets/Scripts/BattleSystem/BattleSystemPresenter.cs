@@ -17,14 +17,13 @@ public class BattleSystemPresenter : ViewBase
     [SerializeField] private DirectionalImages _seiImage;
     [SerializeField] private DirectionalImages _playerHandImage;
 
-    // Controllerレイヤーのクラス
+    // ロジック側
     private BattleController _battleController;
     
-    public event Action OnBattleEnded;
+    public event Action OnBattleEnded; // ゲーム終了を通知するイベント
     
     public override UniTask OnAwake()
     {
-        // Controllerレイヤーのクラスのインスタンスを生成
         _battleController = new BattleController(_seiImage, _playerHandImage, _ccDirection.DirectionButtons, this);
         return base.OnAwake();
     }
@@ -54,44 +53,34 @@ public class BattleSystemPresenter : ViewBase
     }
     
     /// <summary>
-    /// アイテムを使用する
+    /// アイテムメニューからボタンを押したときにアイテムを使用する
     /// </summary>
     private void UseItem(ItemTypeEnum itemType, RarityEnum rarity, int count)
     {
         InventoryManager.Instance.UseItem(_battleController.Mediator, itemType, rarity, count);
     }
     
-    
-    
     /// <summary>
-    /// ゲーム終了処理を呼び出す
-    /// </summary>
-    public void GameFinished()
-    {
-        OnBattleEnded?.Invoke();   
-    }
-    
-    /// <summary>
-    /// 勝敗を管理するメソッド
-    /// 引数としてUI側からプレイヤーが選択した方向が渡される
+    /// 方向決定したあとの処理。引数としてUI側からプレイヤーが選択した方向が渡される
     /// </summary>
     private void HandleVictoryOrDefeat(DirectionEnum direction)
     {
-        _battleController.ExecuteBattle(direction);
-        _ccAfter.SetText(_battleController.IsVictory);
+        _battleController.ExecuteBattle(direction); // バトルの実行
+        _ccAfter.SetText(_battleController.IsVictory); // UI書き換え
         _ccBefore.SetResultMark(_battleController.GetCurrentTurnToIndex(), _battleController.IsVictory);
     }
     
     /// <summary>
-    /// 次のターンに移行するときに必要な処理
+    /// 次のターンに移行するボタンを押したときに呼び出される処理
     /// </summary>
     private void HandleNextTurn()
     {
         _battleController.ResetBattle();
         _ccBefore.SetTurnText(_battleController.GetTurnText());
-        _battleController.Mediator.UpdateEffects();
     }
-    
+
+    #region アイテム効果をUI側に反映させる処理
+
     /// <summary>
     /// 方向ボタンを押す（スマートフォン用）
     /// </summary>
@@ -109,7 +98,17 @@ public class BattleSystemPresenter : ViewBase
         _ccBefore.SetTurnText(_battleController.GetTurnText());
         _ccBefore.ResetResultMark(_battleController.GetCurrentTurnToIndex());
     }
+
+    #endregion
     
+    /// <summary>
+    /// ゲーム終了処理を呼び出す
+    /// Controllerから呼び出されて、InGameUIManagerが受け取り リザルト画面に進む
+    /// </summary>
+    public void GameFinished()
+    {
+        OnBattleEnded?.Invoke();   
+    }
 
     private void OnDestroy()
     {

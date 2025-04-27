@@ -61,7 +61,7 @@ public class BattleController : IDisposable
     /// </summary>
     public void DecideEnemyDirection()
     {
-        _enemyDirection = _mediator.DirectionDecider.DecideDirection();
+        _enemyDirection = _directionDecider.DecideDirection();
         Debug.Log($"次の方向：{_enemyDirection}");
     }
     
@@ -70,8 +70,8 @@ public class BattleController : IDisposable
     /// </summary>
     public void ExecuteBattle(DirectionEnum playerDirection)
     {
-        _mediator.VisualUpdater.UpdateSprites(_enemyDirection, playerDirection);
-        IsVictory = _mediator.BattleJudge.Judge(_enemyDirection, playerDirection);
+        _visualUpdater.UpdateSprites(_enemyDirection, playerDirection);
+        IsVictory = _battleJudge.Judge(_enemyDirection, playerDirection);
         if (IsVictory)
         {
             _victoryCount += _getWinPoint;
@@ -122,8 +122,9 @@ public class BattleController : IDisposable
     public void ResetBattle()
     {
         _turnHandler.NextTurn();
-        _mediator.DirectionDecider.ResetProbabilities();
-        _mediator.VisualUpdater.ResetSprites();
+        _directionDecider.ResetProbabilities();
+        _visualUpdater.ResetSprites();
+        _mediator.UpdateEffects();
     }
     
     public void Dispose()

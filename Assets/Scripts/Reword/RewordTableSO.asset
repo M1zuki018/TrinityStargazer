@@ -16,30 +16,30 @@ MonoBehaviour:
   - _gameMode: 0
     _gameModes:
     - _itemType: 0
-      _rate: 0
+      _rate: 20
     - _itemType: 1
-      _rate: 0
+      _rate: 5
     - _itemType: 2
-      _rate: 0
+      _rate: 20
     - _itemType: 3
-      _rate: 0
+      _rate: 5
     - _itemType: 4
-      _rate: 0
+      _rate: 20
     - _itemType: 5
-      _rate: 0
+      _rate: 10
     - _itemType: 6
-      _rate: 0
+      _rate: 20
     _rarityRates:
     - _rarity: 0
-      _rate: 0
-    - _rarity: 0
-      _rate: 0
-    - _rarity: 0
-      _rate: 0
-    - _rarity: 0
-      _rate: 0
-    - _rarity: 0
-      _rate: 0
+      _rate: 40
+    - _rarity: 1
+      _rate: 30
+    - _rarity: 2
+      _rate: 15
+    - _rarity: 3
+      _rate: 4
+    - _rarity: 4
+      _rate: 1
   - _gameMode: 1
     _gameModes:
     - _itemType: 0
@@ -148,4 +148,27 @@ MonoBehaviour:
       _rate: 0
     - _rarity: 0
       _rate: 0
-  _victoryCountGuarantees: []
+  _victoryCountGuarantees:
+  - _requiredVictoryCount: 3
+    _guaranteedRarity: 0
+  - _requiredVictoryCount: 5
+    _guaranteedRarity: 2
+  - _requiredVictoryCount: 7
+    _guaranteedRarity: 3
+  - _requiredVictoryCount: 10
+    _guaranteedRarity: 4
+  _itemValidRarities:
+  - _itemType: 0
+    _validRarities: 0000000001000000020000000300000004000000
+  - _itemType: 1
+    _validRarities: 04000000
+  - _itemType: 2
+    _validRarities: 0000000001000000020000000300000004000000
+  - _itemType: 3
+    _validRarities: 0300000004000000
+  - _itemType: 4
+    _validRarities: 0000000001000000020000000300000004000000
+  - _itemType: 5
+    _validRarities: 020000000300000004000000
+  - _itemType: 6
+    _validRarities: 0000000001000000020000000300000004000000

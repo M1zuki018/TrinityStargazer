@@ -5670,6 +5670,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _closeButton: {fileID: 6576841287726526648}
+  _purchaseButton: {fileID: 515349979519585158}
+  _saleButton: {fileID: 8301849160259494739}
+  _synthesisButton: {fileID: 3825648089844754563}
 --- !u!224 &6166031108907286874 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4899417182577876230, guid: 1812be10e7ae72f48bf17cff327a6d77, type: 3}

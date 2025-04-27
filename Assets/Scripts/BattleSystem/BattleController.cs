@@ -21,8 +21,8 @@ public class BattleController : IDisposable
     private IBattleJudge _battleJudge;
     private IVisualUpdater _visualUpdater;
     private TurnHandler _turnHandler;
-    
-    public event Action<int> OnVictoryCountChanged;
+
+    private DirectionEnum _enemyDirection;
 
     public BattleController(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, BattleSystemPresenter presenter)
     {
@@ -47,20 +47,21 @@ public class BattleController : IDisposable
     public string GetTurnText() => _turnHandler.TurnText();
     
     /// <summary>
-    /// 敵が向く方向を決定して返す
+    /// 敵が向く方向を決定する
     /// </summary>
-    public DirectionEnum EnemyDirection()
+    public void DecideEnemyDirection()
     {
-        return _mediator.DirectionDecider.DecideDirection();
+        _enemyDirection = _mediator.DirectionDecider.DecideDirection();
+        Debug.Log($"次の方向：{_enemyDirection}");
     }
     
     /// <summary>
     /// バトルの実行
     /// </summary>
-    public void ExecuteBattle(DirectionEnum playerDirection, DirectionEnum enemyDirection)
+    public void ExecuteBattle(DirectionEnum playerDirection)
     {
-        _mediator.VisualUpdater.UpdateSprites(enemyDirection, playerDirection);
-        IsVictory = _mediator.BattleJudge.Judge(enemyDirection, playerDirection);
+        _mediator.VisualUpdater.UpdateSprites(_enemyDirection, playerDirection);
+        IsVictory = _mediator.BattleJudge.Judge(_enemyDirection, playerDirection);
         if (IsVictory)
         {
             _victoryCount += _getWinPoint;

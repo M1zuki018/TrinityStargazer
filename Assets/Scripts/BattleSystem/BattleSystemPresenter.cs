@@ -19,8 +19,6 @@ public class BattleSystemPresenter : ViewBase
 
     // Controllerレイヤーのクラス
     private BattleController _battleController;
-
-    private DirectionEnum _enemyDirection;
     
     public event Action OnBattleEnded;
     
@@ -34,11 +32,10 @@ public class BattleSystemPresenter : ViewBase
     public override UniTask OnBind()
     {
         // UIイベント登録
-        _ccBefore.OnBattleButtonClicked += HandleDirection;
+        _ccBefore.OnBattleButtonClicked += _battleController.DecideEnemyDirection;
         _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat;
         _ccAfter.OnNextButtonClicked += HandleNextTurn;
         _ccItemSelect.OnTestItemClicked += UseItem;
-        
         return base.OnBind();
     }
     
@@ -73,20 +70,12 @@ public class BattleSystemPresenter : ViewBase
     }
     
     /// <summary>
-    /// バトルを始めた時の情報で敵の方向は決めてしまう
-    /// </summary>
-    private void HandleDirection()
-    {
-        _enemyDirection = _battleController.EnemyDirection();
-        Debug.Log($"次の方向：{_enemyDirection}");
-    }
-    
-    /// <summary>
     /// 勝敗を管理するメソッド
+    /// 引数としてUI側からプレイヤーが選択した　方向が渡される
     /// </summary>
     private void HandleVictoryOrDefeat(DirectionEnum direction)
     {
-        _battleController.ExecuteBattle(direction, _enemyDirection);
+        _battleController.ExecuteBattle(direction);
         _ccAfter.SetText(_battleController.IsVictory);
         _ccBefore.SetResultMark(_battleController.GetCurrentTurnToIndex(), _battleController.IsVictory);
     }
@@ -139,7 +128,7 @@ public class BattleSystemPresenter : ViewBase
 
     private void OnDestroy()
     {
-        _ccBefore.OnBattleButtonClicked -= HandleDirection;
+        _ccBefore.OnBattleButtonClicked -= _battleController.DecideEnemyDirection;
         _ccDirection.OnDirectionButtonClicked -= HandleVictoryOrDefeat;
         _ccAfter.OnNextButtonClicked -= HandleNextTurn;
         _ccItemSelect.OnTestItemClicked -= UseItem;

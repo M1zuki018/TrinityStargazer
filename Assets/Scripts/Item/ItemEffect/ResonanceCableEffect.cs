@@ -33,12 +33,12 @@ public class ResonanceCableEffect : IItemEffect
             directions.Add(direction);
             availableDirections.RemoveAt(randomIndex); // 選んだ方向は選択可能なリストから外しておく
         }
-        mediator.BattleJudge.LinkingDirection(directions); // リンクさせる処理を呼ぶ
+        mediator.BattleJudge.LinkingDirection(directions, this); // リンクさせる処理を呼ぶ
     }
 
     public void Remove(IBattleMediator mediator)
     {
-        mediator.BattleJudge.ReleasingDirection();
+        mediator.BattleJudge.ReleasingDirection(this);
     }
 
     public bool IsExpired()

@@ -11,6 +11,6 @@ public interface IBattleJudge
     event Action<DirectionEnum> OnRelease;
     
     bool Judge(DirectionEnum enemyDirection, DirectionEnum playerDirection);
-    void LinkingDirection(List<DirectionEnum> directions);
-    void ReleasingDirection();
+    void LinkingDirection(List<DirectionEnum> directions, ResonanceCableEffect effect);
+    void ReleasingDirection(ResonanceCableEffect effect);
 }

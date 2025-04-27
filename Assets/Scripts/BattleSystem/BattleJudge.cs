@@ -9,6 +9,8 @@ public class BattleJudge : IBattleJudge
 {
     // 同一のものとして扱う方向
     private List<DirectionEnum> _linkingDirections = new List<DirectionEnum>();
+    // アイテムの複数使用に対応するための辞書
+    private Dictionary<ResonanceCableEffect, List<DirectionEnum>> _effects = new Dictionary<ResonanceCableEffect, List<DirectionEnum>>();
     public event Action<DirectionEnum, Color> OnLink;
     public event Action<DirectionEnum> OnRelease;
 
@@ -32,33 +34,56 @@ public class BattleJudge : IBattleJudge
             return judge;
         }
         
-        return enemyDirection == playerDirection;
+        return enemyDirection == playerDirection; // 通常の判定　一致しているかどうかを判定
     }
     
     /// <summary>
     /// アイテム：共鳴ケーブルの効果で、渡された方向を同一のものとして扱う
     /// </summary>
-    public void LinkingDirection(List<DirectionEnum> directions)
+    public void LinkingDirection(List<DirectionEnum> directions, ResonanceCableEffect effect)
     {
-        _linkingDirections.Clear(); // 念のためクリアしておく
-        _linkingDirections = directions;
-        foreach (var direction in directions)
-        {
-            OnLink?.Invoke(direction, Color.cyan);
-        }
+        _effects.Add(effect, directions); // 辞書に効果を登録
+        UpdateLinkingDirections();
         Debug.Log("[共鳴ケーブル] リンク中");
     }
 
     /// <summary>
     /// アイテム：共鳴ケーブルの効果を解除する
     /// </summary>
-    public void ReleasingDirection()
+    public void ReleasingDirection(ResonanceCableEffect effect)
     {
+        if (_effects.ContainsKey(effect)) // 辞書に引数として渡されたものが登録されているか確認しておく
+        {
+            _effects.Remove(effect);
+            UpdateLinkingDirections();
+        }
+    }
+    
+    /// <summary>
+    /// 現在有効な効果から、リンクしている方向を更新する
+    /// </summary>
+    private void UpdateLinkingDirections()
+    {
+        // 一度すべての方向のリンクを解除する
         foreach (var direction in _linkingDirections)
         {
             OnRelease?.Invoke(direction);
         }
         _linkingDirections.Clear();
-        Debug.Log("[共鳴ケーブル] Release");
+        
+        // 残っている効果からリンクを再構築する
+        foreach (var effectPair in _effects)
+        {
+            foreach (var direction in effectPair.Value)
+            {
+                if (!_linkingDirections.Contains(direction))
+                {
+                    _linkingDirections.Add(direction);
+                    OnLink?.Invoke(direction, Color.cyan);
+                }
+            }
+        }
+        
+        Debug.Log($"[共鳴ケーブル] 更新: {_linkingDirections.Count}方向がリンク中");
     }
 }

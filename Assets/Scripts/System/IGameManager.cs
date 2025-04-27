@@ -4,10 +4,9 @@
 public interface IGameManager
 {
     bool IsFirstLoad { get; }
-    void SetGameMode(GameModeEnum mode);
-    
-    void SetGameState(GameStateEnum gameState);
-    
+    int VictoryPoints { get; }
     ModeData GetGameModeData();
-    void ItemTest();
+    void SetGameMode(GameModeEnum mode);
+    void SetGameState(GameStateEnum gameState);
+    int SetVictoryPoints(int points);
 }

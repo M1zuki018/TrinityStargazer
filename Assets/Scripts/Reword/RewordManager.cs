@@ -1,30 +1,33 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// バトル報酬を管理するクラス
 /// </summary>
 public class RewordManager : ViewBase
 {
+    [SerializeField] private BattleSystemPresenter _battleSystemPresenter;
     [SerializeField][ExpandableSO] private RewordTableSO _rewordTable;
 
-    [ContextMenu("Load Reword Table")]
-    private void Test()
+    public override UniTask OnAwake()
     {
-        GetRewords(5);
+        _battleSystemPresenter.OnBattleCompleted += GetRewords;
+        return base.OnAwake();
     }
     
     /// <summary>
     /// 報酬を用意する
     /// </summary>
-    public void GetRewords(int winCount)
+    private void GetRewords()
     {
         int count = 5; // TODO: 個数指定を追加
         // 現在のゲームモードの報酬テーブルを取得
         var table = _rewordTable.GetRateTable(GameManagerServiceLocator.Instance.GetGameModeData().GameMode);
 
         // 勝利数に基づく保証レアリティを確認
-        RarityEnum? guaranteedRarity = _rewordTable.GetGuaranteedRarity(winCount);
+        RarityEnum? guaranteedRarity = _rewordTable.GetGuaranteedRarity(GameManagerServiceLocator.Instance.VictoryPoints);
         
         for (int i = 0; i < count; i++)
         {
@@ -114,5 +117,10 @@ public class RewordManager : ViewBase
     
         // ここに到達することはほぼないはずだが、安全のため
         return validItemRates[validItemRates.Count - 1].Item1;
+    }
+
+    private void OnDestroy()
+    {
+        _battleSystemPresenter.OnBattleCompleted -= GetRewords;
     }
 }

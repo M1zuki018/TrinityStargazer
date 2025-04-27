@@ -113,12 +113,16 @@ public class BattleController : IBattleController, IDisposable
     /// 勝利した時に得られるポイント数を変更する
     /// </summary>
     public void SetVictoryPointValue(int pointValue) => _battleState.SetVictoryPointValue(pointValue);
-    
+
     /// <summary>
     /// Presenterのゲーム終了イベントを発火させる
     /// </summary>
-    private void NotifyBattleCompletion() => OnBattleCompleated?.Invoke();
-    
+    private void NotifyBattleCompletion()
+    {
+        GameManagerServiceLocator.Instance.SetVictoryPoints(_battleState.VictoryCount); // 勝敗数を記録する
+        OnBattleCompleated?.Invoke();
+    }
+
     public void Dispose()
     {
         UnbindBattleComponents(); // イベント購読解除

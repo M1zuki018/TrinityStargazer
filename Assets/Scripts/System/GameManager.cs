@@ -12,7 +12,8 @@ public class GameManager : ViewBase, IGameManager
     private ReactiveProperty<GameStateEnum> _currentGameState = new ReactiveProperty<GameStateEnum>(GameStateEnum.Title);
     private bool _isFirstLoad = true; // 最初の読み込みかどうか
     public bool IsFirstLoad => _isFirstLoad;
-    
+    public int VictoryPoints { get; private set; } = 0;
+
     public override UniTask OnAwake()
     {
         // 既に別のインスタンスが存在する場合、このオブジェクトを破棄
@@ -74,7 +75,12 @@ public class GameManager : ViewBase, IGameManager
     /// 現在のゲーム状態を変更する
     /// </summary>
     public void SetGameState(GameStateEnum gameState) => _currentGameState.Value = gameState;
-    
+
+    /// <summary>
+    /// 勝利数をセットする
+    /// </summary>
+    public int SetVictoryPoints(int points) => VictoryPoints = points;
+
     /// <summary>
     /// 現在選択中のモードのデータを取得する
     /// </summary>

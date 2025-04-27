@@ -4,8 +4,10 @@
 public class BattleState
 {
     private bool _isWinLastBattle; // 前回のバトルで勝利したか
-    private int _victoryCount; // 勝利数
     private int _victoryPointValue = 1; // 勝利時に獲得するポイント数（初期値は1。アイテム決闘の薔薇の効果で変動する）
+    
+    private int _victoryCount; // 勝利数
+    public int VictoryCount => _victoryCount;
     private bool _isVictory;
     public bool IsVictory => _isVictory;
 

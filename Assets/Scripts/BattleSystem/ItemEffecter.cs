@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 /// <summary>
 /// バトルシステムとアイテムの効果処理の連携を担当するクラス
@@ -8,15 +9,52 @@ using Cysharp.Threading.Tasks;
 public class ItemEffecter : IItemEffecter
 {
     private BattleController _controller;
-    private IBattleJudge _judge;
+    private IDirectionDecider _directionDecider;
+    private IBattleJudge _judge; 
+    private IVisualUpdater _visual;
     
-    public ItemEffecter(BattleController controller, IBattleJudge judge)
+    public event Action<DirectionEnum> OnEnemyDirectionChanged;
+    
+    public ItemEffecter(BattleController controller, IDirectionDecider directionDecider, IBattleJudge judge, IVisualUpdater visual)
     {
         _controller = controller;
+        _directionDecider = directionDecider;
         _judge = judge;
+        _visual = visual;
     }
     
+    public void SetButtonsInteractive(DirectionEnum direction)
+    {
+        _visual.SetButtonsInteractive(direction);
+    }
+
+    public void SetButtonsNonInteractive(DirectionEnum direction)
+    {
+        _visual.SetButtonsNonInteractive(direction);
+    }
+
+    public void ChangeButtonColor(DirectionEnum direction, Color color)
+    {
+        _visual.ChangeButtonColor(direction, color);
+    }
+
+    public void ResetButtonColor(DirectionEnum direction)
+    {
+        _visual.ResetButtonColor(direction);
+    }
+
+    public void ForecastDirectionButton(DirectionEnum direction)
+    {
+        _visual.ForecastDirectionButton(direction);
+    }
+
+    public void ReleaseForecastDirectionButton(DirectionEnum direction)
+    {
+        _visual.ReleaseForecastDirectionButton(direction);
+    }
+
     // アイテム：共鳴ケーブル
+    
     public void UseResonanceCable(List<DirectionEnum> directions, ResonanceCableEffect effect)
     {
         _judge.LinkingDirection(directions, effect);
@@ -65,5 +103,29 @@ public class ItemEffecter : IItemEffecter
     {
         _controller.SetVictoryPointValue(getWinPoint);
     }
-    
+
+    public HashSet<DirectionEnum> GetSealedDirections()
+    {
+        return _directionDecider.GetSealedDirections();
+    }
+
+    public void ModifyProbability(DirectionEnum direction, float addedProbability)
+    {
+        _directionDecider.ModifyProbability(direction, addedProbability);
+    }
+
+    public void LimitProbability(DirectionEnum direction)
+    {
+        _directionDecider.LimitProbability(direction);
+    }
+
+    public void RemoveLimitProbability(DirectionEnum direction)
+    {
+        _directionDecider.RemoveLimitProbability(direction);
+    }
+
+    public void ResetProbabilities()
+    {
+        _directionDecider.ResetProbabilities();   
+    }
 }

@@ -20,7 +20,7 @@ public class CelestialForecastEffect : IItemEffect
     public void Apply(IBattleMediator mediator)
     {
         _mediator = mediator;
-        _mediator.DirectionDecider.OnEnemyDirectionChanged += HandleDirectionChanged; // 方向が変わった時にUIを切り替えるメソッドを呼び出す
+        _mediator.ItemEffecter.OnEnemyDirectionChanged += HandleDirectionChanged; // 方向が変わった時にUIを切り替えるメソッドを呼び出す
     }
 
     private void HandleDirectionChanged(DirectionEnum direction)
@@ -37,7 +37,7 @@ public class CelestialForecastEffect : IItemEffect
             Debug.Log($"[星の予測盤] 予測失敗");
         }
         
-        _mediator.VisualUpdater.ForecastDirectionButton(_effectDirection);
+        _mediator.ItemEffecter.ForecastDirectionButton(_effectDirection);
     }
 
     /// <summary>
@@ -71,8 +71,8 @@ public class CelestialForecastEffect : IItemEffect
 
     public void Remove(IBattleMediator mediator)
     {
-        _mediator.VisualUpdater.ReleaseForecastDirectionButton(_effectDirection); // UIリセット
-        _mediator.DirectionDecider.OnEnemyDirectionChanged -= HandleDirectionChanged; // 効果終了タイミングで不要になるため購読解除
+        _mediator.ItemEffecter.ReleaseForecastDirectionButton(_effectDirection); // UIリセット
+        _mediator.ItemEffecter.OnEnemyDirectionChanged -= HandleDirectionChanged; // 効果終了タイミングで不要になるため購読解除
     }
 
     public bool IsExpired()

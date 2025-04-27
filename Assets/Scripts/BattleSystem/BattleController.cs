@@ -30,7 +30,7 @@ public class BattleController : IBattleController, IDisposable
         _battleJudge = new BattleJudge();
         _visualUpdater = new VisualUpdater(enemyImage, playerImage, directionalButtons, turnUIs);
         _turnHandler = new TurnHandler();
-        _itemEffecter = new ItemEffecter(this, _battleJudge);
+        _itemEffecter = new ItemEffecter(this, _directionDecider, _battleJudge, _visualUpdater);
         _mediator = new BattleMediator(_itemEffecter);
         
         BindBattleComponents(); // イベント購読

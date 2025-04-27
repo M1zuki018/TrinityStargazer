@@ -18,15 +18,15 @@ public class StarAttractionEffect : IItemEffect
     public void Apply(IBattleMediator mediator)
     {
         _effectDirection = (DirectionEnum)Random.Range(0, 8);
-        mediator.DirectionDecider.ModifyProbability(_effectDirection, _value);
-        mediator.VisualUpdater.ChangeButtonColor(_effectDirection, Color.magenta);
+        mediator.ItemEffecter.ModifyProbability(_effectDirection, _value);
+        mediator.ItemEffecter.ChangeButtonColor(_effectDirection, Color.magenta);
         Debug.Log($"[とっておき] 効果発動中 {_effectDirection}");
     }
 
     public void Remove(IBattleMediator mediator)
     {
-        mediator.DirectionDecider.ResetProbabilities(); // 値をもとに戻す
-        mediator.VisualUpdater.ResetButtonColor(_effectDirection);
+        mediator.ItemEffecter.ResetProbabilities(); // 値をもとに戻す
+        mediator.ItemEffecter.ResetButtonColor(_effectDirection);
         Debug.Log($"[とっておき] 解除");
     }
 

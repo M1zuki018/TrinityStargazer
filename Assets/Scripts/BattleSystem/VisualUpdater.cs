@@ -10,14 +10,16 @@ public class VisualUpdater : IVisualUpdater
     private readonly DirectionalImages _enemyImage;
     private readonly DirectionalImages _playerImage;
     private readonly Button[] _directionalButtons;
+    private readonly TurnUIs _turnUIs;
     private readonly Color _defaultColor;
     private Tweener _forecastTweener;
     
-    public VisualUpdater(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons)
+    public VisualUpdater(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, TurnUIs turnUIs)
     {
         _enemyImage = enemyImage;
         _playerImage = playerImage;
         _directionalButtons = directionalButtons;
+        _turnUIs = turnUIs;
         _defaultColor = _directionalButtons[0].image.color;
     }
     
@@ -39,6 +41,21 @@ public class VisualUpdater : IVisualUpdater
         _playerImage.ResetSprite();
     }
 
+    /// <summary>
+    /// ターン数を書き換える
+    /// </summary>
+    public void SetTurnText(string turnText) => _turnUIs.SetTurnText(turnText);
+
+    /// <summary>
+    /// 勝敗の表示を更新する
+    /// </summary>
+    public void SetResultMark(int turn, bool isVictory) => _turnUIs.SetResultMark(turn, isVictory);
+
+    /// <summary>
+    /// 指定した勝敗の表示をリセットする
+    /// </summary>
+    public void ResetResultMark(int turn) => _turnUIs.ResetResultMark(turn);
+    
     /// <summary>
     /// 封印のページ：ボタンを使用出来ないようにする
     /// </summary>

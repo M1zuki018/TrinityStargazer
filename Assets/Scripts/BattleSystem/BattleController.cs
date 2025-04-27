@@ -25,28 +25,26 @@ public class BattleController : IDisposable
     
     private DirectionEnum _enemyDirection;
 
-    public BattleController(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, BattleSystemPresenter presenter)
+    public BattleController(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, 
+        TurnUIs turnUIs, BattleSystemPresenter presenter)
     {
         _presenter = presenter;
         _directionDecider = new DirectionDecider();
         _battleJudge = new BattleJudge();
-        _visualUpdater = new VisualUpdater(enemyImage, playerImage, directionalButtons);
+        _visualUpdater = new VisualUpdater(enemyImage, playerImage, directionalButtons, turnUIs);
         _turnHandler = new TurnHandler();
         _itemEffecter = new ItemEffecter(this);
         _mediator = new BattleMediator(_directionDecider, _battleJudge, _visualUpdater, _itemEffecter);
         
         BindBattleComponents(); // イベント購読
+        
+        _visualUpdater.SetTurnText(_turnHandler.TurnText()); // ターン表示の初期化
     }
 
     /// <summary>
     /// UIインデックスで使うために現在のターン数（1オリジン）-1の数を返す
     /// </summary>
     public int GetCurrentTurnToIndex() => _turnHandler.CurrentTurn - 1;
-
-    /// <summary>
-    /// UI用表示用のターン数表示文字列を返す
-    /// </summary>
-    public string GetTurnText() => _turnHandler.TurnText();
     
     /// <summary>
     /// 方向ボタンを押す（アイテム：スマートフォン用）
@@ -87,6 +85,7 @@ public class BattleController : IDisposable
         {
             _isWinLastBattle = false;
         }
+        _visualUpdater.SetResultMark(GetCurrentTurnToIndex(), IsVictory);
     }
 
     /// <summary>
@@ -105,7 +104,9 @@ public class BattleController : IDisposable
         {
             _victoryCount -= _getWinPoint;
         }
-        _presenter.UseReverseBroom();
+        
+        _visualUpdater.SetTurnText(_turnHandler.TurnText());
+        _visualUpdater.ResetResultMark(GetCurrentTurnToIndex());
     }
 
     /// <summary>
@@ -125,6 +126,7 @@ public class BattleController : IDisposable
         _directionDecider.ResetProbabilities();
         _visualUpdater.ResetSprites();
         _mediator.UpdateEffects();
+        _visualUpdater.SetTurnText(_turnHandler.TurnText());
     }
     
     public void Dispose()

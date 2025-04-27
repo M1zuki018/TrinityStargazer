@@ -16,6 +16,7 @@ public class BattleSystemPresenter : ViewBase
     [Header("その他のUI")]
     [SerializeField] private DirectionalImages _seiImage;
     [SerializeField] private DirectionalImages _playerHandImage;
+    [SerializeField] private TurnUIs _turnUIs;
 
     // ロジック側
     private BattleController _battleController;
@@ -24,7 +25,8 @@ public class BattleSystemPresenter : ViewBase
     
     public override UniTask OnAwake()
     {
-        _battleController = new BattleController(_seiImage, _playerHandImage, _ccDirection.DirectionButtons, this);
+        _battleController = new BattleController(_seiImage, _playerHandImage, _ccDirection.DirectionButtons,
+            _turnUIs, this);
         return base.OnAwake();
     }
     
@@ -36,20 +38,6 @@ public class BattleSystemPresenter : ViewBase
         _ccAfter.OnNextButtonClicked += HandleNextTurn;
         _ccItemSelect.OnTestItemClicked += UseItem;
         return base.OnBind();
-    }
-    
-    public override UniTask OnStart()
-    {
-        InitializeUI();
-        return base.OnStart();
-    }
-    
-    /// <summary>
-    /// 必要なUIの初期化処理
-    /// </summary>
-    private void InitializeUI()
-    {
-        _ccBefore.SetTurnText(_battleController.GetTurnText());
     }
     
     /// <summary>
@@ -67,7 +55,6 @@ public class BattleSystemPresenter : ViewBase
     {
         _battleController.ExecuteBattle(direction); // バトルの実行
         _ccAfter.SetText(_battleController.IsVictory); // UI書き換え
-        _ccBefore.SetResultMark(_battleController.GetCurrentTurnToIndex(), _battleController.IsVictory);
     }
     
     /// <summary>
@@ -76,10 +63,7 @@ public class BattleSystemPresenter : ViewBase
     private void HandleNextTurn()
     {
         _battleController.ResetBattle();
-        _ccBefore.SetTurnText(_battleController.GetTurnText());
     }
-
-    #region アイテム効果をUI側に反映させる処理
 
     /// <summary>
     /// 方向ボタンを押す（スマートフォン用）
@@ -88,18 +72,6 @@ public class BattleSystemPresenter : ViewBase
     {
         _ccDirection.OnDirectionButtonClick(direction);
     }
-    
-    /// <summary>
-    /// UIを1ターン巻き戻す（逆行のほうき用）
-    /// （現状アイテム効果のリセット・経過ターン数のリセットは行っていない）
-    /// </summary>
-    public void UseReverseBroom()
-    {
-        _ccBefore.SetTurnText(_battleController.GetTurnText());
-        _ccBefore.ResetResultMark(_battleController.GetCurrentTurnToIndex());
-    }
-
-    #endregion
     
     /// <summary>
     /// ゲーム終了処理を呼び出す

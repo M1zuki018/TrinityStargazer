@@ -3,7 +3,7 @@ using System;
 /// <summary>
 /// ターンを管理するクラス
 /// </summary>
-public class TurnHandler
+public class TurnHandler : ITurnHandler
 {
     private readonly int _maxTurn = GameManagerServiceLocator.Instance.GetGameModeData().MaxTurn;
     private int _currentTurn = 1;

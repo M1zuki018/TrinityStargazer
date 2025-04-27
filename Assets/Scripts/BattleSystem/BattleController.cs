@@ -16,7 +16,7 @@ public class BattleController : IBattleController, IDisposable
     private readonly IDirectionDecider _directionDecider; // 方向決定
     private readonly IBattleJudge _battleJudge; // 勝敗判定
     private readonly IVisualUpdater _visualUpdater; // バトルに関するUIを管理
-    private readonly TurnHandler _turnHandler; // ターン管理
+    private readonly ITurnHandler _turnHandler; // ターン管理
     private readonly IItemEffecter _itemEffecter; // アイテムの効果管理
 
     public event Action OnBattleCompleated;

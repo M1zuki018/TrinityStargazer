@@ -19,12 +19,12 @@ MonoBehaviour:
   - _gameMode: 1
     _gameModeName: "\u6D41\u661F\u306E\u77AC\u304D"
     _maxTurn: 3
-  - _gameMode: 0
+  - _gameMode: 2
     _gameModeName: 
     _maxTurn: 0
-  - _gameMode: 0
+  - _gameMode: 3
     _gameModeName: 
     _maxTurn: 0
-  - _gameMode: 0
+  - _gameMode: 4
     _gameModeName: 
     _maxTurn: 0

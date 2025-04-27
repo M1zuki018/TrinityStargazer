@@ -13,6 +13,7 @@ public class InventoryManager : ViewBase
     
     // (アイテムの種類, レアリティ) 個数のkvp
     private Dictionary<(ItemTypeEnum, RarityEnum), int> _inventory = new Dictionary<(ItemTypeEnum, RarityEnum), int>();
+    public Dictionary<(ItemTypeEnum, RarityEnum), int> Inventory => _inventory;
     private Dictionary<ItemTypeEnum, int> _maxCapacity = new Dictionary<ItemTypeEnum, int>(); // 最大所持数
     public event Action<ItemTypeEnum, RarityEnum, int> OnInventoryChanged; // アイテム変更時のイベント (アイテムタイプ, レアリティ, 新しい数量)
     

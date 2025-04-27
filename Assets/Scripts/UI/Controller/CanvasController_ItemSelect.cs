@@ -23,6 +23,12 @@ public class CanvasController_ItemSelect : WindowBase
         _inventoryManager.OnInventoryChanged += CreateItemButton;
         
         if(_closeButton != null) _closeButton.onClick.AddListener(OnCloseButtonClick);
+
+        // 既に持っている分のアイテムを生成する
+        foreach (var items in InventoryManager.Instance.Inventory)
+        {
+            CreateItemButton(items.Key.Item1, items.Key.Item2, items.Value);
+        }
         
         return base.OnUIInitialize();
     }

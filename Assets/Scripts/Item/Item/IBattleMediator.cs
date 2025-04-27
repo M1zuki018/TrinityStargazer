@@ -7,7 +7,6 @@ public interface IBattleMediator
     IBattleJudge BattleJudge { get; }
     IVisualUpdater VisualUpdater { get; }
     IItemEffecter ItemEffecter { get; }
-    BattleSystemPresenter BattleSystemPresenter { get; }
     
     void RegisterEffect(IItemEffect effect);
     void RemoveEffect(IItemEffect effect);

@@ -61,13 +61,7 @@ public class BattleSystemPresenter : ViewBase
         InventoryManager.Instance.UseItem(_battleController.Mediator, itemType, rarity, count);
     }
     
-    /// <summary>
-    /// 方向ボタンを押す（スマートフォン用）
-    /// </summary>
-    public void PressDirectionButton(DirectionEnum direction)
-    {
-        _ccDirection.OnDirectionButtonClick(direction);
-    }
+    
     
     /// <summary>
     /// ゲーム終了処理を呼び出す
@@ -79,7 +73,7 @@ public class BattleSystemPresenter : ViewBase
     
     /// <summary>
     /// 勝敗を管理するメソッド
-    /// 引数としてUI側からプレイヤーが選択した　方向が渡される
+    /// 引数としてUI側からプレイヤーが選択した方向が渡される
     /// </summary>
     private void HandleVictoryOrDefeat(DirectionEnum direction)
     {
@@ -99,12 +93,19 @@ public class BattleSystemPresenter : ViewBase
     }
     
     /// <summary>
-    /// アイテム：逆行のほうきを使ったときに1ターン巻き戻すための処理
+    /// 方向ボタンを押す（スマートフォン用）
+    /// </summary>
+    public void PressDirectionButton(DirectionEnum direction)
+    {
+        _ccDirection.OnDirectionButtonClick(direction);
+    }
+    
+    /// <summary>
+    /// UIを1ターン巻き戻す（逆行のほうき用）
     /// （現状アイテム効果のリセット・経過ターン数のリセットは行っていない）
     /// </summary>
     public void UseReverseBroom()
     {
-        _battleController.BackTurn();
         _ccBefore.SetTurnText(_battleController.GetTurnText());
         _ccBefore.ResetResultMark(_battleController.GetCurrentTurnToIndex());
     }

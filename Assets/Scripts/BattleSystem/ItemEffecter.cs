@@ -16,7 +16,7 @@ public class ItemEffecter : IItemEffecter
     // アイテム：スマートフォン
 
     /// <summary>
-    /// 自動でバトルを進行するための処理
+    /// 自動でバトルを進行する
     /// </summary>
     public void UseSmartPhone(DirectionEnum direction)
     {
@@ -30,6 +30,16 @@ public class ItemEffecter : IItemEffecter
         await UniTask.Delay(TimeSpan.FromSeconds(1)); // TODO: ここで演出
         
         _controller.PressDirectionButton(direction); // 方向ボタンを押したときのイベントを発火
+    }
+    
+    // アイテム：逆行のほうき
+    
+    /// <summary>
+    /// 1ターン巻き戻す
+    /// </summary>
+    public void UseReverseBroom()
+    {
+        _controller.BackTurn();
     }
     
     // アイテム：決闘の薔薇

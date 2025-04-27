@@ -11,8 +11,6 @@ public class BattleMediator : IBattleMediator
     public IBattleJudge BattleJudge { get; }
     public IVisualUpdater VisualUpdater { get; }
     public IItemEffecter ItemEffecter { get; }
-    
-    public BattleSystemPresenter BattleSystemPresenter { get; }
 
     public BattleMediator(IDirectionDecider directionDecider, IBattleJudge battleJudge, IVisualUpdater visualUpdater, 
         IItemEffecter itemEffecter, BattleSystemPresenter battleSystemPresenter)
@@ -21,7 +19,6 @@ public class BattleMediator : IBattleMediator
         BattleJudge = battleJudge;
         VisualUpdater = visualUpdater;
         ItemEffecter = itemEffecter;
-        BattleSystemPresenter = battleSystemPresenter;
     }
 
     public void RegisterEffect(IItemEffect effect)

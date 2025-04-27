@@ -107,6 +107,7 @@ public class BattleController : IDisposable
         {
             _victoryCount -= _getWinPoint;
         }
+        _presenter.UseReverseBroom();
     }
 
     /// <summary>

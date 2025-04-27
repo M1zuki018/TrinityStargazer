@@ -26,7 +26,7 @@ public class TurnHandler
     /// <summary>
     /// ターンを一つ戻す
     /// </summary>
-    public void BackTurn()
+    public void RevertTurn()
     {
         if (_currentTurn > 1) // 0ターンにはならないようにする
         {
@@ -45,7 +45,7 @@ public class TurnHandler
     /// <summary>
     /// ターンのテキスト表示の部分に合うような文字列を返す
     /// </summary>
-    public string TurnText()
+    public string GetTurnText()
     {
         return $"{_currentTurn.ToString()}/{_maxTurn.ToString()}";
     }

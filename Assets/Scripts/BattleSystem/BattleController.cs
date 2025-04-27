@@ -24,14 +24,14 @@ public class BattleController : IBattleController, IDisposable
     
     public BattleController(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, TurnUIs turnUIs)
     {
-        // 各クラスのインスタンスを生成
+        // 機能別ロジック層のインスタンスを生成
         _battleState = new BattleState();
         _directionDecider = new DirectionDecider();
         _battleJudge = new BattleJudge();
         _visualUpdater = new VisualUpdater(enemyImage, playerImage, directionalButtons, turnUIs);
         _turnHandler = new TurnHandler();
-        _itemEffecter = new ItemEffecter(this);
-        _mediator = new BattleMediator(_directionDecider, _battleJudge, _visualUpdater, _itemEffecter);
+        _itemEffecter = new ItemEffecter(this, _battleJudge);
+        _mediator = new BattleMediator(_itemEffecter);
         
         BindBattleComponents(); // イベント購読
         
@@ -58,7 +58,7 @@ public class BattleController : IBattleController, IDisposable
         _battleState.ProcessBattleResult(_battleJudge.Judge(_enemyDirection, playerDirection));
         
         // 勝利数が最大ターン数を上回ったら
-        if (_battleState.IsVictoryConditionMet(GameManagerServiceLocator.Instance.GetGameModeData().MaxTurn))
+        if (_battleState.IsVictoryConditionMet())
         {
             _turnHandler.CompleteBattle(); // ゲーム終了処理を呼ぶ
         }

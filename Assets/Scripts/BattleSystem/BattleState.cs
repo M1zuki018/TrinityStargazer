@@ -27,9 +27,12 @@ public class BattleState
         }
     }
     
-    public bool IsVictoryConditionMet(int maxTurn)
+    /// <summary>
+    /// 勝利数が最大ターン数を上回っているか確認し、上回っている場合trueを返す
+    /// </summary>
+    public bool IsVictoryConditionMet()
     {
-        return _victoryCount >= maxTurn;
+        return _victoryCount >= GameManagerServiceLocator.Instance.GetGameModeData().MaxTurn;
     }
     
     /// <summary>

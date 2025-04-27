@@ -16,15 +16,13 @@ public class BattleController : IDisposable
     private int _getWinPoint = 1;
     
     // コンポーネント
-    private BattleSystemPresenter _presenter;
+    private readonly BattleSystemPresenter _presenter;
+    private readonly IDirectionDecider _directionDecider; // 方向決定
+    private readonly IBattleJudge _battleJudge; // 勝敗判定
+    private readonly IVisualUpdater _visualUpdater; // UI更新 TODO:Presenterの役目では？
+    private readonly TurnHandler _turnHandler; // ターン管理
+    private readonly IItemEffecter _itemEffecter; // アイテムの効果管理
     
-    private IDirectionDecider _directionDecider;
-    private IBattleJudge _battleJudge;
-    private IVisualUpdater _visualUpdater;
-    private IItemEffecter _itemEffecter;
-    
-    private TurnHandler _turnHandler;
-
     private DirectionEnum _enemyDirection;
 
     public BattleController(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, BattleSystemPresenter presenter)
@@ -35,7 +33,7 @@ public class BattleController : IDisposable
         _visualUpdater = new VisualUpdater(enemyImage, playerImage, directionalButtons);
         _turnHandler = new TurnHandler();
         _itemEffecter = new ItemEffecter(this);
-        _mediator = new BattleMediator(_directionDecider, _battleJudge, _visualUpdater, _itemEffecter, _presenter);
+        _mediator = new BattleMediator(_directionDecider, _battleJudge, _visualUpdater, _itemEffecter);
         
         BindBattleComponents(); // イベント購読
     }

@@ -45,7 +45,7 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     private void UseItem(ItemTypeEnum itemType, RarityEnum rarity, int count)
     {
-        InventoryManager.Instance.UseItem(_battleController.Mediator, itemType, rarity, count);
+        _battleController.UseItem(itemType, rarity, count);
     }
     
     /// <summary>
@@ -66,7 +66,7 @@ public class BattleSystemPresenter : ViewBase
     }
 
     /// <summary>
-    /// 方向ボタンを押す（スマートフォン用）
+    /// 方向ボタンを押す処理をロジック側から呼びだすためのメソッド
     /// </summary>
     public void PressDirectionButton(DirectionEnum direction)
     {

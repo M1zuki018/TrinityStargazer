@@ -7,23 +7,23 @@ using UnityEngine.UI;
 /// </summary>
 public class BattleController : IDisposable
 {
-    private readonly IBattleMediator _mediator; // バトルに必要な機能が入ったインターフェースなどはこのクラスで管理
-    public IBattleMediator Mediator => _mediator;
-    
-    public bool IsVictory { get; private set; }
     private bool _isWinLastBattle; // 前回のバトルで勝利したか
-    private int _victoryCount;
-    private int _getWinPoint = 1;
+    private int _victoryCount; // 勝利数
+    private int _getWinPoint = 1; // 勝利時に獲得するポイント数（初期値は1。アイテム決闘の薔薇の効果で変動する）
+    
+    private bool _isVictory;
+    public bool IsVictory => _isVictory;
     
     // コンポーネント
     private readonly BattleSystemPresenter _presenter;
+    private readonly IBattleMediator _mediator; // バトルに必要な機能が入ったインターフェースなどはこのクラスで管理
     private readonly IDirectionDecider _directionDecider; // 方向決定
     private readonly IBattleJudge _battleJudge; // 勝敗判定
-    private readonly IVisualUpdater _visualUpdater; // UI更新 TODO:Presenterの役目では？
+    private readonly IVisualUpdater _visualUpdater; // バトルに関するUIを管理
     private readonly TurnHandler _turnHandler; // ターン管理
     private readonly IItemEffecter _itemEffecter; // アイテムの効果管理
     
-    private DirectionEnum _enemyDirection;
+    private DirectionEnum _enemyDirection; // 敵が向きを決めるタイミングと勝敗判定のタイミングが異なるため保存しておくための変数
 
     public BattleController(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, 
         TurnUIs turnUIs, BattleSystemPresenter presenter)
@@ -42,12 +42,20 @@ public class BattleController : IDisposable
     }
 
     /// <summary>
-    /// UIインデックスで使うために現在のターン数（1オリジン）-1の数を返す
+    /// アイテムを使用する処理
     /// </summary>
-    public int GetCurrentTurnToIndex() => _turnHandler.CurrentTurn - 1;
+    public void UseItem(ItemTypeEnum itemType, RarityEnum rarity, int count)
+    {
+        InventoryManager.Instance.UseItem(_mediator, itemType, rarity, count);
+    }
     
     /// <summary>
-    /// 方向ボタンを押す（アイテム：スマートフォン用）
+    /// UIインデックスで使うために現在のターン数（1オリジン）-1の数を返す
+    /// </summary>
+    private int GetCurrentTurnToIndex() => _turnHandler.CurrentTurn - 1;
+    
+    /// <summary>
+    /// 方向ボタンを押す処理をロジック側から呼び出すためのメソッド（アイテム：スマートフォン用）
     /// </summary>
     public void PressDirectionButton(DirectionEnum direction)
     {
@@ -55,7 +63,7 @@ public class BattleController : IDisposable
     }
     
     /// <summary>
-    /// 敵が向く方向を決定する
+    /// 敵が向く方向を決定する（方向決定画面を開いたタイミングで呼び出される）
     /// </summary>
     public void DecideEnemyDirection()
     {
@@ -69,8 +77,8 @@ public class BattleController : IDisposable
     public void ExecuteBattle(DirectionEnum playerDirection)
     {
         _visualUpdater.UpdateSprites(_enemyDirection, playerDirection);
-        IsVictory = _battleJudge.Judge(_enemyDirection, playerDirection);
-        if (IsVictory)
+        _isVictory = _battleJudge.Judge(_enemyDirection, playerDirection);
+        if (_isVictory)
         {
             _victoryCount += _getWinPoint;
             _isWinLastBattle = true;
@@ -85,7 +93,7 @@ public class BattleController : IDisposable
         {
             _isWinLastBattle = false;
         }
-        _visualUpdater.SetResultMark(GetCurrentTurnToIndex(), IsVictory);
+        _visualUpdater.SetResultMark(GetCurrentTurnToIndex(), _isVictory);
     }
 
     /// <summary>
@@ -98,15 +106,15 @@ public class BattleController : IDisposable
     /// </summary>
     public void BackTurn()
     {
-        _turnHandler.BackTurn();
+        _turnHandler.BackTurn(); // ターン数の巻き戻し
+        _visualUpdater.SetTurnText(_turnHandler.TurnText()); // UIの書き換え
+        _visualUpdater.ResetResultMark(GetCurrentTurnToIndex());
+        
         // 前回のバトルで勝っていた場合は勝利数を変更する処理を行う
         if (_isWinLastBattle)
         {
-            _victoryCount -= _getWinPoint;
+            _victoryCount -= _getWinPoint; 
         }
-        
-        _visualUpdater.SetTurnText(_turnHandler.TurnText());
-        _visualUpdater.ResetResultMark(GetCurrentTurnToIndex());
     }
 
     /// <summary>
@@ -118,15 +126,15 @@ public class BattleController : IDisposable
     }
     
     /// <summary>
-    /// バトルの初期化
+    /// 次のターンへ進むときに必要な処理
     /// </summary>
     public void ResetBattle()
     {
-        _turnHandler.NextTurn();
-        _directionDecider.ResetProbabilities();
-        _visualUpdater.ResetSprites();
-        _mediator.UpdateEffects();
-        _visualUpdater.SetTurnText(_turnHandler.TurnText());
+        _turnHandler.NextTurn(); // ターン数を進める
+        _directionDecider.ResetProbabilities(); // 敵の方向を選ぶ割合をリセットする
+        _visualUpdater.ResetSprites(); // 顔の向き、指が指す方向をリセット
+        _mediator.UpdateEffects(); // アイテム効果の継続ターンを減らす
+        _visualUpdater.SetTurnText(_turnHandler.TurnText()); // ターンの表示を更新する
     }
     
     public void Dispose()

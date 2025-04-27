@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 /// <summary>
 /// 方向決定のロジックを担当するクラス
 /// </summary>
-public class DirectionDecider : IDirectionDecider
+public class DirectionSelector : IDirectionSelector
 {
     private const float DEFAULT_PROBABILITY = 0.125f;
     
@@ -19,7 +19,7 @@ public class DirectionDecider : IDirectionDecider
     public event Action<DirectionEnum> OnUnlimitedDirection; // 方向制限が解除されたときに呼び出されるイベント
     public event Action<DirectionEnum> OnEnemyDirectionChanged; // 敵が向く方向が決まった時に呼び出されるイベント
 
-    public DirectionDecider()
+    public DirectionSelector()
     {
         InitializeProbabilities();
     }

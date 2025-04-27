@@ -11,13 +11,13 @@ public class BattleController : IBattleController, IDisposable
     private DirectionEnum _enemyDirection; // 敵が向きを決めるタイミングと勝敗判定のタイミングが異なるため保存しておくための変数
     
     // コンポーネント
-    private readonly BattleState _battleState;
-    private readonly IBattleMediator _mediator; // バトルに必要な機能が入ったインターフェースなどはこのクラスで管理
-    private readonly IDirectionDecider _directionDecider; // 方向決定
-    private readonly IBattleJudge _battleJudge; // 勝敗判定
-    private readonly IVisualUpdater _visualUpdater; // バトルに関するUIを管理
-    private readonly ITurnHandler _turnHandler; // ターン管理
-    private readonly IItemEffecter _itemEffecter; // アイテムの効果管理
+    private readonly BattleState _battleState; // バトルの状態管理
+    private readonly IDirectionSelector _directionSelector; // 方向決定
+    private readonly IBattleEvaluator _battleEvaluator; // 勝敗判定
+    private readonly IVisualController _visualController; // バトルに関するUIを管理
+    private readonly ITurnCoordinator _turnCoordinator; // ターン管理
+    private readonly IItemProcessor _itemProcessor; // アイテムの効果管理
+    private readonly IBattleMediator _mediator; // メディエーターパターン
 
     public event Action OnBattleCompleated;
     public event Action<DirectionEnum> OnDirectionRequest;
@@ -26,16 +26,16 @@ public class BattleController : IBattleController, IDisposable
     {
         // 各クラスのインスタンスを生成
         _battleState = new BattleState();
-        _directionDecider = new DirectionDecider();
-        _battleJudge = new BattleJudge();
-        _visualUpdater = new VisualUpdater(enemyImage, playerImage, directionalButtons, turnUIs);
-        _turnHandler = new TurnHandler();
-        _itemEffecter = new ItemEffecter(this);
-        _mediator = new BattleMediator(_directionDecider, _battleJudge, _visualUpdater, _itemEffecter);
+        _directionSelector = new DirectionSelector();
+        _battleEvaluator = new BattleEvaluator();
+        _visualController = new VisualController(enemyImage, playerImage, directionalButtons, turnUIs);
+        _turnCoordinator = new TurnCoordinator();
+        _itemProcessor = new ItemProcessor(this);
+        _mediator = new BattleMediator(_directionSelector, _battleEvaluator, _visualController, _itemProcessor);
         
         BindBattleComponents(); // イベント購読
         
-        _visualUpdater.SetTurnText(_turnHandler.GetTurnText()); // ターン表示の初期化
+        _visualController.SetTurnText(_turnCoordinator.GetTurnText()); // ターン表示の初期化
     }
 
     #region バトルのメインとなる処理
@@ -45,7 +45,7 @@ public class BattleController : IBattleController, IDisposable
     /// </summary>
     public void DecideEnemyDirection()
     {
-        _enemyDirection = _directionDecider.DecideDirection();
+        _enemyDirection = _directionSelector.DecideDirection();
         Debug.Log($"次の方向：{_enemyDirection}");
     }
     
@@ -54,16 +54,16 @@ public class BattleController : IBattleController, IDisposable
     /// </summary>
     public void ExecuteBattle(DirectionEnum playerDirection)
     {
-        _visualUpdater.UpdateSprites(_enemyDirection, playerDirection);
-        _battleState.ProcessBattleResult(_battleJudge.Judge(_enemyDirection, playerDirection));
+        _visualController.UpdateSprites(_enemyDirection, playerDirection);
+        _battleState.ProcessBattleResult(_battleEvaluator.Judge(_enemyDirection, playerDirection));
         
         // 勝利数が最大ターン数を上回ったら
         if (_battleState.IsVictoryConditionMet(GameManagerServiceLocator.Instance.GetGameModeData().MaxTurn))
         {
-            _turnHandler.CompleteBattle(); // ゲーム終了処理を呼ぶ
+            _turnCoordinator.CompleteBattle(); // ゲーム終了処理を呼ぶ
         }
         
-        _visualUpdater.SetResultMark(GetCurrentTurnIndex(), IsVictory);
+        _visualController.SetResultMark(GetCurrentTurnIndex(), IsVictory);
     }
 
     /// <summary>
@@ -71,9 +71,9 @@ public class BattleController : IBattleController, IDisposable
     /// </summary>
     public void RevertTurn()
     {
-        _turnHandler.RevertTurn(); // ターン数の巻き戻し
-        _visualUpdater.SetTurnText(_turnHandler.GetTurnText()); // UIの書き換え
-        _visualUpdater.ResetResultMark(GetCurrentTurnIndex());
+        _turnCoordinator.RevertTurn(); // ターン数の巻き戻し
+        _visualController.SetTurnText(_turnCoordinator.GetTurnText()); // UIの書き換え
+        _visualController.ResetResultMark(GetCurrentTurnIndex());
         _battleState.RevertLastBattleResult(); // 勝利数を変更するか確認して必要なら処理を行う
     }
     
@@ -82,11 +82,11 @@ public class BattleController : IBattleController, IDisposable
     /// </summary>
     public void PrepareBattleForNextTurn()
     {
-        _turnHandler.AdvanceToNextTurn(); // ターン数を進める
-        _directionDecider.ResetProbabilities(); // 敵の方向を選ぶ割合をリセットする
-        _visualUpdater.ResetSprites(); // 顔の向き、指が指す方向をリセット
+        _turnCoordinator.AdvanceToNextTurn(); // ターン数を進める
+        _directionSelector.ResetProbabilities(); // 敵の方向を選ぶ割合をリセットする
+        _visualController.ResetSprites(); // 顔の向き、指が指す方向をリセット
         _mediator.UpdateEffects(); // アイテム効果の継続ターンを減らす
-        _visualUpdater.SetTurnText(_turnHandler.GetTurnText()); // ターンの表示を更新する
+        _visualController.SetTurnText(_turnCoordinator.GetTurnText()); // ターンの表示を更新する
     }
     
     #endregion
@@ -102,7 +102,7 @@ public class BattleController : IBattleController, IDisposable
     /// <summary>
     /// UIインデックスで使うために現在のターン数（1オリジン）-1の数を返す
     /// </summary>
-    private int GetCurrentTurnIndex() => _turnHandler.CurrentTurn - 1;
+    private int GetCurrentTurnIndex() => _turnCoordinator.CurrentTurn - 1;
     
     /// <summary>
     /// 方向ボタンを押す処理をロジック側から呼び出すためのイベントを発火
@@ -135,11 +135,11 @@ public class BattleController : IBattleController, IDisposable
     /// </summary>
     private void BindBattleComponents()
     {
-        _directionDecider.OnLimitedDirection += _visualUpdater.SetButtonsInteractive;
-        _directionDecider.OnUnlimitedDirection += _visualUpdater.SetButtonsNonInteractive;
-        _battleJudge.OnLink += _visualUpdater.ChangeButtonColor;
-        _battleJudge.OnRelease += _visualUpdater.ResetButtonColor;
-        _turnHandler.OnGameFinished += NotifyBattleCompletion;
+        _directionSelector.OnLimitedDirection += _visualController.SetButtonsInteractive;
+        _directionSelector.OnUnlimitedDirection += _visualController.SetButtonsNonInteractive;
+        _battleEvaluator.OnLink += _visualController.ChangeButtonColor;
+        _battleEvaluator.OnRelease += _visualController.ResetButtonColor;
+        _turnCoordinator.OnGameFinished += NotifyBattleCompletion;
     }
     
     /// <summary>
@@ -147,11 +147,11 @@ public class BattleController : IBattleController, IDisposable
     /// </summary>
     private void UnbindBattleComponents()
     {
-        _directionDecider.OnLimitedDirection -= _visualUpdater.SetButtonsInteractive;
-        _directionDecider.OnUnlimitedDirection -= _visualUpdater.SetButtonsNonInteractive;
-        _battleJudge.OnLink -= _visualUpdater.ChangeButtonColor;
-        _battleJudge.OnRelease -= _visualUpdater.ResetButtonColor;
-        _turnHandler.OnGameFinished -= NotifyBattleCompletion;
+        _directionSelector.OnLimitedDirection -= _visualController.SetButtonsInteractive;
+        _directionSelector.OnUnlimitedDirection -= _visualController.SetButtonsNonInteractive;
+        _battleEvaluator.OnLink -= _visualController.ChangeButtonColor;
+        _battleEvaluator.OnRelease -= _visualController.ResetButtonColor;
+        _turnCoordinator.OnGameFinished -= NotifyBattleCompletion;
     }
 
     #endregion

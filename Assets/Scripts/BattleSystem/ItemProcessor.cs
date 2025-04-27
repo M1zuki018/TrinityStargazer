@@ -4,11 +4,11 @@ using Cysharp.Threading.Tasks;
 /// <summary>
 /// バトルシステムとアイテムの効果処理の連携を担当するクラス
 /// </summary>
-public class ItemEffecter : IItemEffecter
+public class ItemProcessor : IItemProcessor
 {
     private BattleController _controller;
     
-    public ItemEffecter(BattleController controller)
+    public ItemProcessor(BattleController controller)
     {
         _controller = controller;
     }

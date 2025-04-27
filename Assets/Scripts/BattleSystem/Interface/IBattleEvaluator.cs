@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 勝敗を判定するインターフェース
 /// </summary>
-public interface IBattleJudge
+public interface IBattleEvaluator
 {
     event Action<DirectionEnum, Color> OnLink;
     event Action<DirectionEnum> OnRelease;

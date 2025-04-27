@@ -3,7 +3,7 @@ using System;
 /// <summary>
 /// ターンを管理するクラスのためのインターフェース
 /// </summary>
-public interface ITurnHandler
+public interface ITurnCoordinator
 {
     int CurrentTurn { get; }
     event Action OnGameFinished;

@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// 表示を更新するインターフェース
 /// </summary>
-public interface IVisualUpdater
+public interface IVisualController
 {
     // 相手の顔の向き・自分の手の向きを変更する
     void UpdateSprites(DirectionEnum enemyDirection, DirectionEnum playerDirection);

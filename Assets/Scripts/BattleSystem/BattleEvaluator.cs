@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// バトルの勝敗判定を担当するクラス
 /// </summary>
-public class BattleJudge : IBattleJudge
+public class BattleEvaluator : IBattleEvaluator
 {
     // 同一のものとして扱う方向
     private List<DirectionEnum> _linkingDirections = new List<DirectionEnum>();

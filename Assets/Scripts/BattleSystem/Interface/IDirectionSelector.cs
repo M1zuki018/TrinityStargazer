@@ -4,7 +4,7 @@ using System.Collections.Generic;
 /// <summary>
 /// 方向を決定するインターフェース
 /// </summary>
-public interface IDirectionDecider
+public interface IDirectionSelector
 {
      DirectionEnum DecideDirection();
      HashSet<DirectionEnum> GetSealedDirections();

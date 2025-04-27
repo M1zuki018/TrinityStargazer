@@ -7,7 +7,7 @@ public class ReverseBroomEffect : IItemEffect
     
     public void Apply(IBattleMediator mediator)
     {
-        mediator.ItemEffecter.UseReverseBroom();
+        mediator.ItemProcessor.UseReverseBroom();
     }
 
     public void Remove(IBattleMediator mediator)

@@ -21,7 +21,7 @@ public class SmartPhoneEffect : IItemEffect
     {
         Debug.Log($"[スマートフォン] やあマキくん。");
         _mediator = mediator;
-        _mediator.DirectionDecider.OnEnemyDirectionChanged += ExecuteDirectionPredictionAndBattle;
+        _mediator.DirectionSelector.OnEnemyDirectionChanged += ExecuteDirectionPredictionAndBattle;
         SetButtonsInteractive();
     }
     
@@ -43,7 +43,7 @@ public class SmartPhoneEffect : IItemEffect
             Debug.Log($"[スマートフォン] 予測失敗");
         }
         
-        _mediator.ItemEffecter.UseSmartPhone(_effectDirection); // 勝敗判定まで進める
+        _mediator.ItemProcessor.UseSmartPhone(_effectDirection); // 勝敗判定まで進める
     }
     
     /// <summary>
@@ -78,7 +78,7 @@ public class SmartPhoneEffect : IItemEffect
     public void Remove(IBattleMediator mediator)
     {
         SetButtonsNonInteractive();
-        _mediator.DirectionDecider.OnEnemyDirectionChanged -= ExecuteDirectionPredictionAndBattle;
+        _mediator.DirectionSelector.OnEnemyDirectionChanged -= ExecuteDirectionPredictionAndBattle;
     }
     
     /// <summary>
@@ -89,7 +89,7 @@ public class SmartPhoneEffect : IItemEffect
         for (int i = 0; i < 8; i++)
         {
             int index = i;
-            _mediator.VisualUpdater.SetButtonsInteractive((DirectionEnum)index);
+            _mediator.VisualController.SetButtonsInteractive((DirectionEnum)index);
         }
     }
 
@@ -101,7 +101,7 @@ public class SmartPhoneEffect : IItemEffect
         for (int i = 0; i < 8; i++)
         {
             int index = i;
-            _mediator.VisualUpdater.SetButtonsNonInteractive((DirectionEnum)index);
+            _mediator.VisualController.SetButtonsNonInteractive((DirectionEnum)index);
         }
     }
 

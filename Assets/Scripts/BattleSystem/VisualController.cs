@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// バトルの視覚的な更新を担当するクラス
 /// </summary>
-public class VisualUpdater : IVisualUpdater
+public class VisualController : IVisualController
 {
     private readonly DirectionalImages _enemyImage;
     private readonly DirectionalImages _playerImage;
@@ -14,7 +14,7 @@ public class VisualUpdater : IVisualUpdater
     private readonly Color _defaultColor;
     private Tweener _forecastTweener;
     
-    public VisualUpdater(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, TurnUIs turnUIs)
+    public VisualController(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, TurnUIs turnUIs)
     {
         _enemyImage = enemyImage;
         _playerImage = playerImage;

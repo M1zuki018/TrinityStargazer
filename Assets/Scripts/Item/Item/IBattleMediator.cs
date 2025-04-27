@@ -3,10 +3,10 @@
 /// </summary>
 public interface IBattleMediator
 {
-    IDirectionDecider DirectionDecider { get; }
-    IBattleJudge BattleJudge { get; }
-    IVisualUpdater VisualUpdater { get; }
-    IItemEffecter ItemEffecter { get; }
+    IDirectionSelector DirectionSelector { get; }
+    IBattleEvaluator BattleEvaluator { get; }
+    IVisualController VisualController { get; }
+    IItemProcessor ItemProcessor { get; }
     
     void RegisterEffect(IItemEffect effect);
     void RemoveEffect(IItemEffect effect);

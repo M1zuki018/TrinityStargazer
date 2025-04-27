@@ -7,17 +7,17 @@ public class BattleMediator : IBattleMediator
 {
     private readonly List<IItemEffect> _activeEffects = new List<IItemEffect>();
     
-    public IDirectionDecider DirectionDecider { get; }
-    public IBattleJudge BattleJudge { get; }
-    public IVisualUpdater VisualUpdater { get; }
-    public IItemEffecter ItemEffecter { get; }
+    public IDirectionSelector DirectionSelector { get; }
+    public IBattleEvaluator BattleEvaluator { get; }
+    public IVisualController VisualController { get; }
+    public IItemProcessor ItemProcessor { get; }
 
-    public BattleMediator(IDirectionDecider directionDecider, IBattleJudge battleJudge, IVisualUpdater visualUpdater, IItemEffecter itemEffecter)
+    public BattleMediator(IDirectionSelector directionSelector, IBattleEvaluator battleEvaluator, IVisualController visualController, IItemProcessor itemProcessor)
     {
-        DirectionDecider = directionDecider;
-        BattleJudge = battleJudge;
-        VisualUpdater = visualUpdater;
-        ItemEffecter = itemEffecter;
+        DirectionSelector = directionSelector;
+        BattleEvaluator = battleEvaluator;
+        VisualController = visualController;
+        ItemProcessor = itemProcessor;
     }
 
     public void RegisterEffect(IItemEffect effect)

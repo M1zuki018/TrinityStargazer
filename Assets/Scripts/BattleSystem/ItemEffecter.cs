@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 
 /// <summary>
@@ -8,23 +7,10 @@ using Cysharp.Threading.Tasks;
 public class ItemEffecter : IItemEffecter
 {
     private BattleController _controller;
-    private IBattleJudge _judge;
     
-    public ItemEffecter(BattleController controller, IBattleJudge judge)
+    public ItemEffecter(BattleController controller)
     {
         _controller = controller;
-        _judge = judge;
-    }
-    
-    // アイテム：共鳴ケーブル
-    public void UseResonanceCable(List<DirectionEnum> directions, ResonanceCableEffect effect)
-    {
-        _judge.LinkingDirection(directions, effect);
-    }
-
-    public void ReleasingDirection(ResonanceCableEffect effect)
-    {
-        _judge.ReleasingDirection(effect);
     }
 
     // アイテム：スマートフォン

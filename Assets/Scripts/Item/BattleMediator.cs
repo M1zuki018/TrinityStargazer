@@ -8,11 +8,15 @@ public class BattleMediator : IBattleMediator
     private readonly List<IItemEffect> _activeEffects = new List<IItemEffect>();
     
     public IDirectionDecider DirectionDecider { get; }
+    public IBattleJudge BattleJudge { get; }
     public IVisualUpdater VisualUpdater { get; }
     public IItemEffecter ItemEffecter { get; }
 
-    public BattleMediator(IItemEffecter itemEffecter)
+    public BattleMediator(IDirectionDecider directionDecider, IBattleJudge battleJudge, IVisualUpdater visualUpdater, IItemEffecter itemEffecter)
     {
+        DirectionDecider = directionDecider;
+        BattleJudge = battleJudge;
+        VisualUpdater = visualUpdater;
         ItemEffecter = itemEffecter;
     }
 

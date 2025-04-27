@@ -4,6 +4,7 @@
 public interface IBattleMediator
 {
     IDirectionDecider DirectionDecider { get; }
+    IBattleJudge BattleJudge { get; }
     IVisualUpdater VisualUpdater { get; }
     IItemEffecter ItemEffecter { get; }
     

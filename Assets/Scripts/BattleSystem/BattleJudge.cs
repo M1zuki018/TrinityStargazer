@@ -36,8 +36,6 @@ public class BattleJudge : IBattleJudge
         
         return enemyDirection == playerDirection; // 通常の判定　一致しているかどうかを判定
     }
-
-    #region アイテムの処理
     
     /// <summary>
     /// アイテム：共鳴ケーブルの効果で、渡された方向を同一のものとして扱う
@@ -88,5 +86,4 @@ public class BattleJudge : IBattleJudge
         
         Debug.Log($"[共鳴ケーブル] 更新: {_linkingDirections.Count}方向がリンク中");
     }
-    #endregion
 }

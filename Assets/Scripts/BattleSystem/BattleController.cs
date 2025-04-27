@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// バトルシステムの根幹となるクラス
 /// </summary>
-public class BattleController : IDisposable
+public class BattleController : IBattleController, IDisposable
 {
     private bool _isWinLastBattle; // 前回のバトルで勝利したか
     private int _victoryCount; // 勝利数

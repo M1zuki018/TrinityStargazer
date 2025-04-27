@@ -19,12 +19,13 @@ public class BattleSystemPresenter : ViewBase
     [SerializeField] private TurnUIs _turnUIs;
 
     // ロジック側
-    private BattleController _battleController;
+    private IBattleController _battleController;
     
     public event Action OnBattleEnded; // ゲーム終了を通知するイベント
     
     public override UniTask OnAwake()
     {
+        //TODO: この部分の依存性の解消について悩み中
         _battleController = new BattleController(_seiImage, _playerHandImage, _ccDirection.DirectionButtons, _turnUIs);
         return base.OnAwake();
     }

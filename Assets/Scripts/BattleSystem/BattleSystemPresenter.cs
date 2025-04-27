@@ -19,7 +19,6 @@ public class BattleSystemPresenter : ViewBase
 
     // Controllerレイヤーのクラス
     private BattleController _battleController;
-    private TurnController _turnController;
 
     private DirectionEnum _enemyDirection;
     
@@ -29,7 +28,6 @@ public class BattleSystemPresenter : ViewBase
     {
         // Controllerレイヤーのクラスのインスタンスを生成
         _battleController = new BattleController(_seiImage, _playerHandImage, _ccDirection.DirectionButtons, this);
-        _turnController = new TurnController();
         return base.OnAwake();
     }
     
@@ -40,10 +38,6 @@ public class BattleSystemPresenter : ViewBase
         _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat;
         _ccAfter.OnNextButtonClicked += HandleNextTurn;
         _ccItemSelect.OnTestItemClicked += UseItem;
-        
-        // ゲームロジックイベント登録
-        _battleController.OnVictoryCountChanged += HandleVictory;
-        _turnController.OnGameFinished += TurnControllerOnOnGameFinished;
         
         return base.OnBind();
     }
@@ -59,7 +53,7 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     private void InitializeUI()
     {
-        _ccBefore.SetTurnText(_turnController.TurnText());
+        _ccBefore.SetTurnText(_battleController.GetTurnText());
     }
     
     /// <summary>
@@ -73,23 +67,11 @@ public class BattleSystemPresenter : ViewBase
     /// <summary>
     /// ゲーム終了処理を呼び出す
     /// </summary>
-    private void TurnControllerOnOnGameFinished()
+    public void GameFinished()
     {
         OnBattleEnded?.Invoke();   
     }
-
-    /// <summary>
-    /// 勝利判定と最大ターン数の比較を行う
-    /// </summary>
-    private void HandleVictory(int victoryCount)
-    {
-        // 勝利数が最大ターン数を上回ったら
-        if (victoryCount >= GameManagerServiceLocator.Instance.GetGameModeData().MaxTurn)
-        {
-            _turnController.GameFinished(); // ゲーム終了処理を呼ぶ
-        }
-    }
-
+    
     /// <summary>
     /// バトルを始めた時の情報で敵の方向は決めてしまう
     /// </summary>
@@ -106,7 +88,7 @@ public class BattleSystemPresenter : ViewBase
     {
         _battleController.ExecuteBattle(direction, _enemyDirection);
         _ccAfter.SetText(_battleController.IsVictory);
-        _ccBefore.SetResultMark(_turnController.CurrentTurn - 1, _battleController.IsVictory);
+        _ccBefore.SetResultMark(_battleController.GetCurrentTurnToIndex(), _battleController.IsVictory);
     }
     
     /// <summary>
@@ -114,9 +96,8 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     private void HandleNextTurn()
     {
-        _turnController.NextTurn();
         _battleController.ResetBattle();
-        _ccBefore.SetTurnText(_turnController.TurnText());
+        _ccBefore.SetTurnText(_battleController.GetTurnText());
         _battleController.Mediator.UpdateEffects();
     }
 
@@ -143,10 +124,9 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     public void UseReverseBroom()
     {
-        _turnController.BackTurn();
-        _ccBefore.SetTurnText(_turnController.TurnText());
+        _ccBefore.SetTurnText(_battleController.GetTurnText());
         _battleController.BackTurn();
-        _ccBefore.ResetResultMark(_turnController.CurrentTurn - 1); // CurrentTurnは1オリジンなので、indexとして扱うために-1する
+        _ccBefore.ResetResultMark(_battleController.GetCurrentTurnToIndex());
     }
 
     /// <summary>
@@ -163,7 +143,5 @@ public class BattleSystemPresenter : ViewBase
         _ccDirection.OnDirectionButtonClicked -= HandleVictoryOrDefeat;
         _ccAfter.OnNextButtonClicked -= HandleNextTurn;
         _ccItemSelect.OnTestItemClicked -= UseItem;
-        _turnController.OnGameFinished -= TurnControllerOnOnGameFinished;
-        _battleController.OnVictoryCountChanged -= HandleVictory;
     }
 }

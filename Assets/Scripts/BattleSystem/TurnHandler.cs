@@ -1,10 +1,9 @@
 using System;
-using UnityEngine;
 
 /// <summary>
 /// ターンを管理するクラス
 /// </summary>
-public class TurnController
+public class TurnHandler
 {
     private readonly int _maxTurn = GameManagerServiceLocator.Instance.GetGameModeData().MaxTurn;
     private int _currentTurn = 1;

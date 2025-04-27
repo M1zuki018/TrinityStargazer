@@ -1,7 +1,5 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 /// <summary>
@@ -11,14 +9,15 @@ public class ShopAnimation : MonoBehaviour
 {
     [SerializeField] private Image _panel;
     [SerializeField] private Image _door;
-
-    [FormerlySerializedAs("shopCanvasGroup")] [SerializeField]
-    private CanvasGroup _shopCanvasGroup;
+    
+    [SerializeField] private CanvasGroup _shopCanvasGroup;
 
     private RectTransform _rectTransform;
     private Sequence _openingSequence;
 
-    [Header("店内")] [SerializeField] private RectTransform[] _menuButtons = new RectTransform[3];
+    [Header("店内")] 
+    [SerializeField] private RectTransform[] _menuButtons = new RectTransform[3];
+    [SerializeField] private CanvasGroup _characterCanvasGroup;
 
     private void Awake()
     {
@@ -56,7 +55,7 @@ public class ShopAnimation : MonoBehaviour
 
             setupSequence.OnComplete(() =>
             {
-                GlobalFadePanel.RequestFadeIn(2f); // フェードイン開始
+                GlobalFadePanel.RequestFadeIn(1.5f); // フェードイン開始
 
                 // ショップ表示シーケンス
                 Sequence revealSequence = DOTween.Sequence();
@@ -65,9 +64,10 @@ public class ShopAnimation : MonoBehaviour
                 float buttonDelay = 0.15f;
                 for (int i = 0; i < _menuButtons.Length; i++)
                 {
-                    float delay = 2.5f + (i * buttonDelay); // フェードイン後にボタンを表示開始
+                    float delay = 1.5f + (i * buttonDelay); // フェードイン後にボタンを表示開始
                     revealSequence.Insert(delay, _menuButtons[i].DOScale(1.1f, 0.3f).From(0f).SetEase(Ease.OutBack));
                     revealSequence.Insert(delay + 0.2f, _menuButtons[i].DOScale(1f, 0.1f).SetEase(Ease.OutQuad));
+                    revealSequence.Insert(0.8f, _characterCanvasGroup.DOFade(1f, 1.2f).SetEase(Ease.OutCubic));
                 }
             });
 

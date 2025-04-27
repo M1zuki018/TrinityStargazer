@@ -12,7 +12,7 @@ public class CanvasController_Shop : WindowBase
     [SerializeField] private Button _purchaseButton;
     [SerializeField] private Button _saleButton;
     [SerializeField] private Button _synthesisButton;
-    
+    [SerializeField] private ShopAnimation _shopAnimation;
     public event Action OnHomeButtonClicked; // ホーム画面に戻る
     public event Action OnPurchaseButtonClicked;
     public event Action OnSaleButtonClicked;
@@ -27,7 +27,19 @@ public class CanvasController_Shop : WindowBase
         
         return base.OnUIInitialize();
     }
-    
+
+    public override void Show()
+    {
+        base.Show();
+        _shopAnimation.gameObject.SetActive(true); // パネルを開くときにアニメーションを流すようにする
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+        _shopAnimation.gameObject.SetActive(false); // 非表示に戻しておく
+    }
+
     /// <summary>
     /// モード選択画面→ホーム画面に遷移する
     /// </summary>

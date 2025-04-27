@@ -33,8 +33,6 @@ public class MainSceneUIManager : SceneUIManagerBase
 
     public override UniTask OnStart()
     {
-        GlobalFadePanel.RequestFadeOut();
-        
         // 最初の読み込みではなければすぐにホーム画面に遷移する
         if (!GameManagerServiceLocator.Instance.IsFirstLoad)
         {

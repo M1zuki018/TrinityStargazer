@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 5525714604346437867}
   - component: {fileID: 3496912906255444611}
   - component: {fileID: 8434446802974825548}
+  - component: {fileID: 9667164232943279}
   m_Layer: 5
   m_Name: Chara
   m_TagString: Untagged
@@ -271,6 +272,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &9667164232943279
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930218198567174731}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &932958377003960949
 GameObject:
   m_ObjectHideFlags: 0
@@ -1909,6 +1922,7 @@ MonoBehaviour:
   - {fileID: 4693001059871043954}
   - {fileID: 4504839251596058243}
   - {fileID: 4386440207000669802}
+  _characterCanvasGroup: {fileID: 9667164232943279}
 --- !u!225 &1919577332550460937
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -4845,7 +4859,7 @@ MonoBehaviour:
   - {fileID: 2889143247206084550}
   - {fileID: 2519215883518370130}
   - {fileID: 146668802720644966}
-  _defaultCanvasIndex: 3
+  _defaultCanvasIndex: 0
 --- !u!1 &7637453814551292110
 GameObject:
   m_ObjectHideFlags: 0
@@ -6556,6 +6570,7 @@ MonoBehaviour:
   _purchaseButton: {fileID: 522892626885403739}
   _saleButton: {fileID: 0}
   _synthesisButton: {fileID: 0}
+  _shopAnimation: {fileID: 0}
 --- !u!224 &6238250246981826464 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4899417182577876230, guid: 1812be10e7ae72f48bf17cff327a6d77, type: 3}
@@ -6730,6 +6745,7 @@ MonoBehaviour:
   _purchaseButton: {fileID: 515349979519585158}
   _saleButton: {fileID: 8301849160259494739}
   _synthesisButton: {fileID: 3825648089844754563}
+  _shopAnimation: {fileID: 8045631798789114768}
 --- !u!224 &6166031108907286874 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4899417182577876230, guid: 1812be10e7ae72f48bf17cff327a6d77, type: 3}

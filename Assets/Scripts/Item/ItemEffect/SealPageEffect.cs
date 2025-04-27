@@ -33,9 +33,11 @@ public class SealPageEffect : IItemEffect
         var newSealedDirectionList = new List<DirectionEnum>();
         for (int i = 0; i < limitCount; i++)
         {
-            DirectionEnum direction = (DirectionEnum)UnityEngine.Random.Range(0, availableDirections.Count); // 方向を作成 
+            int randomIndex = UnityEngine.Random.Range(0, availableDirections.Count);
+            DirectionEnum direction = availableDirections[randomIndex];
+        
             newSealedDirectionList.Add(direction);
-            availableDirections.Remove(direction); // 選んだ方向は使用可能なリストから外す
+            availableDirections.RemoveAt(randomIndex); // 選んだ方向は選択可能なリストから外しておく
         }
         
         _limitDirections = newSealedDirectionList; // コピーして解除のときに使えるようにする

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 /// <summary>
@@ -16,10 +17,21 @@ public class ResonanceCableEffect : IItemEffect
     
     public void Apply(IBattleMediator mediator)
     {
+        // 使用可能な方向のリストを作成
+        var availableDirections = new List<DirectionEnum>();
+        foreach (DirectionEnum direction in Enum.GetValues(typeof(DirectionEnum)))
+        {
+            availableDirections.Add(direction);
+        }
+        
         var directions = new List<DirectionEnum>(_limitCount);
         for (int i = 0; i < _limitCount; i++)
         {
-            directions.Add((DirectionEnum)i); // TODO: ランダム性を持たせる
+            int randomIndex = UnityEngine.Random.Range(0, availableDirections.Count);
+            DirectionEnum direction = availableDirections[randomIndex];
+        
+            directions.Add(direction);
+            availableDirections.RemoveAt(randomIndex); // 選んだ方向は選択可能なリストから外しておく
         }
         mediator.BattleJudge.LinkingDirection(directions); // リンクさせる処理を呼ぶ
     }

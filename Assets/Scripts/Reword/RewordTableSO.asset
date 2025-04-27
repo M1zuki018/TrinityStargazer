@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d8e9da98a3110046ae2cd48c2546631, type: 3}
+  m_Name: RewordTableSO
+  m_EditorClassIdentifier: 
+  _rewordTables:
+  - _gameMode: 0
+    _gameModes:
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 1
+      _rate: 0
+    - _itemType: 2
+      _rate: 0
+    - _itemType: 3
+      _rate: 0
+    - _itemType: 4
+      _rate: 0
+    - _itemType: 5
+      _rate: 0
+    - _itemType: 6
+      _rate: 0
+  - _gameMode: 1
+    _gameModes:
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+  - _gameMode: 2
+    _gameModes:
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+  - _gameMode: 3
+    _gameModes:
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+  - _gameMode: 4
+    _gameModes:
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0
+    - _itemType: 0
+      _rate: 0

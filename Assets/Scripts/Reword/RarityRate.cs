@@ -11,6 +11,11 @@ public class RarityRate
     [SerializeField] private float _rate;
     
     /// <summary>
+    /// レアリティを取得
+    /// </summary>
+    public RarityEnum GetRarity() => _rarity;
+    
+    /// <summary>
     /// レートを取得
     /// </summary>
     public float GetRate() => _rate;

@@ -4,4 +4,6 @@
 public static class PlayerData
 {
     public static int Level { get; } = 1;
+    
+    public static int Money { get; set; } = 0;
 }

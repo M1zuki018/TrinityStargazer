@@ -23,11 +23,17 @@ public class RewordManager : ViewBase
     private void GetRewords()
     {
         int count = 5; // TODO: 個数指定を追加
+        int minimum = 10; // TODO: 仮
+        int victoryPoints = GameManagerServiceLocator.Instance.VictoryPoints; // 勝利数
+        
+        PlayerData.Money += victoryPoints * 10 + minimum; // ゲーム内通貨を獲得
+        Debug.Log($"ゲーム内通貨　獲得：{victoryPoints * 10 + minimum} 現在：{PlayerData.Money}");
+        
         // 現在のゲームモードの報酬テーブルを取得
         var table = _rewordTable.GetRateTable(GameManagerServiceLocator.Instance.GetGameModeData().GameMode);
 
         // 勝利数に基づく保証レアリティを確認
-        RarityEnum? guaranteedRarity = _rewordTable.GetGuaranteedRarity(GameManagerServiceLocator.Instance.VictoryPoints);
+        RarityEnum? guaranteedRarity = _rewordTable.GetGuaranteedRarity(victoryPoints);
         
         for (int i = 0; i < count; i++)
         {

@@ -18,7 +18,7 @@ public class SealPageEffect : IItemEffect
     
     public void Apply(IBattleMediator mediator)
     {
-        var sealedDirections = mediator.ItemEffecter.GetSealedDirections();
+        var sealedDirections = mediator.DirectionDecider.GetSealedDirections();
          
         // 使用可能な方向のリストを作成
         var availableDirections = new List<DirectionEnum>();
@@ -44,7 +44,7 @@ public class SealPageEffect : IItemEffect
 
         foreach (DirectionEnum direction in newSealedDirectionList)
         {
-            mediator.ItemEffecter.LimitProbability(direction);
+            mediator.DirectionDecider.LimitProbability(direction);
         }
     }
     
@@ -52,7 +52,7 @@ public class SealPageEffect : IItemEffect
     {
         foreach (var direction in _limitDirections)
         {
-            mediator.ItemEffecter.RemoveLimitProbability(direction);
+            mediator.DirectionDecider.RemoveLimitProbability(direction);
         }
         _limitDirections.Clear();
     }

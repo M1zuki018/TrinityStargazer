@@ -3,6 +3,8 @@
 /// </summary>
 public interface IBattleMediator
 {
+    IDirectionDecider DirectionDecider { get; }
+    IVisualUpdater VisualUpdater { get; }
     IItemEffecter ItemEffecter { get; }
     
     void RegisterEffect(IItemEffect effect);

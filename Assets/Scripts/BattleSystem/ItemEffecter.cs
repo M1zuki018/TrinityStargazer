@@ -1,0 +1,45 @@
+using System;
+using Cysharp.Threading.Tasks;
+
+/// <summary>
+/// バトルシステムとアイテムの効果処理の連携を担当するクラス
+/// </summary>
+public class ItemEffecter : IItemEffecter
+{
+    private BattleController _controller;
+    
+    public ItemEffecter(BattleController controller)
+    {
+        _controller = controller;
+    }
+
+    // アイテム：スマートフォン
+
+    /// <summary>
+    /// 自動でバトルを進行するための処理
+    /// </summary>
+    public void UseSmartPhone(DirectionEnum direction)
+    {
+        UseSmartPhoneAsync(direction).Forget();
+    }
+
+    private async UniTask UseSmartPhoneAsync(DirectionEnum direction)
+    {
+        // ここで一瞬待たないと、敵の方向が決まる前にアイテム使用処理が終わってしまい、
+        // 意図した挙動にならないため注意
+        await UniTask.Delay(TimeSpan.FromSeconds(1)); // TODO: ここで演出
+        
+        _controller.PressDirectionButton(direction); // 方向ボタンを押したときのイベントを発火
+    }
+    
+    // アイテム：決闘の薔薇
+    
+    /// <summary>
+    /// 勝利時に獲得するポイントの数を変更する
+    /// </summary>
+    public void SetGetWinPoint(int getWinPoint)
+    {
+        _controller.SetGetWinPoint(getWinPoint);
+    }
+    
+}

@@ -43,7 +43,7 @@ public class SmartPhoneEffect : IItemEffect
             Debug.Log($"[スマートフォン] 予測失敗");
         }
         
-        _mediator.BattleSystemPresenter.UseSmartPhone(_effectDirection); // 勝敗判定まで進める
+        _mediator.ItemEffecter.UseSmartPhone(_effectDirection); // 勝敗判定まで進める
     }
     
     /// <summary>

@@ -13,12 +13,12 @@ public class ChallengeRoseEffect : IItemEffect
     
     public void Apply(IBattleMediator mediator)
     {
-        mediator.BattleSystemPresenter.SetGetWinPoint(_getWinPoint);
+        mediator.ItemEffecter.SetGetWinPoint(_getWinPoint);
     }
 
     public void Remove(IBattleMediator mediator)
     {
-        mediator.BattleSystemPresenter.SetGetWinPoint(1); // リセット
+        mediator.ItemEffecter.SetGetWinPoint(1); // リセット
     }
 
     public bool IsExpired()

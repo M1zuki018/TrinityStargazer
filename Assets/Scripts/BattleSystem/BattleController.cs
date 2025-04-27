@@ -17,9 +17,12 @@ public class BattleController : IDisposable
     
     // コンポーネント
     private BattleSystemPresenter _presenter;
+    
     private IDirectionDecider _directionDecider;
     private IBattleJudge _battleJudge;
     private IVisualUpdater _visualUpdater;
+    private IItemEffecter _itemEffecter;
+    
     private TurnHandler _turnHandler;
 
     private DirectionEnum _enemyDirection;
@@ -31,7 +34,8 @@ public class BattleController : IDisposable
         _battleJudge = new BattleJudge();
         _visualUpdater = new VisualUpdater(enemyImage, playerImage, directionalButtons);
         _turnHandler = new TurnHandler();
-        _mediator = new BattleMediator(_directionDecider, _battleJudge, _visualUpdater, _presenter);
+        _itemEffecter = new ItemEffecter(this);
+        _mediator = new BattleMediator(_directionDecider, _battleJudge, _visualUpdater, _itemEffecter, _presenter);
         
         BindBattleComponents(); // イベント購読
     }
@@ -45,6 +49,14 @@ public class BattleController : IDisposable
     /// UI用表示用のターン数表示文字列を返す
     /// </summary>
     public string GetTurnText() => _turnHandler.TurnText();
+    
+    /// <summary>
+    /// 方向ボタンを押す（アイテム：スマートフォン用）
+    /// </summary>
+    public void PressDirectionButton(DirectionEnum direction)
+    {
+        _presenter.PressDirectionButton(direction);
+    }
     
     /// <summary>
     /// 敵が向く方向を決定する

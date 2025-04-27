@@ -62,6 +62,14 @@ public class BattleSystemPresenter : ViewBase
     }
     
     /// <summary>
+    /// 方向ボタンを押す（スマートフォン用）
+    /// </summary>
+    public void PressDirectionButton(DirectionEnum direction)
+    {
+        _ccDirection.OnDirectionButtonClick(direction);
+    }
+    
+    /// <summary>
     /// ゲーム終了処理を呼び出す
     /// </summary>
     public void GameFinished()
@@ -89,42 +97,18 @@ public class BattleSystemPresenter : ViewBase
         _ccBefore.SetTurnText(_battleController.GetTurnText());
         _battleController.Mediator.UpdateEffects();
     }
-
-    /// <summary>
-    /// アイテム：スマートフォンを使った時に自動でバトルを進行するための処理
-    /// </summary>
-    public void UseSmartPhone(DirectionEnum direction)
-    {
-        UseSmartPhoneAsync(direction).Forget();
-    }
-
-    private async UniTask UseSmartPhoneAsync(DirectionEnum direction)
-    {
-        // ここで一瞬待たないと、敵の方向が決まる前にアイテム使用処理が終わってしまい、
-        // 意図した挙動にならないため注意
-        await UniTask.Delay(TimeSpan.FromSeconds(1)); // TODO: ここで演出
-        
-        _ccDirection.OnDirectionButtonClick(direction); // 方向ボタンを押したときのイベントを発火
-    }
-
+    
     /// <summary>
     /// アイテム：逆行のほうきを使ったときに1ターン巻き戻すための処理
     /// （現状アイテム効果のリセット・経過ターン数のリセットは行っていない）
     /// </summary>
     public void UseReverseBroom()
     {
-        _ccBefore.SetTurnText(_battleController.GetTurnText());
         _battleController.BackTurn();
+        _ccBefore.SetTurnText(_battleController.GetTurnText());
         _ccBefore.ResetResultMark(_battleController.GetCurrentTurnToIndex());
     }
-
-    /// <summary>
-    /// アイテム：決闘の薔薇用　勝利時に獲得するポイントの数を変更する
-    /// </summary>
-    public void SetGetWinPoint(int getWinPoint)
-    {
-        _battleController.SetGetWinPoint(getWinPoint);
-    }
+    
 
     private void OnDestroy()
     {

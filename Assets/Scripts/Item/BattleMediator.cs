@@ -10,18 +10,17 @@ public class BattleMediator : IBattleMediator
     public IDirectionDecider DirectionDecider { get; }
     public IBattleJudge BattleJudge { get; }
     public IVisualUpdater VisualUpdater { get; }
+    public IItemEffecter ItemEffecter { get; }
     
     public BattleSystemPresenter BattleSystemPresenter { get; }
 
-    public BattleMediator(
-        IDirectionDecider directionDecider,
-        IBattleJudge battleJudge,
-        IVisualUpdater visualUpdater,
-        BattleSystemPresenter battleSystemPresenter)
+    public BattleMediator(IDirectionDecider directionDecider, IBattleJudge battleJudge, IVisualUpdater visualUpdater, 
+        IItemEffecter itemEffecter, BattleSystemPresenter battleSystemPresenter)
     {
         DirectionDecider = directionDecider;
         BattleJudge = battleJudge;
         VisualUpdater = visualUpdater;
+        ItemEffecter = itemEffecter;
         BattleSystemPresenter = battleSystemPresenter;
     }
 

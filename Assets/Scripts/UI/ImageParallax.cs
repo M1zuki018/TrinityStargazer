@@ -43,9 +43,6 @@ public class ImageParallax : ViewBase
         
         // タイトルの初期位置
         _titleInitialPos = _titleLayer.anchoredPosition;
-        
-        // すべてのトゥイーンをキル（念のため）
-        DOTween.KillAll();
     }
 
     private void Update()

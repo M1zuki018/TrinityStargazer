@@ -65,7 +65,7 @@ public class ShopAnimation : MonoBehaviour
                 for (int i = 0; i < _menuButtons.Length; i++)
                 {
                     float delay = 1.5f + (i * buttonDelay); // フェードイン後にボタンを表示開始
-                    revealSequence.Insert(delay, _menuButtons[i].DOScale(1.1f, 0.3f).From(0f).SetEase(Ease.OutBack));
+                    revealSequence.Insert(delay, _menuButtons[i].DOScale(1.05f, 0.3f).From(0f).SetEase(Ease.OutBack));
                     revealSequence.Insert(delay + 0.2f, _menuButtons[i].DOScale(1f, 0.1f).SetEase(Ease.OutQuad));
                     revealSequence.Insert(0.8f, _characterCanvasGroup.DOFade(1f, 1.2f).SetEase(Ease.OutCubic));
                 }

@@ -94,7 +94,7 @@ public class GlobalFadePanel : ViewBase
         _canvasGroup.alpha = 1;
         _canvasGroup.blocksRaycasts = true;
         
-        _currentFadeTween = _fadePanel.DOFade(0f, duration);
+        _currentFadeTween = _canvasGroup.DOFade(0f, duration);
         
         await _currentFadeTween.AsyncWaitForCompletion();
         

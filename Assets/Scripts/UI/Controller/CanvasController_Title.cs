@@ -54,7 +54,7 @@ public class CanvasController_Title : WindowBase
 
     public override void Show()
     {
-        GlobalFadePanel.RequestFadeOut(2.0f);
+        GlobalFadePanel.RequestFadeIn(2.0f);
         base.Show();
     }
 }

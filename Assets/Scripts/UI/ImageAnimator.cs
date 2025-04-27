@@ -32,8 +32,9 @@ public class ImageAnimator : ViewBase
     {
         if (_enableFade)
         {
-            _targetImage.color = new Color(1, 1, 1, 0);
-            _targetImage.DOFade(1f, _animationDuration);
+            CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 0f; // 一度透明にする
+            canvasGroup.DOFade(1f, _animationDuration);
         }
 
         if (_enableSlide)

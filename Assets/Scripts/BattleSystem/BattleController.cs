@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
-/// インゲームのバトルを統括管理するクラス
+/// バトルシステムの根幹となるクラス
 /// </summary>
-public class BattleSystemManager
+public class BattleController : IDisposable
 {
     private readonly IBattleMediator _mediator; // バトルに必要な機能が入ったインターフェースなどはこのクラスで管理
     public IBattleMediator Mediator => _mediator;
@@ -13,17 +14,23 @@ public class BattleSystemManager
     private int _victoryCount;
     private int _getWinPoint = 1;
     
+    // コンポーネント
+    private IDirectionDecider _directionDecider;
+    private IBattleJudge _battleJudge;
+    private IVisualUpdater _visualUpdater;
+    
     public event Action<int> OnVictoryCountChanged;
 
-    public BattleSystemManager(
-        IDirectionDecider directionDecider, 
-        IBattleJudge battleJudge,
-        IVisualUpdater visualUpdater,
-        BattleSystemPresenter battleSystemPresenter)
+    public BattleController(DirectionalImages enemyImage, DirectionalImages playerImage, Button[] directionalButtons, BattleSystemPresenter presenter)
     {
-        _mediator = new BattleMediator(directionDecider, battleJudge, visualUpdater, battleSystemPresenter);
+        _directionDecider = new DirectionDecider();
+        _battleJudge = new BattleJudge();
+        _visualUpdater = new VisualUpdater(enemyImage, playerImage, directionalButtons);
+        _mediator = new BattleMediator(_directionDecider, _battleJudge, _visualUpdater, presenter);
+        
+        BindBattleComponents(); // イベント購読
     }
-
+    
     /// <summary>
     /// 敵が向く方向を決定して返す
     /// </summary>
@@ -77,4 +84,35 @@ public class BattleSystemManager
         _mediator.DirectionDecider.ResetProbabilities();
         _mediator.VisualUpdater.ResetSprites();
     }
+    
+    public void Dispose()
+    {
+        UnbindBattleComponents(); // イベント購読解除
+    }
+
+    #region イベント購読/解除のメソッド
+
+    /// <summary>
+    /// バトルコンポーネント間のイベント接続
+    /// </summary>
+    private void BindBattleComponents()
+    {
+        _directionDecider.OnLimitedDirection += _visualUpdater.SetButtonsInteractive;
+        _directionDecider.OnUnlimitedDirection += _visualUpdater.SetButtonsNonInteractive;
+        _battleJudge.OnLink += _visualUpdater.ChangeButtonColor;
+        _battleJudge.OnRelease += _visualUpdater.ResetButtonColor;
+    }
+    
+    /// <summary>
+    /// バトルコンポーネント間のイベント接続解除
+    /// </summary>
+    private void UnbindBattleComponents()
+    {
+        _directionDecider.OnLimitedDirection -= _visualUpdater.SetButtonsInteractive;
+        _directionDecider.OnUnlimitedDirection -= _visualUpdater.SetButtonsNonInteractive;
+        _battleJudge.OnLink -= _visualUpdater.ChangeButtonColor;
+        _battleJudge.OnRelease -= _visualUpdater.ResetButtonColor;
+    }
+
+    #endregion
 }

@@ -17,13 +17,9 @@ public class BattleSystemPresenter : ViewBase
     [SerializeField] private DirectionalImages _seiImage;
     [SerializeField] private DirectionalImages _playerHandImage;
 
-    private BattleSystemManager _battleSystemManager;
-    private TurnManager _turnManager;
-    private IBattleMediator _battleMediator;
-    
-    private IDirectionDecider _directionDecider;
-    private IBattleJudge _battleJudge;
-    private IVisualUpdater _visualUpdater;
+    // Controllerレイヤーのクラス
+    private BattleController _battleController;
+    private TurnController _turnController;
 
     private DirectionEnum _enemyDirection;
     
@@ -31,48 +27,31 @@ public class BattleSystemPresenter : ViewBase
     
     public override UniTask OnAwake()
     {
-        _directionDecider = new DirectionDecider();
-        _battleJudge = new BattleJudge();
-        _visualUpdater = new VisualUpdater(_seiImage, _playerHandImage, _ccDirection.DirectionButtons);
-
-        _battleSystemManager = new BattleSystemManager(_directionDecider, _battleJudge, _visualUpdater, this);
-        _turnManager = new TurnManager();
+        // Controllerレイヤーのクラスのインスタンスを生成
+        _battleController = new BattleController(_seiImage, _playerHandImage, _ccDirection.DirectionButtons, this);
+        _turnController = new TurnController();
         return base.OnAwake();
     }
     
     public override UniTask OnBind()
     {
+        // UIイベント登録
         _ccBefore.OnBattleButtonClicked += HandleDirection;
         _ccDirection.OnDirectionButtonClicked += HandleVictoryOrDefeat;
         _ccAfter.OnNextButtonClicked += HandleNextTurn;
         _ccItemSelect.OnTestItemClicked += UseItem;
-        _turnManager.OnGameFinished += TurnManagerOnOnGameFinished;
-        _battleSystemManager.OnVictoryCountChanged += HandleVictory;
-
-        // 封印のページ
-        _directionDecider.OnLimitedDirection += _visualUpdater.SetButtonsInteractive;
-        _directionDecider.OnUnlimitedDirection += _visualUpdater.SetButtonsNonInteractive;
         
-        // 共鳴ケーブル
-        _battleJudge.OnLink += _visualUpdater.ChangeButtonColor;
-        _battleJudge.OnRelease += _visualUpdater.ResetButtonColor;
+        // ゲームロジックイベント登録
+        _battleController.OnVictoryCountChanged += HandleVictory;
+        _turnController.OnGameFinished += TurnControllerOnOnGameFinished;
         
         return base.OnBind();
     }
-
+    
     public override UniTask OnStart()
     {
         InitializeUI();
         return base.OnStart();
-    }
-
-    /// <summary>
-    /// アイテムを使用する
-    /// </summary>
-    private void UseItem(ItemTypeEnum itemType, RarityEnum rarity, int count)
-    {
-        _battleMediator = _battleSystemManager.Mediator;
-        InventoryManager.Instance.UseItem(_battleMediator, itemType, rarity, count);
     }
     
     /// <summary>
@@ -80,13 +59,21 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     private void InitializeUI()
     {
-        _ccBefore.SetTurnText(_turnManager.TurnText());
+        _ccBefore.SetTurnText(_turnController.TurnText());
     }
-
+    
+    /// <summary>
+    /// アイテムを使用する
+    /// </summary>
+    private void UseItem(ItemTypeEnum itemType, RarityEnum rarity, int count)
+    {
+        InventoryManager.Instance.UseItem(_battleController.Mediator, itemType, rarity, count);
+    }
+    
     /// <summary>
     /// ゲーム終了処理を呼び出す
     /// </summary>
-    private void TurnManagerOnOnGameFinished()
+    private void TurnControllerOnOnGameFinished()
     {
         OnBattleEnded?.Invoke();   
     }
@@ -99,7 +86,7 @@ public class BattleSystemPresenter : ViewBase
         // 勝利数が最大ターン数を上回ったら
         if (victoryCount >= GameManagerServiceLocator.Instance.GetGameModeData().MaxTurn)
         {
-            _turnManager.GameFinished(); // ゲーム終了処理を呼ぶ
+            _turnController.GameFinished(); // ゲーム終了処理を呼ぶ
         }
     }
 
@@ -108,7 +95,7 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     private void HandleDirection()
     {
-        _enemyDirection = _battleSystemManager.EnemyDirection();
+        _enemyDirection = _battleController.EnemyDirection();
         Debug.Log($"次の方向：{_enemyDirection}");
     }
     
@@ -117,9 +104,20 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     private void HandleVictoryOrDefeat(DirectionEnum direction)
     {
-        _battleSystemManager.ExecuteBattle(direction, _enemyDirection);
-        _ccAfter.SetText(_battleSystemManager.IsVictory);
-        _ccBefore.SetResultMark(_turnManager.CurrentTurn - 1, _battleSystemManager.IsVictory);
+        _battleController.ExecuteBattle(direction, _enemyDirection);
+        _ccAfter.SetText(_battleController.IsVictory);
+        _ccBefore.SetResultMark(_turnController.CurrentTurn - 1, _battleController.IsVictory);
+    }
+    
+    /// <summary>
+    /// 次のターンに移行するときに必要な処理
+    /// </summary>
+    private void HandleNextTurn()
+    {
+        _turnController.NextTurn();
+        _battleController.ResetBattle();
+        _ccBefore.SetTurnText(_turnController.TurnText());
+        _battleController.Mediator.UpdateEffects();
     }
 
     /// <summary>
@@ -145,21 +143,10 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     public void UseReverseBroom()
     {
-        _turnManager.BackTurn();
-        _ccBefore.SetTurnText(_turnManager.TurnText());
-        _battleSystemManager.BackTurn();
-        _ccBefore.ResetResultMark(_turnManager.CurrentTurn - 1); // CurrentTurnは1オリジンなので、indexとして扱うために-1する
-    }
-
-    /// <summary>
-    /// 次のターンに移行するときに必要な処理
-    /// </summary>
-    private void HandleNextTurn()
-    {
-        _turnManager.NextTurn();
-        _battleSystemManager.ResetBattle();
-        _ccBefore.SetTurnText(_turnManager.TurnText());
-        if(_battleMediator != null)_battleMediator.UpdateEffects();
+        _turnController.BackTurn();
+        _ccBefore.SetTurnText(_turnController.TurnText());
+        _battleController.BackTurn();
+        _ccBefore.ResetResultMark(_turnController.CurrentTurn - 1); // CurrentTurnは1オリジンなので、indexとして扱うために-1する
     }
 
     /// <summary>
@@ -167,7 +154,7 @@ public class BattleSystemPresenter : ViewBase
     /// </summary>
     public void SetGetWinPoint(int getWinPoint)
     {
-        _battleSystemManager.SetGetWinPoint(getWinPoint);
+        _battleController.SetGetWinPoint(getWinPoint);
     }
 
     private void OnDestroy()
@@ -176,15 +163,7 @@ public class BattleSystemPresenter : ViewBase
         _ccDirection.OnDirectionButtonClicked -= HandleVictoryOrDefeat;
         _ccAfter.OnNextButtonClicked -= HandleNextTurn;
         _ccItemSelect.OnTestItemClicked -= UseItem;
-        _turnManager.OnGameFinished -= TurnManagerOnOnGameFinished;
-        _battleSystemManager.OnVictoryCountChanged -= HandleVictory;
-        
-        // 封印のページ
-        _directionDecider.OnLimitedDirection -= _visualUpdater.SetButtonsInteractive;
-        _directionDecider.OnUnlimitedDirection -= _visualUpdater.SetButtonsNonInteractive;
-        
-        // 共鳴ケーブル
-        _battleJudge.OnLink -= _visualUpdater.ChangeButtonColor;
-        _battleJudge.OnRelease -= _visualUpdater.ResetButtonColor;
+        _turnController.OnGameFinished -= TurnControllerOnOnGameFinished;
+        _battleController.OnVictoryCountChanged -= HandleVictory;
     }
 }

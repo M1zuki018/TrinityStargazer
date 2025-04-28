@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -14,10 +15,11 @@ public class CanvasController_Purchase : WindowBase
     [SerializeField] private Image _itemImageArea; // アイテムの画像を表示するエリア
     private List<Button> _currentButtons = new List<Button>();
     
+    public event Action OnPurchaseButtonClicked;
+    
     public override UniTask OnUIInitialize()
     {
-        // アイテムのボタン
-        CreateItemButtons(6);
+        CreateItemButtons(6); // アイテムのボタンを生成 TODO:
         return base.OnUIInitialize();
     }
 
@@ -31,6 +33,12 @@ public class CanvasController_Purchase : WindowBase
             // ボタンを指定の親オブジェクトの子に表示した上でButtonコンポーネントを取得
             Button itemButton = Instantiate(_itemButtonPrefab, _itemButtonsParent).GetComponent<Button>();
             _currentButtons.Add(itemButton);
+            itemButton.onClick.AddListener(Purchase); // クリックイベントを登録
         }
     }
+
+    /// <summary>
+    /// アイテムを購入する
+    /// </summary>
+    private void Purchase() => OnPurchaseButtonClicked?.Invoke();
 }

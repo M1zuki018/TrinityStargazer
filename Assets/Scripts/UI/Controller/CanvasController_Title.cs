@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class CanvasController_Title : WindowBase
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _creditButton;
     [SerializeField] private Button _quitButton;
+    private float _fadeDuration = 1f;
     
     public event Action OnHomeButtonClicked;
     public event Action OnCreditButtonClicked;
@@ -22,11 +24,18 @@ public class CanvasController_Title : WindowBase
         if(_quitButton != null) _quitButton.onClick.AddListener(Quit);
         return base.OnAwake();
     }
-    
+
     /// <summary>
     /// ゲーム開始→ホーム画面に遷移するボタン
     /// </summary>
-    private void GameStart() => OnHomeButtonClicked?.Invoke();
+    private async void GameStart()
+    {
+        GlobalFadePanel.RequestFadeOut(_fadeDuration);
+        
+        await UniTask.Delay(TimeSpan.FromSeconds(_fadeDuration + 1)); // フェードアウト+少し待つ
+        
+        OnHomeButtonClicked?.Invoke();
+    }
     
     /// <summary>
     /// クレジットパネルを開くボタン

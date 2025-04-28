@@ -70,4 +70,10 @@ public class CanvasController_Home : WindowBase
         if (_itemButton != null) _itemButton.onClick?.RemoveAllListeners();
         if (_settingsButton != null) _settingsButton.onClick?.RemoveAllListeners();
     }
+
+    public override void Show()
+    {
+        GlobalFadePanel.RequestFadeIn(1f);
+        base.Show();
+    }
 }

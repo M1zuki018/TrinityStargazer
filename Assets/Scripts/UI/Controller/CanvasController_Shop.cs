@@ -30,6 +30,8 @@ public class CanvasController_Shop : WindowBase
 
     public override void Show()
     {
+        GlobalFadePanel.RequestChangeColor(Color.white);
+        GlobalFadePanel.RequestFadeIn(0.5f);
         base.Show();
         _shopAnimation.gameObject.SetActive(true); // パネルを開くときにアニメーションを流すようにする
     }

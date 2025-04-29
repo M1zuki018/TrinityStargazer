@@ -645,6 +645,38 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7399820376618362368, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
   m_PrefabInstance: {fileID: 2256915814550621572}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1894864636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9066465738998930445, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+  m_PrefabInstance: {fileID: 2256915814550621572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1894864642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894864636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c408947ccacf9c4eb11808d22f1347d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterMaterial: {fileID: 2100000, guid: 39156e3461c90fa4fbb41a7d781a1a1c, type: 2}
+  outlineWidth: 0.0045
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  rimColor: {r: 0.041073345, g: 0.018244922, b: 0.09433961, a: 0.1764706}
+  rimPower: 1.88
+  emissiveColor: {r: 1, g: 1, b: 1, a: 1}
+  emissiveIntensity: 1
+  emissiveMap: {fileID: 0}
+  colorTint1: {r: 1, g: 1, b: 1, a: 1}
+  colorTint2: {r: 1, g: 1, b: 1, a: 1}
+  colorTint3: {r: 1, g: 1, b: 1, a: 1}
+  colorMask: {fileID: 0}
+  isKaril: 0
+  isMaki: 0
+  isSei: 0
 --- !u!1001 &873640517716594734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -872,15 +904,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: df7339b1e304f4c44a64a2ff474fb346, type: 3}
     - target: {fileID: 7886992860328691328, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.735849
       objectReference: {fileID: 0}
     - target: {fileID: 7886992860328691328, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.55174977
       objectReference: {fileID: 0}
     - target: {fileID: 7886992860328691328, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.4685831
       objectReference: {fileID: 0}
     - target: {fileID: 7988949038870439096, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
       propertyPath: m_Camera
@@ -890,10 +922,17 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 8535386856414192716, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 39156e3461c90fa4fbb41a7d781a1a1c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9066465738998930445, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1894864642}
   m_SourcePrefab: {fileID: 100100000, guid: 1c38ea9fda4ca064b94ee6e65d9b7a8c, type: 3}
 --- !u!1001 &8655067257016540865
 PrefabInstance:

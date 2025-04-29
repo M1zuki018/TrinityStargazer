@@ -920,6 +920,7 @@ GameObject:
   - component: {fileID: 7209679568780490958}
   - component: {fileID: 9081182090933786940}
   - component: {fileID: 6184331418407690708}
+  - component: {fileID: 1306155909776438533}
   m_Layer: 5
   m_Name: ItemMenu
   m_TagString: Untagged
@@ -968,7 +969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.24528301, g: 0.23255606, b: 0.23255606, a: 1}
+  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1029,6 +1030,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1306155909776438533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075824668728286437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ddb46997b09304cadaae11e1018c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+  normalGlowColor: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+  hoverGlowColor: {r: 0.7, g: 0.7, b: 0.9, a: 1}
+  normalGlowIntensity: 0.3
+  hoverGlowIntensity: 0.8
+  edgeGlowStrength: 1.5
+  pulseSpeed: 1.5
+  pulseAmount: 0.1
 --- !u!1 &2304480577087252312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2847,6 +2868,7 @@ GameObject:
   - component: {fileID: 757742769616640525}
   - component: {fileID: 4462407229532552604}
   - component: {fileID: 6168424275505369918}
+  - component: {fileID: 63384982916346810}
   m_Layer: 5
   m_Name: Setting
   m_TagString: Untagged
@@ -2895,7 +2917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.24528301, g: 0.23255606, b: 0.23255606, a: 1}
+  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2956,6 +2978,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &63384982916346810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5702008893524156115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ddb46997b09304cadaae11e1018c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+  normalGlowColor: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+  hoverGlowColor: {r: 0.7, g: 0.7, b: 0.9, a: 1}
+  normalGlowIntensity: 0.3
+  hoverGlowIntensity: 0.8
+  edgeGlowStrength: 1.5
+  pulseSpeed: 1.5
+  pulseAmount: 0.1
 --- !u!1 &5723570466128501980
 GameObject:
   m_ObjectHideFlags: 0
@@ -3021,7 +3063,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3a53b880afa822946ba042448c705fc8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df7339b1e304f4c44a64a2ff474fb346, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3043,6 +3085,7 @@ GameObject:
   - component: {fileID: 8289736975749751172}
   - component: {fileID: 3281727652670403967}
   - component: {fileID: 117166349884171165}
+  - component: {fileID: 6268771215676657302}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -3091,7 +3134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.24528301, g: 0.23255606, b: 0.23255606, a: 1}
+  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3152,6 +3195,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6268771215676657302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769076019032947794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ddb46997b09304cadaae11e1018c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+  normalGlowColor: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+  hoverGlowColor: {r: 0.7, g: 0.7, b: 0.9, a: 1}
+  normalGlowIntensity: 0.3
+  hoverGlowIntensity: 0.8
+  edgeGlowStrength: 1.5
+  pulseSpeed: 1.5
+  pulseAmount: 0.1
 --- !u!1 &5856295384623170403
 GameObject:
   m_ObjectHideFlags: 0
@@ -4454,6 +4517,7 @@ GameObject:
   - component: {fileID: 5319060990127546995}
   - component: {fileID: 8232648278606031813}
   - component: {fileID: 7950384672566178879}
+  - component: {fileID: 5163555600908744495}
   m_Layer: 5
   m_Name: Start
   m_TagString: Untagged
@@ -4502,7 +4566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.24528301, g: 0.23255606, b: 0.23255606, a: 1}
+  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4563,6 +4627,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5163555600908744495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7745797913136109053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ddb46997b09304cadaae11e1018c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+  normalGlowColor: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+  hoverGlowColor: {r: 0.7, g: 0.7, b: 0.9, a: 1}
+  normalGlowIntensity: 0.3
+  hoverGlowIntensity: 0.8
+  edgeGlowStrength: 1.5
+  pulseSpeed: 1.5
+  pulseAmount: 0.1
 --- !u!1 &7860429799840053559
 GameObject:
   m_ObjectHideFlags: 0
@@ -6212,16 +6296,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 843828893741787447, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
       propertyPath: m_Color.b
-      value: 0.066037714
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 843828893741787447, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
       propertyPath: m_Color.g
-      value: 0.066037714
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 843828893741787447, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
       propertyPath: m_Color.r
-      value: 0.066037714
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 843828893741787447, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 9fc9f60bb0c5ac447a85f1da156ea08c, type: 2}
     - target: {fileID: 1228741082580929868, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
       propertyPath: m_Name
       value: TitlePanel
@@ -6232,16 +6320,20 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a75caa2da65eaa3409b00bcce5893957, type: 2}
     - target: {fileID: 4149795598889825159, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
       propertyPath: m_Color.b
-      value: 0.066037714
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4149795598889825159, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
       propertyPath: m_Color.g
-      value: 0.066037714
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4149795598889825159, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
       propertyPath: m_Color.r
-      value: 0.066037714
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4149795598889825159, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 9fc9f60bb0c5ac447a85f1da156ea08c, type: 2}
     - target: {fileID: 6249961872506715350, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
       propertyPath: m_Material
       value: 
@@ -6261,7 +6353,63 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5840713097302042453, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1804974287155624020}
+    - targetCorrespondingSourceObject: {fileID: 4596386647907768681, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 68970194809162784}
+    - targetCorrespondingSourceObject: {fileID: 4313973805485768061, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3494684579174101694}
   m_SourcePrefab: {fileID: 100100000, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
+--- !u!1 &1950562746969220583 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4313973805485768061, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
+  m_PrefabInstance: {fileID: 2364277834763229338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3494684579174101694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950562746969220583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ddb46997b09304cadaae11e1018c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonColor: {r: 0.103773594, g: 0.103773594, b: 0.103773594, a: 1}
+  normalGlowColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  hoverGlowColor: {r: 0.7, g: 0.7, b: 0.9, a: 1}
+  normalGlowIntensity: 0.3
+  hoverGlowIntensity: 0.8
+  edgeGlowStrength: 1.5
+  pulseSpeed: 1.5
+  pulseAmount: 0.1
+--- !u!1 &2235543979829510643 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4596386647907768681, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
+  m_PrefabInstance: {fileID: 2364277834763229338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &68970194809162784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2235543979829510643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ddb46997b09304cadaae11e1018c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonColor: {r: 0.103773594, g: 0.103773594, b: 0.103773594, a: 1}
+  normalGlowColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  hoverGlowColor: {r: 0.7, g: 0.7, b: 0.9, a: 1}
+  normalGlowIntensity: 0.3
+  hoverGlowIntensity: 0.8
+  edgeGlowStrength: 1.5
+  pulseSpeed: 1.5
+  pulseAmount: 0.1
 --- !u!224 &2502421614633976851 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 177321646957321353, guid: 4b156be96fca44d45963f67e38d8919d, type: 3}
@@ -6306,7 +6454,7 @@ MonoBehaviour:
   hoverOutlineWidth: 0.04
   pressedOutlineWidth: 0.03
   normalPulseSpeed: 1
-  hoverPulseSpeed: 2
+  hoverPulseSpeed: 1
   pressedPulseSpeed: 3
 --- !u!1 &9066465738998930445 stripped
 GameObject:

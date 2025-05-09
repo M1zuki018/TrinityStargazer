@@ -1,16 +1,27 @@
+using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CanvasController_Settings_ResetPanel : MonoBehaviour
+/// <summary>
+/// 設定画面・リセットパネルのキャンバスコントローラー
+/// </summary>
+public class CanvasController_Settings_ResetPanel : WindowBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Button _closeButton;
+    
+    public event Action OnCloseButtonClicked;
 
-    // Update is called once per frame
-    void Update()
+    public override UniTask OnUIInitialize()
     {
-        
+        if(_closeButton != null) _closeButton.onClick.AddListener(OnCloseButtonClick);
+        return base.OnUIInitialize();
+    }
+    
+    private void OnCloseButtonClick() => OnCloseButtonClicked?.Invoke();
+
+    private void OnDestroy()
+    {
+        if(_closeButton != null) _closeButton.onClick?.RemoveAllListeners();
     }
 }

@@ -30,6 +30,10 @@ public class MainSceneUIManager : SceneUIManagerBase
     private CanvasController_Settings _ccSettings;
     private CanvasController_Credit _ccCredit;
     private CanvasController_Quit _ccQuit;
+    private CanvasController_Settings_Graphic _ccSettingsGraphic;
+    private CanvasController_Settings_Sound _ccSettingsSound;
+    private CanvasController_Settings_Environment _ccSettingsEnvironment;
+    private CanvasController_Settings_ResetPanel _ccSettingsResetPanel;
     
     public override UniTask OnAwake()
     {
@@ -132,6 +136,46 @@ public class MainSceneUIManager : SceneUIManagerBase
         else
         {
             Debug.LogError($"キャストに失敗しました: インデックス {QUIT_SCREEN_INDEX} のオブジェクトは CanvasController_Quit ではありません");
+        }
+        
+        // 設定画面・グラフィック設定のキャンバスコントローラー
+        if (_canvasObjects[SETTINGS_GRAPHIC_SCREEN_INDEX] is CanvasController_Settings_Graphic settingsGraphicController)
+        {
+            _ccSettingsGraphic = settingsGraphicController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {SETTINGS_GRAPHIC_SCREEN_INDEX} のオブジェクトは CanvasController_Settings_Graphic ではありません");
+        }
+        
+        // 設定画面・グラフィック設定のキャンバスコントローラー
+        if (_canvasObjects[SETTINGS_SOUND_SCREEN_INDEX] is CanvasController_Settings_Sound settingsSoundController)
+        {
+            _ccSettingsSound = settingsSoundController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {SETTINGS_SOUND_SCREEN_INDEX} のオブジェクトは CanvasController_Settings_Sound ではありません");
+        }
+        
+        // 設定画面・環境設定のキャンバスコントローラー
+        if (_canvasObjects[SETTINGS_ENVIRONMENT_SCREEN_INDEX] is CanvasController_Settings_Environment settingsEnvironmentController)
+        {
+            _ccSettingsEnvironment = settingsEnvironmentController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {SETTINGS_ENVIRONMENT_SCREEN_INDEX} のオブジェクトは CanvasController_Settings_Environment ではありません");
+        }
+        
+        // 設定画面・リセット設定のキャンバスコントローラー
+        if (_canvasObjects[SETTINGS_RESET_SCREEN_INDEX] is CanvasController_Settings_ResetPanel settingsResetPanelController)
+        {
+            _ccSettingsResetPanel = settingsResetPanelController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {SETTINGS_RESET_SCREEN_INDEX} のオブジェクトは CanvasController_Settings_ResetPanel ではありません");
         }
     }
     catch (IndexOutOfRangeException ex)
@@ -248,11 +292,15 @@ public class MainSceneUIManager : SceneUIManagerBase
     /// ゲーム終了パネルを開く
     /// </summary>
     private void HandleOpenQuit() => PushCanvas(QUIT_SCREEN_INDEX);
-    
+
     /// <summary>
     /// グラフィック設定画面を開く
     /// </summary>
-    private void HandleOpenGraphicSettings() => PushCanvas(SETTINGS_GRAPHIC_SCREEN_INDEX);
+    private void HandleOpenGraphicSettings()
+    {
+        PushCanvas(SETTINGS_GRAPHIC_SCREEN_INDEX);
+        Debug.Log("あ");
+    }
 
     /// <summary>
     /// サウンド設定を開く

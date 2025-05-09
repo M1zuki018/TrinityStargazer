@@ -23,10 +23,10 @@ public class CanvasController_Settings : WindowBase
     public override UniTask OnUIInitialize()
     {
         if (_closeButton != null) _closeButton.onClick.AddListener(BackHome);
-        if(_graphicButton != null) _closeButton.onClick.AddListener(OpenGraphic);
-        if(_soundButton != null) _closeButton.onClick.AddListener(OpenSound);
-        if(_environmentButton != null) _closeButton.onClick.AddListener(OpenEnvironment);
-        if(_resetButton != null) _closeButton.onClick.AddListener(OpenReset);
+        if(_graphicButton != null) _graphicButton.onClick.AddListener(OpenGraphic);
+        if(_soundButton != null) _soundButton.onClick.AddListener(OpenSound);
+        if(_environmentButton != null) _environmentButton.onClick.AddListener(OpenEnvironment);
+        if(_resetButton != null) _resetButton.onClick.AddListener(OpenReset);
         return base.OnUIInitialize();
     }
     
@@ -34,7 +34,7 @@ public class CanvasController_Settings : WindowBase
     /// モード選択画面→ホーム画面に遷移する
     /// </summary>
     private void BackHome() => OnHomeButtonClicked?.Invoke();
-    
+
     /// <summary>
     /// グラフィック設定を開く
     /// </summary>

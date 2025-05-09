@@ -16,6 +16,7 @@ public class MainSceneUIManager : SceneUIManagerBase
     private const int ITEMMENU_SCREEN_INDEX = 4;
     private const int SETTINGS_SCREEN_INDEX = 5;
     private const int CREDIT_SCREEN_INDEX = 6;
+    private const int QUIT_SCREEN_INDEX = 7;
 
     private CanvasController_Title _ccTitle;
     private CanvasController_Home _ccHome;
@@ -24,6 +25,7 @@ public class MainSceneUIManager : SceneUIManagerBase
     private CanvasController_ItemMenu _ccItemMenu;
     private CanvasController_Settings _ccSettings;
     private CanvasController_Credit _ccCredit;
+    private CanvasController_Quit _ccQuit;
     
     public override UniTask OnAwake()
     {
@@ -117,6 +119,16 @@ public class MainSceneUIManager : SceneUIManagerBase
         {
             Debug.LogError($"キャストに失敗しました: インデックス {CREDIT_SCREEN_INDEX} のオブジェクトは CanvasController_Credit ではありません");
         }
+        
+        // ゲーム終了パネルのキャンバスコントローラー
+        if (_canvasObjects[QUIT_SCREEN_INDEX] is CanvasController_Quit quitController)
+        {
+            _ccQuit = quitController;
+        }
+        else
+        {
+            Debug.LogError($"キャストに失敗しました: インデックス {QUIT_SCREEN_INDEX} のオブジェクトは CanvasController_Quit ではありません");
+        }
     }
     catch (IndexOutOfRangeException ex)
     {
@@ -134,6 +146,7 @@ public class MainSceneUIManager : SceneUIManagerBase
         {
             _ccTitle.OnHomeButtonClicked += HandleToHome;
             _ccTitle.OnCreditButtonClicked += HandleOpenCredit;
+            _ccTitle.OnQuitButtonClicked += HandleOpenQuit;
         }
 
         if (_ccHome != null)
@@ -168,6 +181,11 @@ public class MainSceneUIManager : SceneUIManagerBase
         if (_ccCredit != null)
         {
             _ccCredit.OnCloseButtonClicked += HandlePopCanvas;
+        }
+
+        if (_ccQuit != null)
+        {
+            _ccQuit.OnNoButtonClicked += HandlePopCanvas;
         }
     }
 
@@ -217,6 +235,11 @@ public class MainSceneUIManager : SceneUIManagerBase
     /// クレジットパネルを開く
     /// </summary>
     private void HandleOpenCredit() => PushCanvas(CREDIT_SCREEN_INDEX);
+    
+    /// <summary>
+    /// ゲーム終了パネルを開く
+    /// </summary>
+    private void HandleOpenQuit() => PushCanvas(QUIT_SCREEN_INDEX);
 
     #endregion
     
@@ -227,6 +250,7 @@ public class MainSceneUIManager : SceneUIManagerBase
         {
             _ccTitle.OnHomeButtonClicked -= HandleToHome;
             _ccTitle.OnCreditButtonClicked -= HandleOpenCredit;
+            _ccTitle.OnQuitButtonClicked -= HandleOpenQuit;
         }
 
         if (_ccHome != null)
@@ -261,6 +285,11 @@ public class MainSceneUIManager : SceneUIManagerBase
         if (_ccCredit != null)
         {
             _ccCredit.OnCloseButtonClicked -= HandlePopCanvas;
+        }
+
+        if (_ccQuit != null)
+        {
+            _ccQuit.OnNoButtonClicked -= HandlePopCanvas;
         }
     }
 }

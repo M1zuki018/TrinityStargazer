@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// タイトル画面のキャンバスコントローラー
+/// クレジット画面のキャンバスコントローラー
 /// </summary>
 public class CanvasController_Credit : WindowBase
 {

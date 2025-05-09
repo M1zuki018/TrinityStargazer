@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,12 +15,13 @@ public class CanvasController_Title : WindowBase
     
     public event Action OnHomeButtonClicked;
     public event Action OnCreditButtonClicked;
+    public event Action OnQuitButtonClicked;
     
     public  override UniTask OnAwake()
     {
         if(_startButton != null) _startButton.onClick.AddListener(GameStart);
         if(_creditButton != null) _creditButton.onClick.AddListener(OpenCredit);
-        if(_quitButton != null) _quitButton.onClick.AddListener(Quit);
+        if(_quitButton != null) _quitButton.onClick.AddListener(OpenQuit);
         return base.OnAwake();
     }
 
@@ -43,16 +43,9 @@ public class CanvasController_Title : WindowBase
     private void OpenCredit() => OnCreditButtonClicked?.Invoke();
 
     /// <summary>
-    /// ゲーム終了処理
+    /// ゲーム終了画面を開くボタン
     /// </summary>
-    private void Quit()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-      Application.Quit();
-#endif
-    }
+    private void OpenQuit() => OnQuitButtonClicked?.Invoke();    
 
     private void OnDestroy()
     {

@@ -17,6 +17,10 @@ public class MainSceneUIManager : SceneUIManagerBase
     private const int SETTINGS_SCREEN_INDEX = 5;
     private const int CREDIT_SCREEN_INDEX = 6;
     private const int QUIT_SCREEN_INDEX = 7;
+    private const int SETTINGS_GRAPHIC_SCREEN_INDEX = 8;
+    private const int SETTINGS_SOUND_SCREEN_INDEX = 9;
+    private const int SETTINGS_ENVIRONMENT_SCREEN_INDEX = 10;
+    private const int SETTINGS_RESET_SCREEN_INDEX = 11;
 
     private CanvasController_Title _ccTitle;
     private CanvasController_Home _ccHome;
@@ -176,6 +180,10 @@ public class MainSceneUIManager : SceneUIManagerBase
         if (_ccSettings != null)
         {
             _ccSettings.OnHomeButtonClicked += HandleToHome;
+            _ccSettings.OnGraphicButtonClicked += HandleOpenGraphicSettings;
+            _ccSettings.OnSoundButtonClicked += HandleOpenSoundSettings;
+            _ccSettings.OnEnvironmentButtonClicked += HandleOpenEnvironmentSettings;
+            _ccSettings.OnResetButtonClicked += HandleOpenResetPanel;
         }
 
         if (_ccCredit != null)
@@ -240,7 +248,27 @@ public class MainSceneUIManager : SceneUIManagerBase
     /// ゲーム終了パネルを開く
     /// </summary>
     private void HandleOpenQuit() => PushCanvas(QUIT_SCREEN_INDEX);
+    
+    /// <summary>
+    /// グラフィック設定画面を開く
+    /// </summary>
+    private void HandleOpenGraphicSettings() => PushCanvas(SETTINGS_GRAPHIC_SCREEN_INDEX);
 
+    /// <summary>
+    /// サウンド設定を開く
+    /// </summary>
+    private void HandleOpenSoundSettings() => PushCanvas(SETTINGS_SOUND_SCREEN_INDEX);
+    
+    /// <summary>
+    /// 環境設定を開く
+    /// </summary>
+    private void HandleOpenEnvironmentSettings() => PushCanvas(SETTINGS_ENVIRONMENT_SCREEN_INDEX);
+    
+    /// <summary>
+    /// データリセットパネルを開く
+    /// </summary>
+    private void HandleOpenResetPanel() => PushCanvas(SETTINGS_RESET_SCREEN_INDEX);
+    
     #endregion
     
 
@@ -280,6 +308,10 @@ public class MainSceneUIManager : SceneUIManagerBase
         if (_ccSettings != null)
         {
             _ccSettings.OnHomeButtonClicked -= HandleToHome;
+            _ccSettings.OnGraphicButtonClicked -= HandleOpenGraphicSettings;
+            _ccSettings.OnSoundButtonClicked -= HandleOpenSoundSettings;
+            _ccSettings.OnEnvironmentButtonClicked -= HandleOpenEnvironmentSettings;
+            _ccSettings.OnResetButtonClicked -= HandleOpenResetPanel;
         }
 
         if (_ccCredit != null)

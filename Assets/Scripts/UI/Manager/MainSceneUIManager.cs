@@ -247,7 +247,7 @@ public class MainSceneUIManager : SceneUIManagerBase
 
         if (_ccSettingsEnvironment != null)
         {
-            
+            _ccSettingsEnvironment.OnCloseButtonClicked += HandleToSettings;
         }
 
         if (_ccSettingsSound != null)
@@ -391,7 +391,11 @@ public class MainSceneUIManager : SceneUIManagerBase
         {
             _ccQuit.OnNoButtonClicked -= HandlePopCanvas;
         }
-        
+
+        if (_ccSettingsEnvironment != null)
+        {
+            _ccSettingsEnvironment.OnCloseButtonClicked -= HandleToSettings;
+        }
         
         
         if (_ccSettingsResetPanel != null)

@@ -12437,15 +12437,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f583d8537ee9b4387b3f7d5b34df83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _closeButton: {fileID: 0}
-  _textJapanese: {fileID: 0}
-  _textEnglish: {fileID: 0}
-  _voiseJapanese: {fileID: 0}
-  _voiseEnglish: {fileID: 0}
-  _scenarioSpeedLeft: {fileID: 0}
-  _scenarioSpeedRight: {fileID: 0}
-  _useAute: {fileID: 0}
-  _donnotUseAute: {fileID: 0}
+  _closeButton: {fileID: 319790736779048588}
+  _textLanguage:
+  - {fileID: 8079884177275869312}
+  - {fileID: 8152458570085299793}
+  _voiceLanguage:
+  - {fileID: 7350645673250657188}
+  - {fileID: 6928009866889495591}
+  _scenarioSpeedLeft: {fileID: 8059485693148010728}
+  _scenarioSpeedRight: {fileID: 7240390892137119504}
+  _useAute: {fileID: 3142007161898668005}
+  _donnotUseAute: {fileID: 71704306209884639}
 --- !u!224 &8690030265244064976 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4899417182577876230, guid: 1812be10e7ae72f48bf17cff327a6d77, type: 3}

@@ -239,8 +239,26 @@ public class MainSceneUIManager : SceneUIManagerBase
         {
             _ccQuit.OnNoButtonClicked += HandlePopCanvas;
         }
-        
-        
+
+        if (_ccSettingsGraphic != null)
+        {
+            
+        }
+
+        if (_ccSettingsEnvironment != null)
+        {
+            
+        }
+
+        if (_ccSettingsSound != null)
+        {
+            
+        }
+
+        if (_ccSettingsResetPanel != null)
+        {
+            _ccSettingsResetPanel.OnButtonClicked += HandleToSettings;
+        }
     }
 
     #region 各遷移用メソッド
@@ -372,6 +390,13 @@ public class MainSceneUIManager : SceneUIManagerBase
         if (_ccQuit != null)
         {
             _ccQuit.OnNoButtonClicked -= HandlePopCanvas;
+        }
+        
+        
+        
+        if (_ccSettingsResetPanel != null)
+        {
+            _ccSettingsResetPanel.OnButtonClicked -= HandleToSettings;
         }
     }
 }

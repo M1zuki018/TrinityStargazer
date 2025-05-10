@@ -12,24 +12,24 @@ public class CanvasController_Settings_ResetPanel : WindowBase
     [SerializeField] private Button _yesButton;
     [SerializeField] private Button _noButton;
     
-    public event Action OnCloseButtonClicked;
+    public event Action OnButtonClicked;
     
     public override UniTask OnUIInitialize()
     {
-        if(_closeButton != null) _closeButton.onClick.AddListener(OnCloseButtonClick);
+        if(_closeButton != null) _closeButton.onClick.AddListener(Close);
         if(_yesButton != null) _yesButton.onClick.AddListener(DataReset);
-        if(_noButton != null) _noButton.onClick.AddListener(OnCloseButtonClick);
+        if(_noButton != null) _noButton.onClick.AddListener(Close);
         return base.OnUIInitialize();
     }
     
-    private void OnCloseButtonClick() => OnCloseButtonClicked?.Invoke();
+    private void Close() => OnButtonClicked?.Invoke();
 
     /// <summary>
     /// セーブデータのリセット処理
     /// </summary>
     private void DataReset()
     {
-        OnCloseButtonClicked?.Invoke();
+        Close(); // リセット画面を閉じる
         Debug.Log("TODO:データリセット処理を作る");
     }
 

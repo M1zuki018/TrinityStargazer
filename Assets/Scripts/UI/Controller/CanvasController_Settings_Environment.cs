@@ -10,6 +10,18 @@ public class CanvasController_Settings_Environment : WindowBase
 {
     [SerializeField] private Button _closeButton;
     
+    [Header("言語")]
+    [SerializeField] private Button _textJapanese;
+    [SerializeField] private Button _textEnglish;
+    [SerializeField] private Button _voiseJapanese;
+    [SerializeField] private Button _voiseEnglish;
+
+    [Header("シナリオ")]
+    [SerializeField] private Button _scenarioSpeedLeft;
+    [SerializeField] private Button _scenarioSpeedRight;
+    [SerializeField] private Button _useAute;
+    [SerializeField] private Button _donnotUseAute;
+    
     public event Action OnCloseButtonClicked;
 
     public override UniTask OnUIInitialize()

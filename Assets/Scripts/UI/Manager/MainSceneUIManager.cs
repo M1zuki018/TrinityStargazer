@@ -239,6 +239,8 @@ public class MainSceneUIManager : SceneUIManagerBase
         {
             _ccQuit.OnNoButtonClicked += HandlePopCanvas;
         }
+        
+        
     }
 
     #region 各遷移用メソッド

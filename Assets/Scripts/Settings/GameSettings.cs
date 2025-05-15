@@ -4,6 +4,7 @@ using UnityEngine;
 /// <summary>
 /// プレイヤーのゲーム設定
 /// </summary>
+[CreateAssetMenu(fileName = "GameSettings", menuName = "Scriptable Objects/GameSettingsSO")]
 public class GameSettings : ScriptableObject
 {
     [Header("グラフィック設定")] 

@@ -7,7 +7,11 @@ using UnityEngine;
 /// </summary>
 public class GameManager : ViewBase, IGameManager
 {
+    [SerializeField] private GameSettings _settings;
+    public GameSettings Settings => _settings;
+    
     [SerializeField][ExpandableSO] private GameModeSO _modeSO;
+    
     [SerializeField] private GameModeEnum _currentGameMode = GameModeEnum.Normal;
     private ReactiveProperty<GameStateEnum> _currentGameState = new ReactiveProperty<GameStateEnum>(GameStateEnum.Title);
     private bool _isFirstLoad = true; // 最初の読み込みかどうか

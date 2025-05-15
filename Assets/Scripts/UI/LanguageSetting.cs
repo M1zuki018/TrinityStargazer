@@ -9,9 +9,9 @@ public class LanguageSetting : IDisposable
     private CanvasController_Settings_Environment _cc;
     private IGameManager _gameManager;
 
-    public LanguageSetting(CanvasController_Settings_Environment cc)
+    public LanguageSetting(CanvasController_Settings_Environment cc, IGameManager gameManager)
     {
-        _gameManager = GameManagerServiceLocator.Instance;
+        _gameManager = gameManager;
         _cc = cc;
 
         if (_cc != null)
@@ -21,7 +21,7 @@ public class LanguageSetting : IDisposable
         }
         else
         {
-            Debug.LogWarning("Language setting already exists.");
+            Debug.LogWarning($"[LanguageSetting]{typeof(CanvasController_Settings_Environment)} がnullです");
         }
     }
 

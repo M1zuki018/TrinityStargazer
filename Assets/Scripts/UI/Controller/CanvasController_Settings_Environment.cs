@@ -21,8 +21,6 @@ public class CanvasController_Settings_Environment : WindowBase
     [SerializeField] private Button _useAute;
     [SerializeField] private Button _doNotUseAuto;
     
-    private LanguageSetting _languageSetting;
-    
     public event Action OnCloseButtonClicked;
     public event Action<LanguageEnum> OnTextLanguageChanged; // テキスト言語を変更
     public event Action<LanguageEnum> OnVoiceLanguageChanged; // ボイス言語を変更
@@ -40,7 +38,9 @@ public class CanvasController_Settings_Environment : WindowBase
         RegisterLanguageButtons(_textLanguage, true);
         RegisterLanguageButtons(_voiceLanguage, false);
 
-        _languageSetting = new LanguageSetting(this);
+        IGameManager gameManager = GameManagerServiceLocator.Instance; 
+        new LanguageSetting(this, gameManager);
+        new ScenarioSetting(this, gameManager);
         
         return base.OnUIInitialize();
     }

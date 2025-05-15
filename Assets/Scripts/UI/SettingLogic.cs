@@ -4,12 +4,12 @@ using UnityEngine;
 /// <summary>
 /// 言語設定用のクラス
 /// </summary>
-public class LanguageSetting : IDisposable
+public class SettingLogic : IDisposable
 {
     private CanvasController_Settings_Environment _cc;
     private IGameManager _gameManager;
 
-    public LanguageSetting(CanvasController_Settings_Environment cc)
+    public SettingLogic(CanvasController_Settings_Environment cc)
     {
         _gameManager = GameManagerServiceLocator.Instance;
         _cc = cc;

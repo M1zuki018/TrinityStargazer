@@ -22,7 +22,9 @@ public class GameSettings : ScriptableObject
     [SerializeField] private ScenarioSpeedEnum _scenarioSpeed = ScenarioSpeedEnum.Default;
     [SerializeField] private bool _useAuto = true;
 
-    // 実際の値の取得・設定
+    /// <summary>
+    /// 値の取得
+    /// </summary>
     private T GetPrefsValue<T>(string key, T defaultValue)
     {
         if (typeof(T) == typeof(float))
@@ -38,6 +40,9 @@ public class GameSettings : ScriptableObject
         return defaultValue;
     }
 
+    /// <summary>
+    /// 設定
+    /// </summary>
     private void SetPrefsValue<T>(string key, T value)
     {
         if (typeof(T) == typeof(float))

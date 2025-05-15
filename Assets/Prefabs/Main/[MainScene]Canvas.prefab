@@ -12447,7 +12447,7 @@ MonoBehaviour:
   _scenarioSpeedLeft: {fileID: 8059485693148010728}
   _scenarioSpeedRight: {fileID: 7240390892137119504}
   _useAute: {fileID: 3142007161898668005}
-  _donnotUseAute: {fileID: 71704306209884639}
+  _doNotUseAuto: {fileID: 71704306209884639}
 --- !u!224 &8690030265244064976 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4899417182577876230, guid: 1812be10e7ae72f48bf17cff327a6d77, type: 3}

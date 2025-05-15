@@ -19,7 +19,7 @@ public class CanvasController_Settings_Environment : WindowBase
     [SerializeField] private Button _scenarioSpeedLeft;
     [SerializeField] private Button _scenarioSpeedRight;
     [SerializeField] private Button _useAute;
-    [SerializeField] private Button _donnotUseAute;
+    [SerializeField] private Button _doNotUseAuto;
     
     private LanguageSetting _languageSetting;
     
@@ -36,7 +36,7 @@ public class CanvasController_Settings_Environment : WindowBase
         if(_scenarioSpeedLeft != null) _scenarioSpeedLeft.onClick.AddListener(() => ScenarioSpeedChanged(-1));
         if(_scenarioSpeedRight != null) _scenarioSpeedRight.onClick.AddListener(() => ScenarioSpeedChanged(1));
         if(_useAute != null) _useAute.onClick.AddListener(() => ScenarioAutoChanged(true));
-        if(_donnotUseAute != null) _donnotUseAute.onClick.AddListener(() => ScenarioAutoChanged(false));
+        if(_doNotUseAuto != null) _doNotUseAuto.onClick.AddListener(() => ScenarioAutoChanged(false));
         RegisterLanguageButtons(_textLanguage, true);
         RegisterLanguageButtons(_voiceLanguage, false);
 
@@ -69,24 +69,6 @@ public class CanvasController_Settings_Environment : WindowBase
         }
     }
     
-    private void RegisterLanguageButtons(Button[] buttons, Action<LanguageEnum> callback)
-    {
-        if (buttons == null) return;
-        
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            int index = i; // ループ変数をキャプチャするためのローカル変数
-            if (buttons[i] != null)
-            {
-                buttons[i].onClick.AddListener(() =>
-                {
-                    callback?.Invoke((LanguageEnum)index);
-                    Debug.Log("a");
-                });
-            }
-        }
-    }
-    
     private void UnregisterButtonArray(Button[] buttons)
     {
         if (buttons == null) return;
@@ -109,7 +91,7 @@ public class CanvasController_Settings_Environment : WindowBase
         if(_scenarioSpeedLeft != null) _scenarioSpeedLeft.onClick?.RemoveAllListeners();
         if(_scenarioSpeedRight != null) _scenarioSpeedRight.onClick?.RemoveAllListeners();
         if(_useAute != null) _useAute.onClick?.RemoveAllListeners();
-        if(_donnotUseAute != null) _donnotUseAute.onClick?.RemoveAllListeners();
+        if(_doNotUseAuto != null) _doNotUseAuto.onClick?.RemoveAllListeners();
         
         UnregisterButtonArray(_textLanguage);
         UnregisterButtonArray(_voiceLanguage);

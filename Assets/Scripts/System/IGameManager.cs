@@ -3,6 +3,7 @@
 /// </summary>
 public interface IGameManager
 {
+    GameSettings Settings { get; }
     bool IsFirstLoad { get; }
     int VictoryPoints { get; }
     ModeData GetGameModeData();

@@ -21,9 +21,11 @@ public class CanvasController_Settings_Environment : WindowBase
     [SerializeField] private Button _useAute;
     [SerializeField] private Button _donnotUseAute;
     
+    private LanguageSetting _languageSetting;
+    
     public event Action OnCloseButtonClicked;
-    public event Action<int> OnTextLanguageChanged; // テキスト言語を変更
-    public event Action<int> OnVoiceLanguageChanged; // ボイス言語を変更
+    public event Action<LanguageEnum> OnTextLanguageChanged; // テキスト言語を変更
+    public event Action<LanguageEnum> OnVoiceLanguageChanged; // ボイス言語を変更
     public event Action<int> OnScenarioSpeedChanged; // シナリオ再生速度を変更
     public event Action<bool> OnUseAutoChanged; // オート再生をするか変更する
     
@@ -35,12 +37,15 @@ public class CanvasController_Settings_Environment : WindowBase
         if(_scenarioSpeedRight != null) _scenarioSpeedRight.onClick.AddListener(() => ScenarioSpeedChanged(1));
         if(_useAute != null) _useAute.onClick.AddListener(() => ScenarioAutoChanged(true));
         if(_donnotUseAute != null) _donnotUseAute.onClick.AddListener(() => ScenarioAutoChanged(false));
-        RegisterLanguageButtons(_textLanguage, OnTextLanguageChanged);
-        RegisterLanguageButtons(_voiceLanguage, OnVoiceLanguageChanged);
+        RegisterLanguageButtons(_textLanguage);
+        //RegisterLanguageButtons(_voiceLanguage, OnVoiceLanguageChanged);
+
+        _languageSetting = new LanguageSetting(this);
+        
         return base.OnUIInitialize();
     }
     
-    private void RegisterLanguageButtons(Button[] buttons, Action<int> callback)
+    private void RegisterLanguageButtons(Button[] buttons)
     {
         if (buttons == null) return;
         
@@ -48,7 +53,31 @@ public class CanvasController_Settings_Environment : WindowBase
         {
             int index = i; // ループ変数をキャプチャするためのローカル変数
             if (buttons[i] != null)
-                buttons[i].onClick.AddListener(() => callback?.Invoke(index));
+            {
+                buttons[i].onClick.AddListener(() =>
+                {
+                    OnTextLanguageChanged?.Invoke((LanguageEnum)index);
+                    Debug.Log("a");
+                });
+            }
+        }
+    }
+    
+    private void RegisterLanguageButtons(Button[] buttons, Action<LanguageEnum> callback)
+    {
+        if (buttons == null) return;
+        
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            int index = i; // ループ変数をキャプチャするためのローカル変数
+            if (buttons[i] != null)
+            {
+                buttons[i].onClick.AddListener(() =>
+                {
+                    callback?.Invoke((LanguageEnum)index);
+                    Debug.Log("a");
+                });
+            }
         }
     }
     
@@ -77,6 +106,6 @@ public class CanvasController_Settings_Environment : WindowBase
         if(_donnotUseAute != null) _donnotUseAute.onClick?.RemoveAllListeners();
         
         UnregisterButtonArray(_textLanguage);
-        UnregisterButtonArray(_voiceLanguage);
+        //UnregisterButtonArray(_voiceLanguage);
     }
 }

@@ -37,15 +37,15 @@ public class CanvasController_Settings_Environment : WindowBase
         if(_scenarioSpeedRight != null) _scenarioSpeedRight.onClick.AddListener(() => ScenarioSpeedChanged(1));
         if(_useAute != null) _useAute.onClick.AddListener(() => ScenarioAutoChanged(true));
         if(_donnotUseAute != null) _donnotUseAute.onClick.AddListener(() => ScenarioAutoChanged(false));
-        RegisterLanguageButtons(_textLanguage);
-        //RegisterLanguageButtons(_voiceLanguage, OnVoiceLanguageChanged);
+        RegisterLanguageButtons(_textLanguage, true);
+        RegisterLanguageButtons(_voiceLanguage, false);
 
         _languageSetting = new LanguageSetting(this);
         
         return base.OnUIInitialize();
     }
     
-    private void RegisterLanguageButtons(Button[] buttons)
+    private void RegisterLanguageButtons(Button[] buttons, bool isTextLanguageChanged)
     {
         if (buttons == null) return;
         
@@ -56,8 +56,14 @@ public class CanvasController_Settings_Environment : WindowBase
             {
                 buttons[i].onClick.AddListener(() =>
                 {
-                    OnTextLanguageChanged?.Invoke((LanguageEnum)index);
-                    Debug.Log("a");
+                    if (isTextLanguageChanged)
+                    {
+                        OnTextLanguageChanged?.Invoke((LanguageEnum)index);
+                    }
+                    else
+                    {
+                        OnVoiceLanguageChanged?.Invoke((LanguageEnum)index);
+                    }
                 });
             }
         }
@@ -106,6 +112,6 @@ public class CanvasController_Settings_Environment : WindowBase
         if(_donnotUseAute != null) _donnotUseAute.onClick?.RemoveAllListeners();
         
         UnregisterButtonArray(_textLanguage);
-        //UnregisterButtonArray(_voiceLanguage);
+        UnregisterButtonArray(_voiceLanguage);
     }
 }

@@ -13,8 +13,9 @@ public class TextDataSO : ScriptableObject
     /// </summary>
     public string GetMessage(int index)
     {
-        return GameManagerServiceLocator.Instance.Settings.TextLanguage == LanguageEnum.Japanese ?
+        string message = GameManagerServiceLocator.Instance.Settings.TextLanguage == LanguageEnum.Japanese ?
             _textDatas[index].JpnText : _textDatas[index].EngText;
+        return message.Replace("\\n", "\n");
     }
 
     /// <summary>
@@ -24,7 +25,8 @@ public class TextDataSO : ScriptableObject
     public string GetMessage()
     {
         int rand = Random.Range(0, _textDatas.Length);
-        return GameManagerServiceLocator.Instance.Settings.TextLanguage == LanguageEnum.Japanese ?
+        string message = GameManagerServiceLocator.Instance.Settings.TextLanguage == LanguageEnum.Japanese ?
             _textDatas[rand].JpnText : _textDatas[rand].EngText; 
+        return message.Replace("\\n", "\n");
     }
 }

@@ -14,5 +14,6 @@ public enum InGameCanvasEnum
     SettingsGraphic = 8,
     SettingsSound = 9,
     SettingsEnvironment = 10,
-    SettingsReset = 11
+    SettingsReset = 11,
+    PlayerData = 12,
 }

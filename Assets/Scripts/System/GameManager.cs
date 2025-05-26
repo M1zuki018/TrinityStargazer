@@ -47,6 +47,13 @@ public class GameManager : ViewBase, IGameManager
         return base.OnAwake();
     }
 
+    private void Start()
+    {
+        // 名前・レベルデータを取得
+        Settings.GetLevel();
+        Settings.GetName();
+    }
+
     [ContextMenu("アイテムテスト")]
     public void ItemTest()
     {
@@ -92,8 +99,12 @@ public class GameManager : ViewBase, IGameManager
     
     private void OnDestroy()
     {
+        // 名前・レベルデータを保存
+        Settings.SetLevel();
+        Settings.SetName();
+        
         // 自身がインスタンスとして登録されている場合のみリセット
-        if (GameManagerServiceLocator.Instance == this)
+        if ((GameManager)GameManagerServiceLocator.Instance == this)
         {
             GameManagerServiceLocator.Reset();
         }

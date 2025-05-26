@@ -23,6 +23,7 @@ public class GameSettings : ScriptableObject
     [SerializeField] private ScenarioSpeedEnum _scenarioSpeed = ScenarioSpeedEnum.Default;
     [SerializeField] private bool _useAuto = true;
     
+    
     /// <summary>
     /// 値の取得
     /// </summary>
@@ -30,11 +31,13 @@ public class GameSettings : ScriptableObject
     {
         if (typeof(T) == typeof(float))
             return (T)(object)PlayerPrefs.GetFloat(key, (float)(object)defaultValue);
-        else if (typeof(T) == typeof(int))
+        if (typeof(T) == typeof(int))
             return (T)(object)PlayerPrefs.GetInt(key, (int)(object)defaultValue);
-        else if (typeof(T) == typeof(bool))
+        if (typeof(T) == typeof(bool))
             return (T)(object)(PlayerPrefs.GetInt(key, Convert.ToInt32((bool)(object)defaultValue)) != 0);
-        else if (typeof(T).IsEnum)
+        if(typeof(T) == typeof(string))
+            return (T)(object)PlayerPrefs.GetString(key, (string)(object)defaultValue);
+        if (typeof(T).IsEnum)
             return (T)Enum.ToObject(typeof(T), PlayerPrefs.GetInt(key, Convert.ToInt32(defaultValue)));
 
         Debug.LogError($"Unsupported type: {typeof(T)}");
@@ -52,6 +55,8 @@ public class GameSettings : ScriptableObject
             PlayerPrefs.SetInt(key, (int)(object)value);
         else if (typeof(T) == typeof(bool))
             PlayerPrefs.SetInt(key, Convert.ToInt32((bool)(object)value));
+        else if(typeof(T) == typeof(string))
+            PlayerPrefs.SetString(key, (string)(object)value);
         else if (typeof(T).IsEnum)
             PlayerPrefs.SetInt(key, Convert.ToInt32(value));
         else
@@ -162,6 +167,38 @@ public class GameSettings : ScriptableObject
 
     #endregion
 
+    #region プレイヤー設定
+
+    /// <summary>
+    /// レベルを設定する
+    /// </summary>
+    public void GetLevel()
+    {
+        int level = GetPrefsValue("Level", 1); // デフォルト値を1に設定
+        PlayerData.SetLevel(level);
+    }
+
+    /// <summary>
+    /// レベルをセットする
+    /// </summary>
+    public void SetLevel() => SetPrefsValue("Level", PlayerData.LevelProp.Value);
+
+    /// <summary>
+    /// 名前を設定する
+    /// </summary>
+    public void GetName()
+    {
+        string name = GetPrefsValue("Name", "Default");
+        PlayerData.SetName(name);
+    }
+
+    /// <summary>
+    /// レベルをセットする
+    /// </summary>
+    public void SetName() => SetPrefsValue("Name", PlayerData.NameProp.Value);
+
+    #endregion
+    
     /// <summary>
     /// 全ての設定を初期値にリセット
     /// </summary>
@@ -177,5 +214,6 @@ public class GameSettings : ScriptableObject
         VoiceLanguage = _voiceLanguage;
         ScenarioSpeed = _scenarioSpeed;
         UseAuto = _useAuto;
+        PlayerData.LevelReset();
     }
 }

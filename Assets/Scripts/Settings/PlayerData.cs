@@ -18,6 +18,16 @@ public static class PlayerData
     };
     
     /// <summary>
+    /// 名前を設定する
+    /// </summary>
+    public static void SetName(string name) => NameProp.Value = name;
+    
+    /// <summary>
+    /// レベルを設定する
+    /// </summary>
+    public static void SetLevel(int value) => LevelProp.Value = value;
+    
+    /// <summary>
     /// レベルアップ
     /// </summary>
     public static void LevelUp() => LevelProp.Value++;

@@ -13,12 +13,13 @@ public class CanvasController_Home : WindowBase
     [SerializeField] private Button _itemButton;
     [SerializeField] private Button _settingsButton;
     [SerializeField] private Button _playerDataButton;
+    [SerializeField] private Button _characterButton;
+    [SerializeField] private MessageBubble _messageBubble; // TODO: この設計でいいのだろうか
     
     public event Action OnModeSelectButtonClicked; // モード選択へ
     public event Action OnShopButtonClicked; // ショップへ
     public event Action OnItemMenuButtonClicked; // アイテム画面へ
     public event Action OnSettingsButtonClicked; // 設定画面へ
-    
     public event Action OnPlayerDataButtonClicked; // プレイヤーの名前設定パネルを開く
     
     public override UniTask OnUIInitialize()
@@ -28,6 +29,7 @@ public class CanvasController_Home : WindowBase
         if (_itemButton != null) _itemButton.onClick.AddListener(GoItemMenu); 
         if (_settingsButton != null) _settingsButton.onClick.AddListener(GoSettings);
         if(_playerDataButton != null) _playerDataButton.onClick.AddListener(ShowPlayerData);
+        if(_characterButton != null) _characterButton.onClick.AddListener(ShowRandMessage);
     
         ShowPlayerData();
         
@@ -58,6 +60,11 @@ public class CanvasController_Home : WindowBase
     /// プレイヤーデータを設定するパネルを開く
     /// </summary>
     private void ShowPlayerData() => OnPlayerDataButtonClicked?.Invoke();
+    
+    /// <summary>
+    /// ランダム会話
+    /// </summary>
+    private void ShowRandMessage() => _messageBubble.ShowRandMessage().Forget();
 
     private void OnDestroy()
     {
@@ -66,6 +73,7 @@ public class CanvasController_Home : WindowBase
         if (_itemButton != null) _itemButton.onClick?.RemoveAllListeners();
         if (_settingsButton != null) _settingsButton.onClick?.RemoveAllListeners();
         if(_playerDataButton != null) _playerDataButton.onClick?.RemoveAllListeners();
+        if(_characterButton != null) _characterButton.onClick?.RemoveAllListeners();
     }
 
     public override void Show()

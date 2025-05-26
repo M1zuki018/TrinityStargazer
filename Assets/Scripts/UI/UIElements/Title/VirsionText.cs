@@ -11,6 +11,6 @@ public class VirsionText : MonoBehaviour
     private void Start()
     {
         _text = GetComponent<Text>();
-        _text.text = $"Version. {GameData.VERSTION}";
+        _text.text = $"ver {GameData.VERSTION}";
     }
 }

@@ -23,6 +23,7 @@ public class CanvasController_Title : WindowBase
         if(_startButton != null) _startButton.onClick.AddListener(GameStart);
         if(_creditButton != null) _creditButton.onClick.AddListener(OpenCredit);
         if(_quitButton != null) _quitButton.onClick.AddListener(OpenQuit);
+        if(_snsButton != null)　_snsButton.onClick.AddListener(OpenXProfile);
         return base.OnAwake();
     }
 
@@ -47,12 +48,18 @@ public class CanvasController_Title : WindowBase
     /// ゲーム終了画面を開くボタン
     /// </summary>
     private void OpenQuit() => OnQuitButtonClicked?.Invoke();    
+    
+    /// <summary>
+    /// SNSを開くボタン
+    /// </summary>
+    private void OpenXProfile() => Application.OpenURL(GameData.SNS_URL);
 
     private void OnDestroy()
     {
         if(_startButton != null) _startButton.onClick?.RemoveAllListeners();
         if(_creditButton != null) _creditButton.onClick?.RemoveAllListeners();
         if(_quitButton != null) _quitButton.onClick?.RemoveAllListeners();
+        if(_snsButton != null) _snsButton.onClick?.RemoveAllListeners();
     }
 
     public override void Show()

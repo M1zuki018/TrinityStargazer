@@ -1,16 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 
+/// <summary>
+/// タイトル画面のVersionのテキストを管理するクラス
+/// </summary>
 public class VirsionText : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private Text _text;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        _text = GetComponent<Text>();
+        _text.text = $"Version. {GameData.VERSTION}";
     }
 }

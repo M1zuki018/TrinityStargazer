@@ -20,6 +20,7 @@ public class MainSceneUIManager : SceneUIManagerBase
     private CanvasController_Settings_Sound _ccSettingsSound;
     private CanvasController_Settings_Environment _ccSettingsEnvironment;
     private CanvasController_Settings_ResetPanel _ccSettingsResetPanel;
+    private CanvasController_PlayerData _ccPlayerData;
     
     public override UniTask OnAwake()
     {
@@ -74,6 +75,7 @@ public class MainSceneUIManager : SceneUIManagerBase
         _ccSettingsSound = InitializeController<CanvasController_Settings_Sound>((int)InGameCanvasEnum.SettingsSound);
         _ccSettingsEnvironment = InitializeController<CanvasController_Settings_Environment>((int)InGameCanvasEnum.SettingsEnvironment);
         _ccSettingsResetPanel = InitializeController<CanvasController_Settings_ResetPanel>((int)InGameCanvasEnum.SettingsReset);
+        _ccPlayerData = InitializeController<CanvasController_PlayerData>((int)InGameCanvasEnum.PlayerData);
     }
 
     protected override void RegisterWindowEvents()
@@ -91,7 +93,7 @@ public class MainSceneUIManager : SceneUIManagerBase
             _ccHome.OnShopButtonClicked += HandleToShop;
             _ccHome.OnItemMenuButtonClicked += HandleToItemMenu;
             _ccHome.OnSettingsButtonClicked += HandleToSettings;
-            _ccHome.OnPlayerDataButtonClicked += CcHomeOnOnPlayerDataButtonClicked;
+            _ccHome.OnPlayerDataButtonClicked += HandleOpenPlayerData;
         }
 
         if (_ccModeSelect != null)
@@ -147,6 +149,11 @@ public class MainSceneUIManager : SceneUIManagerBase
         if (_ccSettingsResetPanel != null)
         {
             _ccSettingsResetPanel.OnButtonClicked += HandleToSettings;
+        }
+
+        if (_ccPlayerData != null)
+        {
+            _ccPlayerData.OnCloseButtonClicked += HandlePopCanvas;
         }
     }
 
@@ -222,6 +229,11 @@ public class MainSceneUIManager : SceneUIManagerBase
     /// </summary>
     private void HandleOpenResetPanel() => PushCanvas((int)InGameCanvasEnum.SettingsReset);
     
+    /// <summary>
+    /// プレイヤーデータ確認パネルを開く
+    /// </summary>
+    private void HandleOpenPlayerData() => PushCanvas((int)InGameCanvasEnum.PlayerData);
+    
     #endregion
     
 
@@ -240,6 +252,7 @@ public class MainSceneUIManager : SceneUIManagerBase
             _ccHome.OnShopButtonClicked -= HandleToShop;
             _ccHome.OnItemMenuButtonClicked -= HandleToItemMenu;
             _ccHome.OnSettingsButtonClicked -= HandleToSettings;
+            _ccHome.OnPlayerDataButtonClicked -= HandleOpenPlayerData;
         }
 
         if (_ccModeSelect != null)
@@ -282,10 +295,14 @@ public class MainSceneUIManager : SceneUIManagerBase
             _ccSettingsEnvironment.OnCloseButtonClicked -= HandleToSettings;
         }
         
-        
         if (_ccSettingsResetPanel != null)
         {
             _ccSettingsResetPanel.OnButtonClicked -= HandleToSettings;
+        }
+
+        if (_ccPlayerData != null)
+        {
+            _ccPlayerData.OnCloseButtonClicked -= HandlePopCanvas;
         }
     }
 }

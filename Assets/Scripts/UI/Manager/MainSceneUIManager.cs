@@ -91,6 +91,7 @@ public class MainSceneUIManager : SceneUIManagerBase
             _ccHome.OnShopButtonClicked += HandleToShop;
             _ccHome.OnItemMenuButtonClicked += HandleToItemMenu;
             _ccHome.OnSettingsButtonClicked += HandleToSettings;
+            _ccHome.OnPlayerDataButtonClicked += CcHomeOnOnPlayerDataButtonClicked;
         }
 
         if (_ccModeSelect != null)

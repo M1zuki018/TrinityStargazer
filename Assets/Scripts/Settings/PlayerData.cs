@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public static class PlayerData
 {
-    public static ReactiveProperty<string> NameProp = new ReactiveProperty<string>();
-    public static int Level { get; private set; } = 1;
+    public static ReactiveProperty<string> NameProp = new ReactiveProperty<string>("Default");
+    public static ReactiveProperty<int> LevelProp = new ReactiveProperty<int>(1);
 
     // ゲーム内通貨のレアリティごとのディクショナリ
     private static Dictionary<RarityEnum, int> _currencies = new Dictionary<RarityEnum, int>()
@@ -21,12 +21,12 @@ public static class PlayerData
     /// <summary>
     /// レベルアップ
     /// </summary>
-    public static void LevelUp() => Level++;
+    public static void LevelUp() => LevelProp.Value++;
     
     /// <summary>
     /// レベルリセット
     /// </summary>
-    public static void LevelReset() => Level = 1;
+    public static void LevelReset() => LevelProp.Value = 1;
     
     /// <summary>
     /// 指定した通貨を追加する

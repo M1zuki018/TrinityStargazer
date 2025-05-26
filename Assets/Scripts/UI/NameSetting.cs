@@ -18,10 +18,10 @@ public class NameSetting : MonoBehaviour
             _inputField.onEndEdit.AddListener(ChangeName);
         }
         
-        PlayerData.NameProp.Subscribe(Initialize).AddTo(this);
+        PlayerData.NameProp
+            .Subscribe(name => _inputField.text = name)
+            .AddTo(this);
     }
-    
-    private void Initialize(string name) => _inputField.text = name;
 
     /// <summary>
     /// プレイヤー名を変更する

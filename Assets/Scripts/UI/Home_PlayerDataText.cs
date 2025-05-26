@@ -12,10 +12,8 @@ public class Home_PlayerDataText : MonoBehaviour
     private void Start()
     {
         _text = GetComponentInChildren<Text>();
-        ChangeText();
-        
-        PlayerData.NameProp.Subscribe(_ => ChangeText()).AddTo(this);
+        PlayerData.NameProp
+            .Subscribe(_ => _text.text = $"{PlayerData.NameProp.Value} Lv. {PlayerData.LevelProp.Value}")
+            .AddTo(this);
     }
-
-    private void ChangeText() => _text.text = $"{PlayerData.NameProp.Value} Lv. {PlayerData.Level}";
 }

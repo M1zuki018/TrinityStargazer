@@ -12,12 +12,14 @@ public class CanvasController_Home : WindowBase
     [SerializeField] private Button _shopButton;
     [SerializeField] private Button _itemButton;
     [SerializeField] private Button _settingsButton;
-    [SerializeField] private Text _levelText;
+    [SerializeField] private Button _playerDataButton;
     
     public event Action OnModeSelectButtonClicked; // モード選択へ
     public event Action OnShopButtonClicked; // ショップへ
     public event Action OnItemMenuButtonClicked; // アイテム画面へ
     public event Action OnSettingsButtonClicked; // 設定画面へ
+    
+    public event Action OnPlayerDataButtonClicked; // プレイヤーの名前設定パネルを開く
     
     public override UniTask OnUIInitialize()
     {
@@ -25,21 +27,11 @@ public class CanvasController_Home : WindowBase
         if (_shopButton != null) _shopButton.onClick.AddListener(GoShop);
         if (_itemButton != null) _itemButton.onClick.AddListener(GoItemMenu); 
         if (_settingsButton != null) _settingsButton.onClick.AddListener(GoSettings);
+        if(_playerDataButton != null) _playerDataButton.onClick.AddListener(ShowPlayerData);
     
-        UpdateLevelText();
+        ShowPlayerData();
         
         return base.OnUIInitialize();
-    }
-    
-    /// <summary>
-    /// レベル表示を更新する
-    /// </summary>
-    private void UpdateLevelText()
-    {
-        if (_levelText != null)
-        {
-            _levelText.text = $"{PlayerData.Name} Lv. {PlayerData.Level}";
-        }
     }
     
     /// <summary>
@@ -61,6 +53,11 @@ public class CanvasController_Home : WindowBase
     /// ホーム画面→設定画面に遷移する
     /// </summary>
     private void GoSettings() => OnSettingsButtonClicked?.Invoke(); 
+    
+    /// <summary>
+    /// プレイヤーデータを設定するパネルを開く
+    /// </summary>
+    private void ShowPlayerData() => OnPlayerDataButtonClicked?.Invoke();
 
     private void OnDestroy()
     {
@@ -68,6 +65,7 @@ public class CanvasController_Home : WindowBase
         if (_shopButton != null) _shopButton.onClick?.RemoveAllListeners();
         if (_itemButton != null) _itemButton.onClick?.RemoveAllListeners();
         if (_settingsButton != null) _settingsButton.onClick?.RemoveAllListeners();
+        if(_playerDataButton != null) _playerDataButton.onClick?.RemoveAllListeners();
     }
 
     public override void Show()

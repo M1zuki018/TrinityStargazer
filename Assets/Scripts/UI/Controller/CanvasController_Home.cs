@@ -29,7 +29,7 @@ public class CanvasController_Home : WindowBase
         if (_itemButton != null) _itemButton.onClick.AddListener(GoItemMenu); 
         if (_settingsButton != null) _settingsButton.onClick.AddListener(GoSettings);
         if(_playerDataButton != null) _playerDataButton.onClick.AddListener(ShowPlayerData);
-        if(_characterButton != null) _characterButton.onClick.AddListener(ShowRandMessage);
+        if(_characterButton != null) _characterButton.onClick.AddListener(_messageBubble.ShowRandMessage);
     
         ShowPlayerData();
         
@@ -60,11 +60,6 @@ public class CanvasController_Home : WindowBase
     /// プレイヤーデータを設定するパネルを開く
     /// </summary>
     private void ShowPlayerData() => OnPlayerDataButtonClicked?.Invoke();
-    
-    /// <summary>
-    /// ランダム会話
-    /// </summary>
-    private void ShowRandMessage() => _messageBubble.ShowRandMessage().Forget();
 
     private void OnDestroy()
     {

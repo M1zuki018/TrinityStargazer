@@ -38,8 +38,7 @@ public class CanvasController_Home : WindowBase
     {
         if (_levelText != null)
         {
-            int playerLevel = PlayerData.Level;
-            _levelText.text = $"Lv. {playerLevel}";
+            _levelText.text = $"{PlayerData.Name} Lv. {PlayerData.Level}";
         }
     }
     

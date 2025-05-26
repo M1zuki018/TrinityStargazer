@@ -874,6 +874,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1960084056894401431, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -113.140015
+      objectReference: {fileID: 0}
     - target: {fileID: 2037819269112792476, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
       propertyPath: _battleSystemPresenter
       value: 
@@ -890,18 +894,6 @@ PrefabInstance:
       propertyPath: _inventoryManager
       value: 
       objectReference: {fileID: 875020176}
-    - target: {fileID: 6380200905027924707, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6380200905027924707, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6380200905027924707, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6442094066022859415, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
       propertyPath: m_Name
       value: '[InGameScene]Canvas'
@@ -920,7 +912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9160257055422802791, guid: a3cf81c426001cc4486d98f81368e454, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0000033371575
+      value: 0.000040057443
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

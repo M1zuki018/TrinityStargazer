@@ -5,6 +5,7 @@ using System.Collections.Generic;
 /// </summary>
 public static class PlayerData
 {
+    public static string Name { get; } = "Name";
     public static int Level { get; } = 1;
 
     // ゲーム内通貨のレアリティごとのディクショナリ

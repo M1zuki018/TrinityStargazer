@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 /// <summary>
 /// ホーム画面の名前を設定するボタンのクラス
@@ -14,15 +15,18 @@ public class NameSetting : MonoBehaviour
 
         if (_inputField != null)
         {
-            _inputField.text = $"{PlayerData.Name}"; // プレイヤー名を入れておく
             _inputField.onEndEdit.AddListener(ChangeName);
         }
+        
+        PlayerData.NameProp.Subscribe(Initialize).AddTo(this);
     }
+    
+    private void Initialize(string name) => _inputField.text = name;
 
     /// <summary>
     /// プレイヤー名を変更する
     /// </summary>
-    private void ChangeName(string newName) => PlayerData.SetName(newName);
+    private void ChangeName(string newName) => PlayerData.NameProp.Value = newName;
 
     private void OnDestroy()
     {

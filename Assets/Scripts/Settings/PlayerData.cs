@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 /// <summary>
@@ -6,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public static class PlayerData
 {
-    public static string Name { get; private set;} = "Default";
+    public static ReactiveProperty<string> NameProp = new ReactiveProperty<string>();
     public static int Level { get; private set; } = 1;
 
     // ゲーム内通貨のレアリティごとのディクショナリ
@@ -16,15 +17,6 @@ public static class PlayerData
         { RarityEnum.SR, 0 },
         { RarityEnum.SSR, 0 },
     };
-
-    /// <summary>
-    /// 名前を設定する
-    /// </summary>
-    public static void SetName(string newName)
-    {
-        Name = newName;
-        Debug.Log($"名前が変更されました {newName}");
-    }
     
     /// <summary>
     /// レベルアップ

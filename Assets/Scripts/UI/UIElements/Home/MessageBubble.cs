@@ -1,25 +1,44 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// 吹きだし内のセリフを管理するクラス
+/// 吹きだし内のセリフを管理するクラス（ボタンにつける）
 /// </summary>
-[RequireComponent(typeof(Text))]
-public class MessageBubble : MonoBehaviour
+public class MessageBubble : WindowBase
 {
     [SerializeField, ExpandableSO] private TextDataSO _textDataSO;
     private Text _text;
 
     private void Start()
     {
-        _text = GetComponent<Text>();
+        _text = GetComponentInChildren<Text>(); // 子のテキストクラスを取得する
+        base.Hide();
     }
-    
+
     /// <summary>
-    /// ランダムにMessageを表示する
+    /// ランダムにメッセージを表示する
     /// </summary>
-    public void ShowRandMessage()
+    public async UniTask ShowRandMessage()
     {
+        base.Show();
         _text.text = _textDataSO.GetMessage();
+        
+        await UniTask.Delay(1000);
+        
+        base.Hide();
+    }
+
+    /// <summary>
+    /// 指定したメッセージを表示する
+    /// </summary>
+    public async UniTask ShowMessage(int index)
+    {
+        base.Show();
+        _text.text = _textDataSO.GetMessage(index);
+        
+        await UniTask.Delay(1000);
+        
+        base.Hide();
     }
 }

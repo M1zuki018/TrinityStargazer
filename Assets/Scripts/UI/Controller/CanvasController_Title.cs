@@ -11,6 +11,7 @@ public class CanvasController_Title : WindowBase
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _creditButton;
     [SerializeField] private Button _quitButton;
+    [SerializeField] private Button _snsButton; // Xを開くボタン
     private float _fadeDuration = 1f;
     
     public event Action OnHomeButtonClicked;

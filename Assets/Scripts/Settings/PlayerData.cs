@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UniRx;
-using UnityEngine;
 
 /// <summary>
 /// プレイヤー情報を保持しておくための静的クラス

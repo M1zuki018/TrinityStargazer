@@ -22,7 +22,7 @@ public class GameSettings : ScriptableObject
     [SerializeField] private LanguageEnum _voiceLanguage = LanguageEnum.Japanese;
     [SerializeField] private ScenarioSpeedEnum _scenarioSpeed = ScenarioSpeedEnum.Default;
     [SerializeField] private bool _useAuto = true;
-
+    
     /// <summary>
     /// 値の取得
     /// </summary>

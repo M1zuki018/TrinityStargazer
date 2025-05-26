@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// プレイヤー情報を保持しておくための静的クラス
@@ -19,7 +20,11 @@ public static class PlayerData
     /// <summary>
     /// 名前を設定する
     /// </summary>
-    public static void SetName(string name) => Name = name;
+    public static void SetName(string newName)
+    {
+        Name = newName;
+        Debug.Log($"名前が変更されました {newName}");
+    }
     
     /// <summary>
     /// レベルアップ

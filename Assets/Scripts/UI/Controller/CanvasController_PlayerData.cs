@@ -8,7 +8,6 @@ using UnityEngine.UI;
 /// </summary>
 public class CanvasController_PlayerData : WindowBase
 {
-    [SerializeField] private NameSetting _nameSetting;
     [SerializeField] private Button _closeButton;
     
     public event Action OnCloseButtonClicked;

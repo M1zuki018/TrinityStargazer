@@ -5,7 +5,7 @@ using System;
 /// </summary>
 public class TurnCoordinator : ITurnCoordinator
 {
-    private readonly int _maxTurn = GameManagerServiceLocator.Instance.GetGameModeData().MaxTurn;
+    private readonly int _maxTurn = BattleManager.Instance.GetGameModeData().MaxTurn;
     private int _currentTurn = 1;
     public int CurrentTurn => _currentTurn;
     public event Action OnGameFinished; // 最大ターンに到達したことを通知する

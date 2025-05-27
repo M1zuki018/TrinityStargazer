@@ -24,7 +24,7 @@ public class RewordManager : ViewBase
     private void GetRewords()
     {
         // 通貨を獲得する処理
-        int victoryPoints = GameManagerServiceLocator.Instance.VictoryPoints; // 勝利数
+        int victoryPoints = BattleManager.Instance.VictoryPoints; // 勝利数
         GetCurrencyRewords(victoryPoints); // 獲得
         
         // アイテム報酬を用意する
@@ -37,7 +37,7 @@ public class RewordManager : ViewBase
             return; // アイテムを用意する必要がなければ以下の処理は行わない
         }
         
-        var table = _rewordTable.GetRateTable(GameManagerServiceLocator.Instance.GetGameModeData().GameMode);
+        var table = _rewordTable.GetRateTable(BattleManager.Instance.GetGameModeData().GameMode);
         for (int i = 0; i < itemCount; i++)
         {
             var rarity = RarityLottery(table.Item2);

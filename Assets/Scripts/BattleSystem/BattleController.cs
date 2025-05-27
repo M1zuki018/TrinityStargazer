@@ -58,7 +58,7 @@ public class BattleController : IBattleController, IDisposable
         _battleState.ProcessBattleResult(_battleEvaluator.Judge(_enemyDirection, playerDirection));
         
         // 勝利数が最大ターン数を上回ったら
-        if (_battleState.IsVictoryConditionMet(GameManagerServiceLocator.Instance.GetGameModeData().MaxTurn))
+        if (_battleState.IsVictoryConditionMet(BattleManager.Instance.GetGameModeData().MaxTurn))
         {
             _turnCoordinator.CompleteBattle(); // ゲーム終了処理を呼ぶ
         }
@@ -119,7 +119,7 @@ public class BattleController : IBattleController, IDisposable
     /// </summary>
     private void NotifyBattleCompletion()
     {
-        GameManagerServiceLocator.Instance.SetVictoryPoints(_battleState.VictoryCount); // 勝敗数を記録する
+        BattleManager.Instance.SetVictoryPoints(_battleState.VictoryCount); // 勝敗数を記録する
         OnBattleCompleated?.Invoke();
     }
 

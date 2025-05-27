@@ -8,8 +8,6 @@ using UnityEngine;
 public class GameManager : ViewBase, IGameManager
 {
     [SerializeField] private GameSettings _settings;
-    [SerializeField] private GameModeEnum _currentGameMode = GameModeEnum.Normal;
-    public GameModeEnum CurrentGameMode => _currentGameMode;
     public GameSettings Settings => _settings;
     private ReactiveProperty<GameStateEnum> _currentGameState = new ReactiveProperty<GameStateEnum>(GameStateEnum.Title);
     private bool _isFirstLoad = true; // 最初の読み込みかどうか
@@ -48,11 +46,6 @@ public class GameManager : ViewBase, IGameManager
     /// 現在のゲーム状態を変更する
     /// </summary>
     public void SetGameState(GameStateEnum gameState) => _currentGameState.Value = gameState;
-    
-    /// <summary>
-    /// ゲームモードを変更する
-    /// </summary>
-    public void SetGameMode(GameModeEnum mode) => _currentGameMode = mode;
     
     private void Start()
     {

@@ -7,6 +7,6 @@ public class VirsionText : UIElementBase<Text>
 {
     private void Start()
     {
-        _element.text = $"ver {GameData.VERSION}";
+        _element.text = $"ver {GameData.FULL_VERSION}";
     }
 }

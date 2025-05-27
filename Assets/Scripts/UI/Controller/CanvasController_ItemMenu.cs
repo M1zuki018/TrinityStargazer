@@ -17,7 +17,7 @@ public class CanvasController_ItemMenu : WindowBase
         if (_closeButton != null) _closeButton.onClick.AddListener(BackHome);
         return base.OnUIInitialize();
     }
-    
+
     /// <summary>
     /// モード選択画面→ホーム画面に遷移する
     /// </summary>

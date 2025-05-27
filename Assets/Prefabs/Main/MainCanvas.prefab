@@ -86,7 +86,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2325045506067376150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,7 +132,9 @@ MonoBehaviour:
   _shopButton: {fileID: 0}
   _itemButton: {fileID: 0}
   _settingsButton: {fileID: 0}
-  _levelText: {fileID: 0}
+  _playerDataButton: {fileID: 0}
+  _characterButton: {fileID: 0}
+  _messageBubble: {fileID: 0}
 --- !u!1 &4747771123494640329
 GameObject:
   m_ObjectHideFlags: 0

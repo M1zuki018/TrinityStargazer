@@ -4,6 +4,8 @@
 public interface IGameManager
 {
     GameSettings Settings { get; }
+    GameModeEnum CurrentGameMode { get; }
     bool IsFirstLoad { get; }
     void SetGameState(GameStateEnum gameState);
+    void SetGameMode(GameModeEnum gameMode);
 }

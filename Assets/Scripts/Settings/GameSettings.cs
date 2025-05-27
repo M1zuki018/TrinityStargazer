@@ -23,6 +23,7 @@ public class GameSettings : ScriptableObject
     [SerializeField] private ScenarioSpeedEnum _scenarioSpeed = ScenarioSpeedEnum.Default;
     [SerializeField] private bool _useAuto = true;
     
+    public event Action<LanguageEnum> OnTextLanguageChanged;
     
     /// <summary>
     /// 値の取得
@@ -135,7 +136,11 @@ public class GameSettings : ScriptableObject
     public LanguageEnum TextLanguage
     {
         get => GetPrefsValue(nameof(TextLanguage), _textLanguage);
-        set => SetPrefsValue(nameof(TextLanguage), value);
+        set
+        {
+            SetPrefsValue(nameof(TextLanguage), value);
+            OnTextLanguageChanged?.Invoke(value);
+        }
     }
 
     /// <summary>

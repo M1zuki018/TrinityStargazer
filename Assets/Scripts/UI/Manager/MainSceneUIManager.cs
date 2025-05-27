@@ -133,7 +133,7 @@ public class MainSceneUIManager : SceneUIManagerBase
 
         if (_ccSettingsGraphic != null)
         {
-            
+            _ccSettingsGraphic.OnCloseButtonClicked += HandleToSettings;
         }
 
         if (_ccSettingsEnvironment != null)
@@ -143,7 +143,7 @@ public class MainSceneUIManager : SceneUIManagerBase
 
         if (_ccSettingsSound != null)
         {
-            
+            _ccSettingsSound.OnCloseButtonClicked += HandleToSettings;
         }
 
         if (_ccSettingsResetPanel != null)
@@ -290,9 +290,19 @@ public class MainSceneUIManager : SceneUIManagerBase
             _ccQuit.OnNoButtonClicked -= HandlePopCanvas;
         }
 
+        if (_ccSettingsGraphic != null)
+        {
+            _ccSettingsGraphic.OnCloseButtonClicked -= HandleToSettings;
+        }
+        
         if (_ccSettingsEnvironment != null)
         {
             _ccSettingsEnvironment.OnCloseButtonClicked -= HandleToSettings;
+        }
+
+        if (_ccSettingsSound != null)
+        {
+            _ccSettingsSound.OnCloseButtonClicked -= HandleToSettings;
         }
         
         if (_ccSettingsResetPanel != null)

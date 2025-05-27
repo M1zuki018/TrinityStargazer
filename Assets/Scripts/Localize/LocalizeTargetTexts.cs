@@ -7,13 +7,6 @@ using UnityEngine;
 public class LocalizeTargetTexts : ScriptableObject
 {
     [SerializeField] private LocalizeTableData[] _data;
-
-    public void Initialize()
-    {
-        foreach (var data in _data)
-        {
-            data.Target.text =
-                GameManagerServiceLocator.Instance.Settings.TextLanguage == LanguageEnum.Japanese ? data.JPN : data.ENG;
-        }
-    }
+    public LocalizeTableData[] Data => _data;
 }
+

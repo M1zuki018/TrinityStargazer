@@ -35,5 +35,5 @@ public class TurnUIs : ViewBase
     /// <summary>
     /// 対戦モードの表示を更新する
     /// </summary>
-    private void SetModeText() => _modeText.text = $"対戦モード　{BattleManager.Instance.GetGameModeData().GameModeName}";
+    private void SetModeText() => _modeText.text = $"対戦モード　{GameManagerServiceLocator.Instance.GetGameModeData().GameModeName}";
 }

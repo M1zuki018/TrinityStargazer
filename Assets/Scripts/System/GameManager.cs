@@ -9,10 +9,15 @@ public class GameManager : ViewBase, IGameManager
 {
     [SerializeField] private GameSettings _settings;
     public GameSettings Settings => _settings;
+    
+    [SerializeField][ExpandableSO] private BattleModeSO _modeSO;
+    
+    [SerializeField] private GameModeEnum _currentGameMode = GameModeEnum.Normal;
     private ReactiveProperty<GameStateEnum> _currentGameState = new ReactiveProperty<GameStateEnum>(GameStateEnum.Title);
     private bool _isFirstLoad = true; // 最初の読み込みかどうか
     public bool IsFirstLoad => _isFirstLoad;
-    
+    public int VictoryPoints { get; private set; } = 0;
+
     public override UniTask OnAwake()
     {
         // 既に別のインスタンスが存在する場合、このオブジェクトを破棄
@@ -42,17 +47,55 @@ public class GameManager : ViewBase, IGameManager
         return base.OnAwake();
     }
 
-    /// <summary>
-    /// 現在のゲーム状態を変更する
-    /// </summary>
-    public void SetGameState(GameStateEnum gameState) => _currentGameState.Value = gameState;
-    
     private void Start()
     {
         // 名前・レベルデータを取得
         Settings.GetLevel();
         Settings.GetName();
     }
+
+    [ContextMenu("アイテムテスト")]
+    public void ItemTest()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            InventoryManager.Instance.AddItem(ItemTypeEnum.SealPage, RarityEnum.C);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.ReverseBroom, RarityEnum.SSR);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.CelestialForecast, RarityEnum.C);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.SmartPhone, RarityEnum.SSR);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.ResonanceCable, RarityEnum.C);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.ChallengeRose, RarityEnum.SSR);
+            InventoryManager.Instance.AddItem(ItemTypeEnum.StarAttraction, RarityEnum.R);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ItemTest();
+        }
+    }
+    
+    /// <summary>
+    /// ゲームモードを変更する
+    /// </summary>
+    public void SetGameMode(GameModeEnum mode) => _currentGameMode = mode;
+    
+    /// <summary>
+    /// 現在のゲーム状態を変更する
+    /// </summary>
+    public void SetGameState(GameStateEnum gameState) => _currentGameState.Value = gameState;
+
+    /// <summary>
+    /// 勝利数をセットする
+    /// </summary>
+    public int SetVictoryPoints(int points) => VictoryPoints = points;
+
+    /// <summary>
+    /// 現在選択中のモードのデータを取得する
+    /// </summary>
+    public BattleModeData GetGameModeData() => _modeSO.GetModeData(_currentGameMode);
     
     private void OnDestroy()
     {

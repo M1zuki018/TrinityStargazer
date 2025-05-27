@@ -23,280 +23,266 @@
                         "instanceID": -2950
                     },
                     "japaneseText": "セーブデータのリセットを行います\nよろしいですか？",
-                    "englishText": ""
+                    "englishText": "Reset save data"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2942
                     },
                     "japaneseText": "リセット",
-                    "englishText": ""
+                    "englishText": "Reset"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2894
                     },
                     "japaneseText": "使用しない",
-                    "englishText": ""
+                    "englishText": "Do not use"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2876
                     },
                     "japaneseText": "使用する",
-                    "englishText": ""
+                    "englishText": "Use"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2858
                     },
                     "japaneseText": "デフォルトオート再生",
-                    "englishText": ""
+                    "englishText": "Default playback"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2794
                     },
                     "japaneseText": "シナリオ再生速度",
-                    "englishText": ""
+                    "englishText": "Scenario playback speed"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2750
                     },
                     "japaneseText": "ボイス言語",
-                    "englishText": ""
+                    "englishText": "Voice language"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2706
                     },
                     "japaneseText": "テキスト言語",
-                    "englishText": ""
+                    "englishText": "Text language"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2698
                     },
                     "japaneseText": "環境設定",
-                    "englishText": ""
+                    "englishText": "Environment settings"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2460
                     },
                     "japaneseText": "サウンド設定",
-                    "englishText": ""
+                    "englishText": "Sound settings"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2412
                     },
                     "japaneseText": "グラフィック設定",
-                    "englishText": ""
+                    "englishText": "Graphics settings"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2364
                     },
                     "japaneseText": "データリセット",
-                    "englishText": ""
+                    "englishText": "Data reset"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2346
                     },
                     "japaneseText": "環境設定",
-                    "englishText": ""
+                    "englishText": "Environment settings"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2328
                     },
                     "japaneseText": "サウンド設定",
-                    "englishText": ""
+                    "englishText": "Sound settings"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2310
                     },
                     "japaneseText": "グラフィック設定",
-                    "englishText": ""
+                    "englishText": "Graphics settings"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2286
                     },
                     "japaneseText": "設定",
-                    "englishText": ""
+                    "englishText": "Settings"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2226
                     },
                     "japaneseText": "アイテム一覧",
-                    "englishText": ""
+                    "englishText": "Item list"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2070
                     },
                     "japaneseText": "カリルのおみせ",
-                    "englishText": ""
+                    "englishText": "Kalil's shop"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2062
                     },
                     "japaneseText": "合成",
-                    "englishText": ""
+                    "englishText": "Synthesis"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2044
                     },
                     "japaneseText": "売却",
-                    "englishText": ""
+                    "englishText": "Sell"
                 },
                 {
                     "textComponent": {
                         "instanceID": -2026
                     },
                     "japaneseText": "購入",
-                    "englishText": ""
+                    "englishText": "Purchase"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1942
                     },
                     "japaneseText": "モード選択",
-                    "englishText": ""
+                    "englishText": "Mode selection"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1916
                     },
                     "japaneseText": "天体の共鳴",
-                    "englishText": ""
+                    "englishText": "Celestial resonance"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1896
                     },
                     "japaneseText": "惑星の軌道",
-                    "englishText": ""
+                    "englishText": "Planetary orbit"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1876
                     },
                     "japaneseText": "双星の舞",
-                    "englishText": ""
+                    "englishText": "Binary star dance"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1856
                     },
                     "japaneseText": "流星の瞬き",
-                    "englishText": ""
+                    "englishText": "Wandering star's twinkle"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1836
                     },
                     "japaneseText": "星座の導き",
-                    "englishText": ""
+                    "englishText": "Nebula's sparkle"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1786
                     },
                     "japaneseText": "とじる",
-                    "englishText": ""
+                    "englishText": "Close"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1760
                     },
-                    "japaneseText": "Enter text...",
-                    "englishText": ""
+                    "japaneseText": "名前を入力してください...",
+                    "englishText": "Enter text..."
                 },
                 {
                     "textComponent": {
                         "instanceID": -1742
                     },
                     "japaneseText": "あなたの名前は...？",
-                    "englishText": ""
-                },
-                {
-                    "textComponent": {
-                        "instanceID": -1710
-                    },
-                    "japaneseText": "レベル：",
-                    "englishText": ""
+                    "englishText": "What is your name...?"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1668
                     },
                     "japaneseText": "アイテム",
-                    "englishText": ""
+                    "englishText": "Item"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1648
                     },
                     "japaneseText": "カリルの星降る小屋",
-                    "englishText": ""
+                    "englishText": "Kalil's starfall hut"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1628
                     },
                     "japaneseText": "星と遊ぶ",
-                    "englishText": ""
-                },
-                {
-                    "textComponent": {
-                        "instanceID": -1608
-                    },
-                    "japaneseText": "きみは、運命を残酷と思う？\nぼくはね...んーっ、どっちだろ！\nへへ、わかんないや！",
-                    "englishText": ""
+                    "englishText": "Play"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1556
                     },
                     "japaneseText": "いいえ",
-                    "englishText": ""
+                    "englishText": "No"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1538
                     },
                     "japaneseText": "はい",
-                    "englishText": ""
+                    "englishText": "Yes"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1520
                     },
                     "japaneseText": "ゲームを終了してもよろしいですか？",
-                    "englishText": ""
+                    "englishText": "Are you sure you want to quit the game?"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1490
                     },
                     "japaneseText": "閉じる",
-                    "englishText": ""
+                    "englishText": "Close"
                 },
                 {
                     "textComponent": {
                         "instanceID": -1472
                     },
                     "japaneseText": "「三つ星のまたたき」\r\n\r\n企画・開発・デザイン：新保 美月\r\nプログラミング：新保 美月\r\nアートワーク：新保 美月\r\n音楽・効果音：新保 美月\r\n\r\n© 2025 Mizuki Shinbo All Rights Reserved\r\nDeveloped with Unity 6\r\n",
-                    "englishText": ""
+                    "englishText": "TrinityStargazer"
                 },
                 {
                     "textComponent": {

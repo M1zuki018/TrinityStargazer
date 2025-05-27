@@ -10,7 +10,7 @@ public class GameManager : ViewBase, IGameManager
     [SerializeField] private GameSettings _settings;
     public GameSettings Settings => _settings;
     
-    [SerializeField][ExpandableSO] private GameModeSO _modeSO;
+    [SerializeField][ExpandableSO] private BattleModeSO _modeSO;
     
     [SerializeField] private GameModeEnum _currentGameMode = GameModeEnum.Normal;
     private ReactiveProperty<GameStateEnum> _currentGameState = new ReactiveProperty<GameStateEnum>(GameStateEnum.Title);
@@ -95,7 +95,7 @@ public class GameManager : ViewBase, IGameManager
     /// <summary>
     /// 現在選択中のモードのデータを取得する
     /// </summary>
-    public ModeData GetGameModeData() => _modeSO.GetModeData(_currentGameMode);
+    public BattleModeData GetGameModeData() => _modeSO.GetModeData(_currentGameMode);
     
     private void OnDestroy()
     {

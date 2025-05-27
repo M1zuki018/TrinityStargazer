@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 
 /// <summary>
-/// ゲームモードのデータ
+/// バトルモードのデータ
 /// </summary>
-[System.Serializable]
-public struct ModeData
+[Serializable]
+public struct BattleModeData
 {
     [SerializeField] private GameModeEnum _gameMode;
     [SerializeField] private string _gameModeName;

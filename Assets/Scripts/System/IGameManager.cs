@@ -6,7 +6,7 @@ public interface IGameManager
     GameSettings Settings { get; }
     bool IsFirstLoad { get; }
     int VictoryPoints { get; }
-    ModeData GetGameModeData();
+    BattleModeData GetGameModeData();
     void SetGameMode(GameModeEnum mode);
     void SetGameState(GameStateEnum gameState);
     int SetVictoryPoints(int points);

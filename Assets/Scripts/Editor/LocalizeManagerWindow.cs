@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ローカライズデータを一括管理するエディタウィンドウ
+/// ローカライズデータを一括管理するエディタウィンドウ(AI使用)
 /// </summary>
 public class LocalizeManagerWindow : EditorWindow
 {
